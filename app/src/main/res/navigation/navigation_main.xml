@@ -23,4 +23,35 @@
         android:label="@string/title_events"
         tools:layout="@layout/fragment_events" />
 
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="ru.netology.neworkapp.activity.SignInFragment"
+        android:label="@string/sign_in"
+        tools:layout="@layout/fragment_sign_in">
+        <action
+            android:id="@+id/action_signInFragment_to_appActivity"
+            app:destination="@+id/appActivity" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="ru.netology.neworkapp.activity.SignUpFragment"
+        android:label="@string/sign_up"
+        tools:layout="@layout/fragment_sign_up">
+        <action
+            android:id="@+id/action_signUpFragment_to_profileFragment"
+            app:destination="@+id/profileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="ru.netology.neworkapp.activity.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <activity
+        android:id="@+id/appActivity"
+        android:name="ru.netology.neworkapp.activity.AppActivity"
+        android:label="AppActivity" />
+
 </navigation>

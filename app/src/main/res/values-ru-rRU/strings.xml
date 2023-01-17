@@ -12,4 +12,7 @@
     <string name="sign_up_name">Регистрация</string>
     <string name="sign_user_name">Имя пользователя</string>
     <string name="sign_repeat_password">Повтор пароля</string>
+    <string name="title_profile">Профиль</string>
+    <string name="in_and_out">Войти / Выйти</string>
+    <string name="sign_out">Выйти</string>
 </resources>
