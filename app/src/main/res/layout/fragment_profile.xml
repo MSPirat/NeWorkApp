@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/blue"
         android:padding="@dimen/common_spacing_large"
-        android:text="@string/in_and_out"
+        android:text="@string/sign_in_and_out"
         android:theme="@style/Theme.NeWorkApp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

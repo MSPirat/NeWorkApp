@@ -3,7 +3,7 @@ buildscript {
     ext.android_gradle_version = '7.3.0'
     ext.kotlin_version = "1.7.21"
     ext.hilt_version = "2.44.2"
-    ext.google_services_version = "4.3.14"
+    ext.google_services_version = "4.3.13"
 }
 
 plugins {

@@ -6,7 +6,7 @@ import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
 import ru.netology.neworkapp.dto.PushToken
-import ru.netology.neworkapp.dto.User
+import ru.netology.neworkapp.dto.Token
 
 interface ApiService {
 
@@ -18,7 +18,7 @@ interface ApiService {
     suspend fun updateUser(
         @Field("login") login: String,
         @Field("pass") pass: String,
-    ): Response<User>
+    ): Response<Token>
 
     @FormUrlEncoded
     @POST("users/registration")
@@ -26,5 +26,5 @@ interface ApiService {
         @Field("login") login: String,
         @Field("pass") pass: String,
         @Field("name") name: String,
-    ): Response<User>
+    ): Response<Token>
 }

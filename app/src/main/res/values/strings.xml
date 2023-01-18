@@ -1,17 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">NeWorkApp</string>
     <string name="title_posts">Posts</string>
     <string name="title_users">Users</string>
     <string name="title_events">Events</string>
+    <string name="title_profile">Profile</string>
     <string name="sign_login">Login</string>
     <string name="sign_password">Password</string>
+    <string name="sign_repeat_password">Repeat Password</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
     <string name="sign_out">Sign Out</string>
     <string name="sign_in_name">Authorization</string>
     <string name="sign_up_name">Registration</string>
     <string name="sign_user_name">User Name</string>
-    <string name="sign_repeat_password">Repeat Password</string>
-    <string name="title_profile">Profile</string>
-    <string name="in_and_out">Sign In / Sign Out</string>
+    <string name="sign_in_and_out">Sign In / Sign Out</string>
+    <string name="error_login">Wrong Login or Password</string>
+    <string name="error_auth">You are not authorized</string>
+    <string name="error_password">Password mismatch</string>
+
 </resources>
