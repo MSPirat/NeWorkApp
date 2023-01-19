@@ -1,5 +1,7 @@
 package ru.netology.neworkapp.api
 
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
 import ru.netology.neworkapp.dto.PushToken
@@ -21,11 +23,12 @@ interface ApiService {
         @Field("pass") pass: String,
     ): Response<Token>
 
-    @FormUrlEncoded
+    @Multipart
     @POST("users/registration")
     suspend fun registrationUser(
-        @Field("login") login: String,
-        @Field("pass") pass: String,
-        @Field("name") name: String,
+        @Part("login") login: RequestBody,
+        @Part("pass") pass: RequestBody,
+        @Part("name") name: RequestBody,
+        @Part image: MultipartBody.Part?,
     ): Response<Token>
 }

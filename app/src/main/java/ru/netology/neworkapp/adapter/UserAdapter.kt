@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.netology.neworkapp.databinding.CardUserBinding
 import ru.netology.neworkapp.dto.User
 
-class UserAdapter() : ListAdapter<User, UserViewHolder>(UserDiffCallback()) {
+class UserAdapter : ListAdapter<User, UserViewHolder>(UserDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val binding = CardUserBinding.inflate(

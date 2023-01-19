@@ -1,14 +1,23 @@
 package ru.netology.neworkapp.viewmodel
 
+import android.net.Uri
+import androidx.core.net.toFile
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import ru.netology.neworkapp.api.ApiService
+import ru.netology.neworkapp.dto.MediaUpload
 import ru.netology.neworkapp.dto.Token
 import ru.netology.neworkapp.errors.ApiError
 import ru.netology.neworkapp.errors.NetworkError
+import ru.netology.neworkapp.model.PhotoModel
 import java.io.IOException
 import javax.inject.Inject
 
@@ -19,10 +28,30 @@ class SignUpViewModel @Inject constructor(
 
     val data = MutableLiveData<Token>()
 
+    private val noPhoto = PhotoModel()
+
+    private val _photo = MutableLiveData(noPhoto)
+
+    val photo: LiveData<PhotoModel>
+        get() = _photo
+
     fun registrationUser(login: String, password: String, name: String) {
         viewModelScope.launch {
             try {
-                val response = apiService.registrationUser(login, password, name)
+                val response = apiService.registrationUser(
+                    login.toRequestBody("text/plain".toMediaType()),
+                    password.toRequestBody("text/plain".toMediaType()),
+                    name.toRequestBody("text/plain".toMediaType()),
+                    photo.value?.uri?.toFile()?.let {
+                        val upload = MediaUpload(it)
+
+                        MultipartBody.Part.createFormData(
+                            "file",
+                            upload.file.name,
+                            upload.file.asRequestBody()
+                        )
+                    }
+                )
                 if (!response.isSuccessful) {
                     throw
                     ApiError(response.message())
@@ -35,5 +64,10 @@ class SignUpViewModel @Inject constructor(
                 throw UnknownError()
             }
         }
+        _photo.value = noPhoto
+    }
+
+    fun changePhoto(uri: Uri?) {
+        _photo.value = PhotoModel(uri)
     }
 }

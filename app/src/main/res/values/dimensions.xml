@@ -11,6 +11,7 @@
     <dimen name="button_size">24dp</dimen>
     <dimen name="button_size_large">48dp</dimen>
 
+    <dimen name="sign_avatar_size">100dp</dimen>
     <dimen name="sign_spacing_bigger">200dp</dimen>
     <dimen name="sign_spacing_extra_large">128dp</dimen>
     <dimen name="sign_spacing_large">64dp</dimen>
