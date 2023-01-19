@@ -3,6 +3,7 @@ package ru.netology.neworkapp.activity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -36,6 +37,21 @@ class AppActivity : AppCompatActivity() {
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_app)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.nav_posts,
+                R.id.nav_users,
+                R.id.nav_events,
+                R.id.nav_profile,
+                -> {
+                    navView.visibility = View.VISIBLE
+                }
+                else -> {
+                    navView.visibility = View.GONE
+                }
+            }
+        }
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(

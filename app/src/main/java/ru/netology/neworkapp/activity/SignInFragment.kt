@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.netology.neworkapp.R
@@ -52,16 +51,6 @@ class SignInFragment : Fragment() {
             }
         }
 
-        requireActivity().findViewById<BottomNavigationView>(R.id.nav_view).visibility =
-            View.GONE
-
         return binding.root
-    }
-
-    override fun onDestroy() {
-        requireActivity().findViewById<BottomNavigationView>(R.id.nav_view).visibility =
-            View.VISIBLE
-
-        super.onDestroy()
     }
 }

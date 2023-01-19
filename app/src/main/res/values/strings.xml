@@ -19,5 +19,6 @@
     <string name="error_login">Wrong Login or Password</string>
     <string name="error_auth">You are not authorized</string>
     <string name="error_password">Password mismatch</string>
+    <string name="avatar_user">Avatar User</string>
 
 </resources>

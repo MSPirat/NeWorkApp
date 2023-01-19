@@ -19,5 +19,6 @@
     <string name="error_login">Не верный Логин или Пароль</string>
     <string name="error_auth">Вы не авторизованы</string>
     <string name="error_password">Пароли не совпадают</string>
+    <string name="avatar_user">Аватар пользователя</string>
 
 </resources>

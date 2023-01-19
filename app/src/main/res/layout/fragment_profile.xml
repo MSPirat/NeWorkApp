@@ -10,7 +10,7 @@
         android:id="@+id/buttonInAndOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/blue"
+        android:backgroundTint="@color/purple_500"
         android:padding="@dimen/common_spacing_large"
         android:text="@string/sign_in_and_out"
         android:theme="@style/Theme.NeWorkApp"
