@@ -5,6 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import ru.netology.neworkapp.R
 import ru.netology.neworkapp.databinding.CardUserBinding
 import ru.netology.neworkapp.dto.User
 
@@ -27,7 +30,14 @@ class UserViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(user: User) {
-        binding.userName.text = user.name
+        with(binding) {
+            userName.text = user.name
+            Glide.with(userAvatar)
+                .load("${user.avatar}")
+                .transform(CircleCrop())
+                .placeholder(R.drawable.ic_no_user_profile_image)
+                .into(userAvatar)
+        }
     }
 }
 
