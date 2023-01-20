@@ -35,7 +35,7 @@ class UserViewHolder(
             Glide.with(userAvatar)
                 .load("${user.avatar}")
                 .transform(CircleCrop())
-                .placeholder(R.drawable.ic_no_user_profile_image)
+                .placeholder(R.drawable.ic_default_user_profile_image)
                 .into(userAvatar)
         }
     }

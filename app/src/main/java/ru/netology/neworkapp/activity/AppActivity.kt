@@ -1,5 +1,8 @@
 package ru.netology.neworkapp.activity
 
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -10,12 +13,17 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.neworkapp.R
 import ru.netology.neworkapp.auth.AppAuth
 import ru.netology.neworkapp.databinding.ActivityAppBinding
 import ru.netology.neworkapp.viewmodel.AuthViewModel
+import ru.netology.neworkapp.viewmodel.UserViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -26,6 +34,8 @@ class AppActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<AuthViewModel>()
 
+    private val userViewModel by viewModels<UserViewModel>()
+
     private lateinit var binding: ActivityAppBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +45,7 @@ class AppActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val navView: BottomNavigationView = binding.navView
+        navView.itemIconTintList = null
 
         val navController = findNavController(R.id.nav_host_fragment_activity_app)
 
@@ -65,8 +76,34 @@ class AppActivity : AppCompatActivity() {
 
         navView.setupWithNavController(navController)
 
+        val itemIcon = navView.menu.findItem(R.id.nav_profile)
+
         viewModel.data.observe(this) {
             invalidateOptionsMenu()
+            if (it.id == 0L) {
+                itemIcon.setIcon(R.drawable.ic_default_user_profile_image)
+            } else {
+                userViewModel.getUserById(it.id)
+            }
+        }
+
+        userViewModel.user.observe(this) {
+            Glide.with(this)
+                .asBitmap()
+                .load("${it.avatar}")
+                .transform(CircleCrop())
+                .into(object : CustomTarget<Bitmap>() {
+
+                    override fun onResourceReady(
+                        resource: Bitmap,
+                        transition: Transition<in Bitmap>?,
+                    ) {
+                        itemIcon.icon = BitmapDrawable(resources, resource)
+                    }
+
+                    override fun onLoadCleared(placeholder: Drawable?) {}
+                }
+                )
         }
     }
 
