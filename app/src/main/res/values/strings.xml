@@ -21,5 +21,6 @@
     <string name="error_password">Password mismatch</string>
     <string name="avatar_user">Avatar User</string>
     <string name="title_jobs">Jobs</string>
+    <string name="create_account">Create account</string>
 
 </resources>

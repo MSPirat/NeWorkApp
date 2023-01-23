@@ -87,16 +87,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_field_password" />
 
-            <com.google.android.material.button.MaterialButton
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/button_sign_up"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/common_spacing_large"
-                android:backgroundTint="@color/purple_500"
                 android:padding="@dimen/common_spacing_large"
-                android:text="@string/sign_up"
-                android:textAllCaps="false"
-                android:theme="@style/Theme.NeWorkApp"
+                android:textAllCaps="true"
+                android:text="@string/create_account"
+                android:clickable="true"
+                android:focusable="true"
+                android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/button_sign_in" />

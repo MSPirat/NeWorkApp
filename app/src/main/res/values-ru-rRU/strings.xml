@@ -21,5 +21,6 @@
     <string name="error_password">Пароли не совпадают</string>
     <string name="avatar_user">Аватар пользователя</string>
     <string name="title_jobs">Опыт работы</string>
+    <string name="create_account">Создать аккаунт</string>
 
 </resources>
