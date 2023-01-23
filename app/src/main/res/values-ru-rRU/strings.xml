@@ -20,5 +20,6 @@
     <string name="error_auth">Вы не авторизованы</string>
     <string name="error_password">Пароли не совпадают</string>
     <string name="avatar_user">Аватар пользователя</string>
+    <string name="title_jobs">Опыт работы</string>
 
 </resources>

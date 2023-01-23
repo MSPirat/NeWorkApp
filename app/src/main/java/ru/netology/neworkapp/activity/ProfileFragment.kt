@@ -6,10 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.netology.neworkapp.R
+import ru.netology.neworkapp.adapter.UserProfileAdapter
 import ru.netology.neworkapp.databinding.FragmentProfileBinding
 import ru.netology.neworkapp.viewmodel.AuthViewModel
 
@@ -18,6 +19,12 @@ import ru.netology.neworkapp.viewmodel.AuthViewModel
 class ProfileFragment : Fragment() {
 
     private val authViewModel by viewModels<AuthViewModel>()
+
+    private val profileTitles = arrayOf(
+        R.string.title_posts,
+        R.string.title_events,
+        R.string.title_jobs
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,12 +37,18 @@ class ProfileFragment : Fragment() {
             false
         )
 
-        with(binding) {
-            if (authViewModel.authorized)
-                buttonInAndOut.visibility = View.GONE
-            buttonInAndOut.setOnClickListener {
-                findNavController().navigate(R.id.signInFragment)
-            }
+        val viewPagerProfile = binding.viewPagerFragmentProfile
+        val tabLayoutProfile = binding.tabLayoutFragmentProfile
+
+        viewPagerProfile.adapter = UserProfileAdapter(this)
+
+        TabLayoutMediator(tabLayoutProfile, viewPagerProfile) { tab, position ->
+            tab.text = getString(profileTitles[position])
+        }.attach()
+
+        authViewModel.data.observe(viewLifecycleOwner) {
+            if (!authViewModel.authorized)
+                viewPagerProfile.adapter = UserProfileAdapter(this)
         }
         return binding.root
     }

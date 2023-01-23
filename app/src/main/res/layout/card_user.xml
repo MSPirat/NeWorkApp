@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/user_avatar"
+        android:id="@+id/user_avatar_card_user"
         android:layout_width="@dimen/posts_avatar_size"
         android:layout_height="@dimen/posts_avatar_size"
         android:layout_marginStart="@dimen/common_spacing_large"
@@ -26,9 +26,9 @@
         android:singleLine="true"
         android:textColor="@color/black"
         android:textSize="@dimen/avatar_text_size"
-        app:layout_constraintBottom_toBottomOf="@+id/user_avatar"
-        app:layout_constraintStart_toEndOf="@+id/user_avatar"
-        app:layout_constraintTop_toTopOf="@+id/user_avatar"
+        app:layout_constraintBottom_toBottomOf="@+id/user_avatar_card_user"
+        app:layout_constraintStart_toEndOf="@+id/user_avatar_card_user"
+        app:layout_constraintTop_toTopOf="@+id/user_avatar_card_user"
         tools:text="User Name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

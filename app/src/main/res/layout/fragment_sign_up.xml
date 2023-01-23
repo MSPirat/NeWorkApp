@@ -7,7 +7,7 @@
     tools:context=".activity.SignUpFragment">
 
     <ScrollView
-        android:id="@+id/signUpScrollView"
+        android:id="@+id/scroll_view_sign_up"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:fillViewport="true"
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/signUpName"
+                android:id="@+id/text_view_sign_up_name"
                 style="@style/Theme.NeWorkApp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -32,20 +32,20 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profileImage"
+                android:id="@+id/circle_image_view_profile_sign_up"
                 android:layout_width="@dimen/sign_avatar_size"
                 android:layout_height="@dimen/sign_avatar_size"
                 android:layout_marginTop="@dimen/sign_spacing_large"
                 android:src="@drawable/ic_add_sign_user_image"
                 app:civ_border_color="@color/purple_500"
                 app:civ_border_width="3dp"
-                app:layout_constraintBottom_toTopOf="@id/textFieldLogin"
+                app:layout_constraintBottom_toTopOf="@id/text_field_login"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/signUpName" />
+                app:layout_constraintTop_toBottomOf="@id/text_view_sign_up_name" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textFieldLogin"
+                android:id="@+id/text_field_login"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
                 app:hintTextColor="@color/purple_500"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profileImage">
+                app:layout_constraintTop_toBottomOf="@+id/circle_image_view_profile_sign_up">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="@dimen/sign_spacing_bigger"
@@ -65,7 +65,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textFieldName"
+                android:id="@+id/text_field_name"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
                 app:hintTextColor="@color/purple_500"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textFieldLogin">
+                app:layout_constraintTop_toBottomOf="@+id/text_field_login">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="@dimen/sign_spacing_bigger"
@@ -85,7 +85,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textFieldPassword"
+                android:id="@+id/text_field_password"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
                 app:hintTextColor="@color/purple_500"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textFieldName">
+                app:layout_constraintTop_toBottomOf="@+id/text_field_name">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="@dimen/sign_spacing_bigger"
@@ -107,7 +107,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textFieldRepeatPassword"
+                android:id="@+id/text_field_repeat_password"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -119,7 +119,7 @@
                 app:hintTextColor="@color/purple_500"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textFieldPassword">
+                app:layout_constraintTop_toBottomOf="@+id/text_field_password">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="@dimen/sign_spacing_bigger"
@@ -129,17 +129,18 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonSignUp"
+                android:id="@+id/button_sign_up"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/common_spacing_large"
                 android:backgroundTint="@color/purple_500"
                 android:padding="@dimen/common_spacing_large"
                 android:text="@string/sign_up"
+                android:textAllCaps="false"
                 android:theme="@style/Theme.NeWorkApp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textFieldRepeatPassword" />
+                app:layout_constraintTop_toBottomOf="@id/text_field_repeat_password" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -6,17 +6,75 @@
     android:layout_height="match_parent"
     tools:context=".activity.ProfileFragment">
 
-    <Button
-        android:id="@+id/buttonInAndOut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/purple_500"
-        android:padding="@dimen/common_spacing_large"
-        android:text="@string/sign_in_and_out"
-        android:theme="@style/Theme.NeWorkApp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/image_view_user_avatar_fragment_profile"
+                android:layout_width="@dimen/sign_avatar_size"
+                android:layout_height="@dimen/sign_avatar_size"
+                android:layout_margin="@dimen/common_spacing_large"
+                android:src="@drawable/ic_default_user_profile_image"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_view_user_name_fragment_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/common_spacing_large"
+                android:text="Temporary User Name Text View Here"
+                app:layout_constraintBottom_toTopOf="@id/text_view_user_job_fragment_profile"
+                app:layout_constraintStart_toEndOf="@id/image_view_user_avatar_fragment_profile"
+                app:layout_constraintTop_toTopOf="@id/image_view_user_avatar_fragment_profile" />
+
+            <TextView
+                android:id="@+id/text_view_user_job_fragment_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/common_spacing_large"
+                android:text="Temporary User Job Text View Here"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_user_avatar_fragment_profile"
+                app:layout_constraintStart_toEndOf="@id/image_view_user_avatar_fragment_profile"
+                app:layout_constraintTop_toBottomOf="@id/text_view_user_name_fragment_profile" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout_fragment_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_posts" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_events" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_jobs" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager_fragment_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

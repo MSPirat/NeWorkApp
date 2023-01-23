@@ -73,7 +73,7 @@ class SignUpFragment : Fragment() {
                 }
             }
 
-        binding.profileImage.setOnClickListener {
+        binding.circleImageViewProfileSignUp.setOnClickListener {
             ImagePicker.with(this)
                 .crop()
                 .compress(2048)
@@ -97,7 +97,7 @@ class SignUpFragment : Fragment() {
             if (it.uri == null) {
                 return@observe
             }
-            binding.profileImage.setImageURI(it.uri)
+            binding.circleImageViewProfileSignUp.setImageURI(it.uri)
         }
 
         return binding.root

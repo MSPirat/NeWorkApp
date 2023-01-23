@@ -32,11 +32,11 @@ class UserViewHolder(
     fun bind(user: User) {
         with(binding) {
             userName.text = user.name
-            Glide.with(userAvatar)
+            Glide.with(userAvatarCardUser)
                 .load("${user.avatar}")
                 .transform(CircleCrop())
                 .placeholder(R.drawable.ic_default_user_profile_image)
-                .into(userAvatar)
+                .into(userAvatarCardUser)
         }
     }
 }

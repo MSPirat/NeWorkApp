@@ -7,7 +7,7 @@
     tools:context="activity.PostsFragment">
 
     <TextView
-        android:id="@+id/textView_fragment_posts"
+        android:id="@+id/text_view_fragment_posts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
