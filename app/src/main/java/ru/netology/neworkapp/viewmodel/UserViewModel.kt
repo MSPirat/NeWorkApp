@@ -29,7 +29,7 @@ class UserViewModel @Inject constructor(
         getUsers()
     }
 
-    private fun getUsers() = viewModelScope.launch {
+    fun getUsers() = viewModelScope.launch {
         try {
             val response = apiService.getUsers()
             if (response.isSuccessful) {

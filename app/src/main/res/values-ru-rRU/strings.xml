@@ -2,9 +2,15 @@
 <resources>
 
     <string name="app_name">Хочу работу!!!</string>
+    <string name="title_profile">Профиль</string>
     <string name="title_posts">Посты</string>
     <string name="title_users">Пользователи</string>
     <string name="title_events">События</string>
+    <string name="title_jobs">Опыт работы</string>
+    <string name="title_post">Пост</string>
+    <string name="title_user">Пользователь</string>
+    <string name="title_event">Событие</string>
+    <string name="title_job">Место работы</string>
     <string name="sign_login">Логин</string>
     <string name="sign_password">Пароль</string>
     <string name="sign_repeat_password">Повтор пароля</string>
@@ -13,14 +19,14 @@
     <string name="sign_in_name">Авторизация</string>
     <string name="sign_up_name">Регистрация</string>
     <string name="sign_user_name">Имя пользователя</string>
-    <string name="title_profile">Профиль</string>
     <string name="sign_in_and_out">Войти / Выйти</string>
     <string name="sign_out">Выйти</string>
     <string name="error_login">Не верный Логин или Пароль</string>
     <string name="error_auth">Вы не авторизованы</string>
     <string name="error_password">Пароли не совпадают</string>
     <string name="avatar_user">Аватар пользователя</string>
-    <string name="title_jobs">Опыт работы</string>
     <string name="create_account">Создать аккаунт</string>
+
+    <string name="fab_add">Кнопка добавления</string>
 
 </resources>

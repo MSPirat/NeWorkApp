@@ -32,12 +32,13 @@ class AppActivity : AppCompatActivity() {
     @Inject
     lateinit var appAuth: AppAuth
 
-    private val viewModel by viewModels<AuthViewModel>()
+    private val authViewModel by viewModels<AuthViewModel>()
 
     private val userViewModel by viewModels<UserViewModel>()
 
     private lateinit var binding: ActivityAppBinding
 
+    @Suppress("UNUSED_EXPRESSION")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -78,13 +79,28 @@ class AppActivity : AppCompatActivity() {
 
         val itemIcon = navView.menu.findItem(R.id.nav_profile)
 
-        viewModel.data.observe(this) {
+        authViewModel.data.observe(this) { auth ->
             invalidateOptionsMenu()
-            if (it.id == 0L) {
+            if (auth.id == 0L) {
                 itemIcon.setIcon(R.drawable.ic_default_user_profile_image)
             } else {
-                userViewModel.getUserById(it.id)
+                userViewModel.getUserById(auth.id)
             }
+
+            userViewModel.getUserById(auth.id)
+            val bundle = Bundle().apply {
+                userViewModel.user.value?.id?.let { it ->
+                    putLong("id", it)
+                }
+                putString("avatar", userViewModel.user.value?.avatar)
+                putString("name", userViewModel.user.value?.name)
+            }
+
+            findNavController(R.id.nav_host_fragment_activity_app).popBackStack()
+
+            findNavController(R.id.nav_host_fragment_activity_app)
+                .navigate(R.id.nav_profile, bundle)
+            true
         }
 
         userViewModel.user.observe(this) {
@@ -110,8 +126,8 @@ class AppActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         menu.let {
-            it.setGroupVisible(R.id.unauthentificated, !viewModel.authorized)
-            it.setGroupVisible(R.id.authentificated, viewModel.authorized)
+            it.setGroupVisible(R.id.unauthentificated, !authViewModel.authorized)
+            it.setGroupVisible(R.id.authentificated, authViewModel.authorized)
         }
         return true
     }
@@ -130,6 +146,8 @@ class AppActivity : AppCompatActivity() {
             }
             R.id.sign_out -> {
                 appAuth.removeAuth()
+                findNavController(R.id.nav_host_fragment_activity_app)
+                    .navigateUp()
                 true
             }
             else ->

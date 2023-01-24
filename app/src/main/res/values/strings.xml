@@ -2,10 +2,15 @@
 <resources>
 
     <string name="app_name">NeWorkApp</string>
+    <string name="title_profile">Profile</string>
     <string name="title_posts">Posts</string>
     <string name="title_users">Users</string>
     <string name="title_events">Events</string>
-    <string name="title_profile">Profile</string>
+    <string name="title_jobs">Jobs</string>
+    <string name="title_post">Post</string>
+    <string name="title_user">User</string>
+    <string name="title_event">Event</string>
+    <string name="title_job">Job</string>
     <string name="sign_login">Login</string>
     <string name="sign_password">Password</string>
     <string name="sign_repeat_password">Repeat Password</string>
@@ -20,7 +25,8 @@
     <string name="error_auth">You are not authorized</string>
     <string name="error_password">Password mismatch</string>
     <string name="avatar_user">Avatar User</string>
-    <string name="title_jobs">Jobs</string>
     <string name="create_account">Create account</string>
+
+    <string name="fab_add">Fab add</string>
 
 </resources>
