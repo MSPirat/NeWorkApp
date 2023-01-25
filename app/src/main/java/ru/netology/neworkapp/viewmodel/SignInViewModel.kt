@@ -9,7 +9,6 @@ import kotlinx.coroutines.launch
 import ru.netology.neworkapp.api.ApiService
 import ru.netology.neworkapp.dto.Token
 import ru.netology.neworkapp.errors.ApiError
-import ru.netology.neworkapp.errors.NetworkError
 import ru.netology.neworkapp.model.StateModel
 import java.io.IOException
 import javax.inject.Inject
@@ -30,13 +29,12 @@ class SignInViewModel @Inject constructor(
             try {
                 val response = apiService.updateUser(login, password)
                 if (!response.isSuccessful) {
-                    throw
-                    ApiError(response.message())
+                    throw ApiError(response.message())
                 }
                 val body = response.body() ?: throw ApiError(response.message())
                 data.value = Token(body.id, body.token)
             } catch (e: IOException) {
-                throw NetworkError
+                _dataState.postValue(StateModel(error = true))
             } catch (e: Exception) {
                 _dataState.postValue(StateModel(loginError = true))
             }

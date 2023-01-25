@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -91,6 +92,18 @@ class SignUpFragment : Fragment() {
         viewModel.data.observe(viewLifecycleOwner) {
             appAuth.setAuth(it.id, it.token)
             findNavController().navigate(R.id.action_signUpFragment_to_appActivity)
+        }
+
+        viewModel.dataState.observe(viewLifecycleOwner) { state ->
+            when {
+                state.loginError -> {
+                    binding.textFieldPassword.error = getString(R.string.error_login)
+                }
+                state.error -> {
+                    Toast.makeText(context, R.string.error_loading, Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
         }
 
         viewModel.photo.observe(viewLifecycleOwner) {

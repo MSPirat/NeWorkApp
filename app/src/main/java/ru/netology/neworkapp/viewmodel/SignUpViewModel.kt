@@ -16,8 +16,8 @@ import ru.netology.neworkapp.api.ApiService
 import ru.netology.neworkapp.dto.MediaUpload
 import ru.netology.neworkapp.dto.Token
 import ru.netology.neworkapp.errors.ApiError
-import ru.netology.neworkapp.errors.NetworkError
 import ru.netology.neworkapp.model.PhotoModel
+import ru.netology.neworkapp.model.StateModel
 import java.io.IOException
 import javax.inject.Inject
 
@@ -31,9 +31,12 @@ class SignUpViewModel @Inject constructor(
     private val noPhoto = PhotoModel()
 
     private val _photo = MutableLiveData(noPhoto)
-
     val photo: LiveData<PhotoModel>
         get() = _photo
+
+    private val _dataState = MutableLiveData<StateModel>()
+    val dataState: LiveData<StateModel>
+        get() = _dataState
 
     fun registrationUser(login: String, password: String, name: String) {
         viewModelScope.launch {
@@ -53,15 +56,14 @@ class SignUpViewModel @Inject constructor(
                     }
                 )
                 if (!response.isSuccessful) {
-                    throw
-                    ApiError(response.message())
+                    throw ApiError(response.message())
                 }
                 val body = response.body() ?: throw ApiError(response.message())
                 data.value = Token(body.id, body.token)
             } catch (e: IOException) {
-                throw NetworkError
+                _dataState.postValue(StateModel(error = true))
             } catch (e: Exception) {
-                throw UnknownError()
+                _dataState.postValue(StateModel(loginError = true))
             }
         }
         _photo.value = noPhoto

@@ -8,7 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.netology.neworkapp.api.ApiService
 import ru.netology.neworkapp.dto.User
-import ru.netology.neworkapp.errors.NetworkError
+import ru.netology.neworkapp.model.StateModel
 import java.io.IOException
 import javax.inject.Inject
 
@@ -21,13 +21,17 @@ class UserViewModel @Inject constructor(
     val data: LiveData<List<User>>
         get() = _data
 
+    private val _dataState = MutableLiveData<StateModel>()
+    val dataState: LiveData<StateModel>
+        get() = _dataState
+
     private val _user = MutableLiveData<User>()
     val user: LiveData<User>
         get() = _user
 
-    init {
-        getUsers()
-    }
+//    init {
+//        getUsers()
+//    }
 
     fun getUsers() = viewModelScope.launch {
         try {
@@ -36,7 +40,7 @@ class UserViewModel @Inject constructor(
                 _data.value = response.body()
             }
         } catch (e: IOException) {
-            throw NetworkError
+            _dataState.postValue(StateModel(error = true))
         } catch (e: Exception) {
             throw UnknownError()
         }
@@ -49,7 +53,7 @@ class UserViewModel @Inject constructor(
                 _user.value = response.body()
             }
         } catch (e: IOException) {
-            throw NetworkError
+            _dataState.postValue(StateModel(error = true))
         } catch (e: Exception) {
             throw UnknownError()
         }
