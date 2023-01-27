@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
-import ru.netology.neworkapp.api.ApiService
+import ru.netology.neworkapp.api.UserApiService
 import ru.netology.neworkapp.dto.PushToken
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -73,7 +73,7 @@ class AppAuth @Inject constructor(
     @InstallIn(SingletonComponent::class)
     @EntryPoint
     interface AppAuthEntryPoint {
-        fun getApiService(): ApiService
+        fun getUserApiService(): UserApiService
     }
 
     fun sendPushToken(token: String? = null) {
@@ -83,7 +83,7 @@ class AppAuth @Inject constructor(
                     PushToken(token ?: Firebase.messaging.token.await())
                 val entryPoint =
                     EntryPointAccessors.fromApplication(context, AppAuthEntryPoint::class.java)
-                entryPoint.getApiService().sendPushToken(pushToken)
+                entryPoint.getUserApiService().sendPushToken(pushToken)
             } catch (e: Exception) {
                 e.printStackTrace()
             }

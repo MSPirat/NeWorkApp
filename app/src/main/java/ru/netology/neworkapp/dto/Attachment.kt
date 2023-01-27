@@ -1,6 +1,6 @@
 package ru.netology.neworkapp.dto
 
-import ru.netology.neworkapp.enum.AttachmentType
+import ru.netology.neworkapp.enumeration.AttachmentType
 
 data class Attachment(
     val url: String,

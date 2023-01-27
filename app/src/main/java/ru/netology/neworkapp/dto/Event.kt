@@ -1,6 +1,6 @@
 package ru.netology.neworkapp.dto
 
-import ru.netology.neworkapp.enum.EventType
+import ru.netology.neworkapp.enumeration.EventType
 import java.time.Instant
 
 data class Event(

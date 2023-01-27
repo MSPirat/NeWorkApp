@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import ru.netology.neworkapp.api.ApiService
+import ru.netology.neworkapp.api.UserApiService
 import ru.netology.neworkapp.dto.Token
 import ru.netology.neworkapp.errors.ApiError
 import ru.netology.neworkapp.model.StateModel
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-    private val apiService: ApiService,
+    private val userApiService: UserApiService,
 ) : ViewModel() {
 
     val data = MutableLiveData<Token>()
@@ -27,7 +27,7 @@ class SignInViewModel @Inject constructor(
     fun updateUser(login: String, password: String) {
         viewModelScope.launch {
             try {
-                val response = apiService.updateUser(login, password)
+                val response = userApiService.updateUser(login, password)
                 if (!response.isSuccessful) {
                     throw ApiError(response.message())
                 }

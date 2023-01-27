@@ -27,33 +27,43 @@
         android:id="@+id/nav_profile"
         android:name="ru.netology.neworkapp.activity.ProfileFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_nav_profile_to_new_post_fragment"
+            app:destination="@+id/nav_new_post_fragment" />
+    </fragment>
 
     <fragment
-        android:id="@+id/signInFragment"
+        android:id="@+id/nav_new_post_fragment"
+        android:name="ru.netology.neworkapp.activity.NewPostFragment"
+        android:label="@string/title_new_post"
+        tools:layout="@layout/fragment_new_post" />
+
+    <fragment
+        android:id="@+id/nav_sign_in_fragment"
         android:name="ru.netology.neworkapp.activity.SignInFragment"
         android:label="@string/sign_in"
         tools:layout="@layout/fragment_sign_in">
         <action
-            android:id="@+id/action_signInFragment_to_appActivity"
-            app:destination="@+id/appActivity" />
+            android:id="@+id/action_nav_sign_in_fragment_to_nav_app_activity"
+            app:destination="@+id/nav_app_activity" />
     </fragment>
 
     <fragment
-        android:id="@+id/signUpFragment"
+        android:id="@+id/nav_sign_up_fragment"
         android:name="ru.netology.neworkapp.activity.SignUpFragment"
         android:label="@string/sign_up"
         tools:layout="@layout/fragment_sign_up">
         <action
-            android:id="@+id/action_signUpFragment_to_appActivity"
-            app:destination="@+id/appActivity" />
+            android:id="@+id/action_nav_sign_up_fragment_to_nav_app_activity"
+            app:destination="@+id/nav_app_activity" />
         <action
-            android:id="@+id/action_signUpFragment_to_profileFragment"
+            android:id="@+id/action_nav_sign_up_fragment_to_nav_profile_fragment"
             app:destination="@+id/nav_profile" />
     </fragment>
 
     <activity
-        android:id="@+id/appActivity"
+        android:id="@+id/nav_app_activity"
         android:name="ru.netology.neworkapp.activity.AppActivity"
         android:label="AppActivity" />
 

@@ -1,4 +1,4 @@
-package ru.netology.neworkapp.enum
+package ru.netology.neworkapp.enumeration
 
 enum class AttachmentType {
     IMAGE, VIDEO, AUDIO

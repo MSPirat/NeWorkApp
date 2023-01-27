@@ -4,11 +4,12 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
+import ru.netology.neworkapp.dto.Post
 import ru.netology.neworkapp.dto.PushToken
 import ru.netology.neworkapp.dto.Token
 import ru.netology.neworkapp.dto.User
 
-interface ApiService {
+interface UserApiService {
 
     @GET("users")
     suspend fun getUsers(): Response<List<User>>

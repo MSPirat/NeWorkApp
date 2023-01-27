@@ -136,12 +136,12 @@ class AppActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.sign_in -> {
                 findNavController(R.id.nav_host_fragment_activity_app)
-                    .navigate(R.id.signInFragment)
+                    .navigate(R.id.nav_sign_in_fragment)
                 true
             }
             R.id.sign_up -> {
                 findNavController(R.id.nav_host_fragment_activity_app)
-                    .navigate(R.id.signUpFragment)
+                    .navigate(R.id.nav_sign_up_fragment)
                 true
             }
             R.id.sign_out -> {

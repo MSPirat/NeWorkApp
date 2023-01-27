@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.google.android.material.tabs.TabLayoutMediator
@@ -78,6 +79,11 @@ class ProfileFragment : Fragment() {
             }
             visibilityFabGroup = !visibilityFabGroup
         }
+
+        binding.fabAddPost.setOnClickListener {
+            findNavController().navigate(R.id.action_nav_profile_to_new_post_fragment)
+        }
+
         return binding.root
     }
 }

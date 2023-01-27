@@ -12,7 +12,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import ru.netology.neworkapp.api.ApiService
+import ru.netology.neworkapp.api.UserApiService
 import ru.netology.neworkapp.dto.MediaUpload
 import ru.netology.neworkapp.dto.Token
 import ru.netology.neworkapp.errors.ApiError
@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    private val apiService: ApiService,
+    private val userApiService: UserApiService,
 ) : ViewModel() {
 
     val data = MutableLiveData<Token>()
@@ -41,7 +41,7 @@ class SignUpViewModel @Inject constructor(
     fun registrationUser(login: String, password: String, name: String) {
         viewModelScope.launch {
             try {
-                val response = apiService.registrationUser(
+                val response = userApiService.registrationUser(
                     login.toRequestBody("text/plain".toMediaType()),
                     password.toRequestBody("text/plain".toMediaType()),
                     name.toRequestBody("text/plain".toMediaType()),
