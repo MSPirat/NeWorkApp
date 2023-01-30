@@ -15,14 +15,12 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.constant.ImageProvider
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.netology.neworkapp.R
 import ru.netology.neworkapp.auth.AppAuth
 import ru.netology.neworkapp.databinding.FragmentSignUpBinding
 import ru.netology.neworkapp.viewmodel.SignUpViewModel
 import javax.inject.Inject
 
-@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class SignUpFragment : Fragment() {
 
@@ -42,19 +40,41 @@ class SignUpFragment : Fragment() {
             false
         )
 
-        binding.buttonSignUp.setOnClickListener {
-            if (
-                binding.textFieldPassword.editText?.text.toString() ==
-                binding.textFieldRepeatPassword.editText?.text.toString()
-            ) {
-                viewModel.registrationUser(
-                    binding.textFieldLogin.editText?.text.toString(),
-                    binding.textFieldPassword.editText?.text.toString(),
-                    binding.textFieldName.editText?.text.toString()
-                )
-            } else
-                binding.textFieldRepeatPassword.error =
-                    getString(R.string.error_password)
+        viewModel.data.observe(viewLifecycleOwner) {
+            appAuth.setAuth(it.id, it.token)
+            findNavController().navigate(R.id.action_nav_sign_up_fragment_to_nav_app_activity)
+        }
+
+        with(binding) {
+            buttonSignUp.setOnClickListener {
+                let {
+                    if (
+                        it.editTextFieldLogin.text.isNullOrBlank() ||
+                        it.editTextFieldPassword.text.isNullOrBlank() ||
+                        it.editTextFieldRepeatPassword.text.isNullOrBlank() ||
+                        it.editTextFieldName.text.isNullOrBlank()
+                    ) {
+                        Toast.makeText(
+                            activity,
+                            R.string.error_field_required,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        if (
+                            textFieldPassword.editText?.text.toString() ==
+                            textFieldRepeatPassword.editText?.text.toString()
+                        ) {
+                            viewModel.registrationUser(
+                                textFieldLogin.editText?.text.toString(),
+                                textFieldPassword.editText?.text.toString(),
+                                textFieldName.editText?.text.toString()
+                            )
+                        } else
+                            textFieldRepeatPassword.error =
+                                getString(R.string.error_password)
+                    }
+                }
+            }
         }
 
         val pickPhotoLauncher =
@@ -89,17 +109,9 @@ class SignUpFragment : Fragment() {
                 .createIntent(pickPhotoLauncher::launch)
         }
 
-        viewModel.data.observe(viewLifecycleOwner) {
-            appAuth.setAuth(it.id, it.token)
-            findNavController().navigate(R.id.action_nav_sign_up_fragment_to_nav_app_activity)
-        }
-
-        viewModel.dataState.observe(viewLifecycleOwner) { state ->
+        viewModel.dataState.observe(viewLifecycleOwner) {
             when {
-                state.loginError -> {
-                    binding.textFieldPassword.error = getString(R.string.error_login)
-                }
-                state.error -> {
+                it.error -> {
                     Toast.makeText(context, R.string.error_loading, Toast.LENGTH_SHORT)
                         .show()
                 }

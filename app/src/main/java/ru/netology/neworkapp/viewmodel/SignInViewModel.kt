@@ -24,7 +24,7 @@ class SignInViewModel @Inject constructor(
     val dataState: LiveData<StateModel>
         get() = _dataState
 
-    fun updateUser(login: String, password: String) {
+    fun authorizationUser(login: String, password: String) {
         viewModelScope.launch {
             try {
                 val response = userApiService.updateUser(login, password)

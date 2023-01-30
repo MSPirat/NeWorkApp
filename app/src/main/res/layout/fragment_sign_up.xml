@@ -59,26 +59,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/circle_image_view_profile_sign_up">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="@dimen/sign_spacing_bigger"
-                    android:layout_height="wrap_content" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_field_name"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/sign_spacing_small"
-                android:gravity="start|top"
-                android:hint="@string/sign_user_name"
-                app:boxStrokeColor="@color/purple_500"
-                app:hintTextColor="@color/purple_500"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_field_login">
-
-                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_field_login"
                     android:layout_width="@dimen/sign_spacing_bigger"
                     android:layout_height="wrap_content" />
 
@@ -97,9 +78,10 @@
                 app:hintTextColor="@color/purple_500"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_field_name">
+                app:layout_constraintTop_toBottomOf="@+id/text_field_login">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_field_password"
                     android:layout_width="@dimen/sign_spacing_bigger"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword" />
@@ -122,9 +104,31 @@
                 app:layout_constraintTop_toBottomOf="@+id/text_field_password">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_field_repeat_password"
                     android:layout_width="@dimen/sign_spacing_bigger"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_field_name"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/sign_spacing_small"
+                android:gravity="start|top"
+                android:hint="@string/sign_user_name"
+                app:boxStrokeColor="@color/purple_500"
+                app:hintTextColor="@color/purple_500"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_field_repeat_password">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_field_name"
+                    android:layout_width="@dimen/sign_spacing_bigger"
+                    android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -140,7 +144,7 @@
                 android:theme="@style/Theme.NeWorkApp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_field_repeat_password" />
+                app:layout_constraintTop_toBottomOf="@id/text_field_name" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

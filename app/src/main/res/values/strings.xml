@@ -36,5 +36,6 @@
     <string name="description_post_attachment" translatable="false" />
     <string name="description_share" translatable="false" />
     <string name="description_view" translatable="false" />
+    <string name="error_field_required">Fields must be filled</string>
 
 </resources>

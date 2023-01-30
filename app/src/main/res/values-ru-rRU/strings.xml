@@ -27,6 +27,7 @@
     <string name="error_password">Пароли не совпадают</string>
     <string name="error_loading">Проблема с загрузкой!\nПроверьте пожалуйста подключение к сети.</string>
     <string name="error_empty_post">Невозможно создать пустой пост</string>
+    <string name="error_field_required">Поля должны быть заполнены</string>
     <string name="avatar_user">Аватар пользователя</string>
     <string name="create_account">Создать аккаунт</string>
     <string name="text_new_post">Текст нового поста</string>

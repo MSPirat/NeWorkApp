@@ -8,14 +8,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.netology.neworkapp.R
 import ru.netology.neworkapp.auth.AppAuth
 import ru.netology.neworkapp.databinding.FragmentSignInBinding
 import ru.netology.neworkapp.viewmodel.SignInViewModel
 import javax.inject.Inject
 
-@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class SignInFragment : Fragment() {
 
@@ -35,11 +33,14 @@ class SignInFragment : Fragment() {
             false
         )
 
-        binding.buttonSignIn.setOnClickListener {
-            viewModel.updateUser(
-                binding.textFieldLogin.editText?.text.toString(),
-                binding.textFieldPassword.editText?.text.toString()
-            )
+        with(binding) {
+            textFieldLogin.requestFocus()
+            buttonSignIn.setOnClickListener {
+                viewModel.authorizationUser(
+                    textFieldLogin.editText?.text.toString(),
+                    textFieldPassword.editText?.text.toString()
+                )
+            }
         }
 
         binding.textFieldPassword.setErrorIconOnClickListener {
