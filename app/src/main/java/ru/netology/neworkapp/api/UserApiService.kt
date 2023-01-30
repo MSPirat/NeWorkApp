@@ -23,14 +23,14 @@ interface UserApiService {
     @POST("users/authentication")
     suspend fun updateUser(
         @Field("login") login: String,
-        @Field("pass") pass: String,
+        @Field("password") pass: String,
     ): Response<Token>
 
     @Multipart
     @POST("users/registration")
     suspend fun registrationUser(
         @Part("login") login: RequestBody,
-        @Part("pass") pass: RequestBody,
+        @Part("password") pass: RequestBody,
         @Part("name") name: RequestBody,
         @Part image: MultipartBody.Part?,
     ): Response<Token>
