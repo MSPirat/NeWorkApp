@@ -12,8 +12,8 @@ class Converters {
     fun fromAttachmentType(value: AttachmentType) = value.name
 
     @TypeConverter
-    fun fromSet(set: Set<Long>): String = set.joinToString("~")
+    fun fromSet(set: Set<Long>): String = set.joinToString("-")
 
     @TypeConverter
-    fun toSet(data: String): Set<Long> = data.split("~").map { it.toLong() }.toSet()
+    fun toSet(data: String): Set<Long> = data.split("-").map { it.toLong() }.toSet()
 }

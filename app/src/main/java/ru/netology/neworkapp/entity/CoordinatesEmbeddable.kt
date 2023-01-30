@@ -3,8 +3,8 @@ package ru.netology.neworkapp.entity
 import ru.netology.neworkapp.dto.Coordinates
 
 data class CoordinatesEmbeddable(
-    val latitude: Double,
-    val longitude: Double,
+    val latitude: Double?,
+    val longitude: Double?,
 ) {
     fun toDto() = Coordinates(latitude, longitude)
 

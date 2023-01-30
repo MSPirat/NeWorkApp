@@ -9,7 +9,7 @@ data class Event(
     val author: String,
     val authorAvatar: String?,
     val content: String,
-    val dateTime: Instant? = null,
+    val datetime: Instant? = null,
     val published: Instant? = null,
     val coordinates: Coordinates? = null,
     val type: EventType,
