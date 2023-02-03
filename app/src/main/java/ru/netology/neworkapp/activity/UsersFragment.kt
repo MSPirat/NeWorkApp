@@ -21,7 +21,7 @@ import ru.netology.neworkapp.viewmodel.UserViewModel
 @AndroidEntryPoint
 class UsersFragment : Fragment() {
 
-    private val viewModel by viewModels<UserViewModel>()
+    private val userViewModel by viewModels<UserViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +34,7 @@ class UsersFragment : Fragment() {
             false
         )
 
-        viewModel.getUsers()
+        userViewModel.getUsers()
 
         val adapter = UserAdapter(object : UserCallback {
             override fun openProfile(user: User) {
@@ -52,11 +52,11 @@ class UsersFragment : Fragment() {
 
         binding.fragmentListUsers.adapter = adapter
 
-        viewModel.data.observe(viewLifecycleOwner) {
+        userViewModel.data.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
 
-        viewModel.dataState.observe(viewLifecycleOwner) { state ->
+        userViewModel.dataState.observe(viewLifecycleOwner) { state ->
             when {
                 state.error -> {
                     Toast.makeText(context, R.string.error_loading, Toast.LENGTH_SHORT)

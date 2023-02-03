@@ -1,12 +1,11 @@
 package ru.netology.neworkapp.dto
 
-//sealed interface FeedItem {
-//    val id: Long
-//}
+sealed interface FeedItem {
+    val id: Long
+}
 
 data class Post(
-//    override val id: Long,
-    val id: Long,
+    override val id: Long,
     val authorId: Long,
     val author: String,
     val authorAvatar: String?,
@@ -20,10 +19,9 @@ data class Post(
     val likedByMe: Boolean = false,
     val attachment: Attachment? = null,
     val ownedByMe: Boolean = false,
-)
-//) : FeedItem
-//
-//data class Ad(
-//    override val id: Long,
-//    val image: String,
-//) : FeedItem
+) : FeedItem
+
+data class Ad(
+    override val id: Long,
+    val image: String,
+) : FeedItem

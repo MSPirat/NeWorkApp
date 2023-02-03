@@ -27,15 +27,20 @@
     <string name="error_password">Password mismatch</string>
     <string name="error_loading">Loading problem!\nPlease check Network connection.</string>
     <string name="error_empty_post">Can\'t create empty Post</string>
+    <string name="error_field_required">Fields must be filled</string>
     <string name="avatar_user">Avatar User</string>
     <string name="create_account">Create account</string>
     <string name="text_new_post">New Post text</string>
+    <string name="like">Like</string>
+    <string name="mention">Mention</string>
+    <string name="empty_posts">There are no posts.\nIf you create a new post, it will appear here</string>
+    <string name="retry">Retry</string>
 
     <string name="description_fab_add" translatable="false" />
     <string name="description_post_author_avatar" translatable="false" />
     <string name="description_post_attachment" translatable="false" />
     <string name="description_share" translatable="false" />
     <string name="description_view" translatable="false" />
-    <string name="error_field_required">Fields must be filled</string>
+    <string name="description_mention" translatable="false" />
 
 </resources>

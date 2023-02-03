@@ -31,5 +31,10 @@
     <string name="avatar_user">Аватар пользователя</string>
     <string name="create_account">Создать аккаунт</string>
     <string name="text_new_post">Текст нового поста</string>
+    <string name="empty_posts">Постов нет.\nЕсли создадите новый пост, то он появится здесь</string>
+    <string name="retry">Повтор</string>
+    <string name="like">Нравится</string>
+    <string name="mention">Упомянуть</string>
+
 
 </resources>

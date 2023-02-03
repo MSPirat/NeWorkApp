@@ -1,13 +1,14 @@
 package ru.netology.neworkapp.viewmodel
 
 import androidx.lifecycle.*
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import ru.netology.neworkapp.dto.FeedItem
 import ru.netology.neworkapp.dto.Post
-import ru.netology.neworkapp.model.PostModel
 import ru.netology.neworkapp.model.StateModel
 import ru.netology.neworkapp.repository.PostRepository
 import ru.netology.neworkapp.utils.SingleLiveEvent
@@ -19,7 +20,7 @@ private val empty = Post(
     author = "",
     authorAvatar = "",
     content = "",
-    published = "",
+    published = "2023-01-27T17:00:00.000Z",
 )
 
 @ExperimentalCoroutinesApi
@@ -28,9 +29,11 @@ class PostViewModel @Inject constructor(
     private val postRepository: PostRepository,
 ) : ViewModel() {
 
-    val data: LiveData<PostModel> = postRepository.data
-        .map(::PostModel)
-        .asLiveData(Dispatchers.Default)
+    private val cached = postRepository.data.cachedIn(viewModelScope)
+
+    val data: Flow<PagingData<FeedItem>> = cached
+//        .map(::PostModel)
+//        .asLiveData(Dispatchers.Default)
 
     private val edited = MutableLiveData(empty)
 
