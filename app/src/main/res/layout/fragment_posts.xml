@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.FeedFragment">
+    tools:context=".activity.PostsFragment">
 
     <TextView
-        android:id="@+id/text_view_empty_text_fragment_feed"
+        android:id="@+id/text_view_empty_text_fragment_posts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/empty_posts"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,19 +18,19 @@
         tools:text="@tools:sample/lorem/random"
         tools:visibility="visible" />
 
-    <ProgressBar
-        android:id="@+id/progress_bar_fragment_feed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/common_spacing_extra_large"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    <ProgressBar-->
+<!--        android:id="@+id/progress_bar_fragment_posts"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="@dimen/common_spacing_extra_large"-->
+<!--        android:visibility="gone"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh_fragment_feed"
+        android:id="@+id/swipe_refresh_fragment_posts"
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_spacing_0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -40,9 +39,9 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_container_fragment_feed"
+            android:id="@+id/recycler_view_container_fragment_posts"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/common_spacing_0dp"
+            android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/card_post" />
 

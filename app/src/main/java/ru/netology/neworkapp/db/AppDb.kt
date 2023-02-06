@@ -12,10 +12,8 @@ import ru.netology.neworkapp.utils.Converters
         PostEntity::class,
         PostRemoteKeyEntity::class,
         UserEntity::class,
-        WallEntity::class,
-        WallRemoteKeyEntity::class
     ],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 
@@ -24,6 +22,4 @@ abstract class AppDb : RoomDatabase() {
     abstract fun postDao(): PostDao
     abstract fun postRemoteKeyDao(): PostRemoteKeyDao
     abstract fun userDao(): UserDao
-    abstract fun wallDao(): WallDao
-    abstract fun wallRemoteKeyDao(): WallRemoteKeyDao
 }

@@ -7,7 +7,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
-import ru.netology.neworkapp.dto.FeedItem
 import ru.netology.neworkapp.dto.Post
 import ru.netology.neworkapp.model.StateModel
 import ru.netology.neworkapp.repository.PostRepository
@@ -31,9 +30,7 @@ class PostViewModel @Inject constructor(
 
     private val cached = postRepository.data.cachedIn(viewModelScope)
 
-    val data: Flow<PagingData<FeedItem>> = cached
-//        .map(::PostModel)
-//        .asLiveData(Dispatchers.Default)
+    val data: Flow<PagingData<Post>> = cached
 
     private val edited = MutableLiveData(empty)
 

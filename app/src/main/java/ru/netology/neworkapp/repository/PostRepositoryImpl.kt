@@ -7,15 +7,12 @@ import ru.netology.neworkapp.api.PostApiService
 import ru.netology.neworkapp.dao.PostDao
 import ru.netology.neworkapp.dao.PostRemoteKeyDao
 import ru.netology.neworkapp.db.AppDb
-import ru.netology.neworkapp.dto.Ad
-import ru.netology.neworkapp.dto.FeedItem
 import ru.netology.neworkapp.dto.Post
 import ru.netology.neworkapp.entity.PostEntity
 import ru.netology.neworkapp.errors.ApiError
 import ru.netology.neworkapp.errors.NetworkError
 import java.io.IOException
 import javax.inject.Inject
-import kotlin.random.Random
 
 class PostRepositoryImpl @Inject constructor(
     private val postDao: PostDao,
@@ -25,7 +22,7 @@ class PostRepositoryImpl @Inject constructor(
 ) : PostRepository {
 
     @OptIn(ExperimentalPagingApi::class)
-    override val data: Flow<PagingData<FeedItem>> = Pager(
+    override val data: Flow<PagingData<Post>> = Pager(
         config = PagingConfig(pageSize = 10, enablePlaceholders = false),
         pagingSourceFactory = { postDao.getPagingSource() },
         remoteMediator = PostRemoteMediator(
@@ -37,13 +34,6 @@ class PostRepositoryImpl @Inject constructor(
     ).flow
         .map {
             it.map(PostEntity::toDto)
-                .insertSeparators { previous, _ ->
-                    if (previous?.id?.rem(5) == 0L) {
-                        Ad(Random.nextLong(), "figma.jpg")
-                    } else {
-                        null
-                    }
-                }
         }
 
     override suspend fun savePost(post: Post) {

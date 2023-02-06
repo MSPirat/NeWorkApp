@@ -9,38 +9,35 @@ import androidx.room.withTransaction
 import ru.netology.neworkapp.api.WallApiService
 import ru.netology.neworkapp.dao.*
 import ru.netology.neworkapp.db.AppDb
-import ru.netology.neworkapp.entity.WallEntity
-import ru.netology.neworkapp.entity.WallRemoteKeyEntity
+import ru.netology.neworkapp.entity.PostEntity
+import ru.netology.neworkapp.entity.PostRemoteKeyEntity
 import ru.netology.neworkapp.errors.ApiError
-import java.io.IOException
 
 @OptIn(ExperimentalPagingApi::class)
 class WallRemoteMediator(
-    private val wallDao: WallDao,
+    private val postDao: PostDao,
     private val wallApiService: WallApiService,
-    private val wallRemoteKeyDao: WallRemoteKeyDao,
+    private val postRemoteKeyDao: PostRemoteKeyDao,
     private val appDb: AppDb,
-    private val userDao: UserDao,
-) : RemoteMediator<Int, WallEntity>() {
+    private val authorId: Long,
+) : RemoteMediator<Int, PostEntity>() {
 
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, WallEntity>,
+        state: PagingState<Int, PostEntity>,
     ): MediatorResult {
         try {
-            val userId = userDao.id()
             val result = when (loadType) {
                 REFRESH ->
-                    wallApiService.getWallLatest(userId, state.config.initialLoadSize)
+                    wallApiService.getWallLatest(authorId, state.config.pageSize)
 
                 APPEND -> {
-                    val id = wallRemoteKeyDao.min() ?: return MediatorResult.Success(false)
-                    wallApiService.getWallBefore(userId, id, state.config.pageSize)
+                    val id = postRemoteKeyDao.min() ?: return MediatorResult.Success(false)
+                    wallApiService.getWallBefore(authorId, id, state.config.pageSize)
                 }
 
                 PREPEND -> {
-                    val id = wallRemoteKeyDao.max() ?: return MediatorResult.Success(false)
-                    wallApiService.getWallAfter(userId, id, state.config.pageSize)
+                    return MediatorResult.Success(true)
                 }
             }
 
@@ -53,17 +50,18 @@ class WallRemoteMediator(
             appDb.withTransaction {
                 when (loadType) {
                     REFRESH -> {
-                        wallRemoteKeyDao.insert(
-                            WallRemoteKeyEntity(
-                                WallRemoteKeyEntity.KeyType.AFTER,
+                        postRemoteKeyDao.removeAll()
+                        postRemoteKeyDao.insert(
+                            PostRemoteKeyEntity(
+                                PostRemoteKeyEntity.KeyType.AFTER,
                                 body.first().id
                             )
                         )
 
-                        if (wallRemoteKeyDao.isEmpty()) {
-                            wallRemoteKeyDao.insert(
-                                WallRemoteKeyEntity(
-                                    WallRemoteKeyEntity.KeyType.BEFORE,
+                        if (postRemoteKeyDao.isEmpty()) {
+                            postRemoteKeyDao.insert(
+                                PostRemoteKeyEntity(
+                                    PostRemoteKeyEntity.KeyType.BEFORE,
                                     body.last().id
                                 )
                             )
@@ -71,27 +69,27 @@ class WallRemoteMediator(
                     }
 
                     APPEND -> {
-                        wallRemoteKeyDao.insert(
-                            WallRemoteKeyEntity(
-                                WallRemoteKeyEntity.KeyType.BEFORE,
+                        postRemoteKeyDao.insert(
+                            PostRemoteKeyEntity(
+                                PostRemoteKeyEntity.KeyType.BEFORE,
                                 body.last().id,
                             ),
                         )
                     }
 
                     PREPEND -> {
-                        wallRemoteKeyDao.insert(
-                            WallRemoteKeyEntity(
-                                WallRemoteKeyEntity.KeyType.AFTER,
+                        postRemoteKeyDao.insert(
+                            PostRemoteKeyEntity(
+                                PostRemoteKeyEntity.KeyType.AFTER,
                                 body.first().id,
                             ),
                         )
                     }
                 }
-                wallDao.insertPosts(body.map(WallEntity::fromDto))
+                postDao.insertPosts(body.map(PostEntity::fromDto))
             }
             return MediatorResult.Success(body.isEmpty())
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             return MediatorResult.Error(e)
         }
     }

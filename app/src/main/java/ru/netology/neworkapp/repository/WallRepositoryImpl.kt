@@ -4,54 +4,32 @@ import androidx.paging.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ru.netology.neworkapp.api.WallApiService
-import ru.netology.neworkapp.dao.UserDao
-import ru.netology.neworkapp.dao.WallDao
-import ru.netology.neworkapp.dao.WallRemoteKeyDao
+import ru.netology.neworkapp.dao.*
 import ru.netology.neworkapp.db.AppDb
-import ru.netology.neworkapp.dto.FeedItem
-import ru.netology.neworkapp.entity.WallEntity
-import ru.netology.neworkapp.entity.toWallEntity
-import ru.netology.neworkapp.errors.ApiError
-import ru.netology.neworkapp.errors.NetworkError
-import java.io.IOException
+import ru.netology.neworkapp.dto.Post
+import ru.netology.neworkapp.entity.PostEntity
 import javax.inject.Inject
 
 class WallRepositoryImpl @Inject constructor(
-    private val wallDao: WallDao,
+    private val postDao: PostDao,
     private val wallApiService: WallApiService,
-    wallRemoteKeyDao: WallRemoteKeyDao,
-    appDb: AppDb,
-    userDao: UserDao,
+    private val postRemoteKeyDao: PostRemoteKeyDao,
+    private val appDb: AppDb,
 ) : WallRepository {
 
     @OptIn(ExperimentalPagingApi::class)
-    override val data: Flow<PagingData<FeedItem>> = Pager(
+    override fun loadUserWall(userId: Long): Flow<PagingData<Post>> = Pager(
         config = PagingConfig(pageSize = 10, enablePlaceholders = false),
         remoteMediator = WallRemoteMediator(
             wallApiService = wallApiService,
-            wallDao = wallDao,
-            wallRemoteKeyDao = wallRemoteKeyDao,
+            postDao = postDao,
+            postRemoteKeyDao = postRemoteKeyDao,
             appDb = appDb,
-            userDao = userDao
+            authorId = userId,
         ),
-        pagingSourceFactory = { wallDao.getPagingSource() }
+        pagingSourceFactory = { postDao.getPagingSource(userId) }
     ).flow
         .map {
-            it.map(WallEntity::toDto)
+            it.map(PostEntity::toDto)
         }
-
-    override suspend fun load(id: Long) {
-        try {
-            val response = wallApiService.getWallLatest(id, 10)
-            if (!response.isSuccessful) {
-                throw ApiError(response.message())
-            }
-            val body = response.body() ?: throw ApiError(response.message())
-            wallDao.insertPosts(body.toWallEntity())
-        } catch (e: IOException) {
-            throw NetworkError
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
 }

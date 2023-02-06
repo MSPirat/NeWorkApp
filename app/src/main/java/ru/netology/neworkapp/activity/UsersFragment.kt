@@ -15,6 +15,7 @@ import ru.netology.neworkapp.adapter.UserAdapter
 import ru.netology.neworkapp.adapter.UserCallback
 import ru.netology.neworkapp.databinding.FragmentUsersBinding
 import ru.netology.neworkapp.dto.User
+import ru.netology.neworkapp.viewmodel.PostViewModel
 import ru.netology.neworkapp.viewmodel.UserViewModel
 
 @ExperimentalCoroutinesApi
@@ -22,6 +23,8 @@ import ru.netology.neworkapp.viewmodel.UserViewModel
 class UsersFragment : Fragment() {
 
     private val userViewModel by viewModels<UserViewModel>()
+
+    private val postViewModel by viewModels<PostViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,

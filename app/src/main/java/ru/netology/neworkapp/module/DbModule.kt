@@ -38,14 +38,4 @@ object DbModule {
     fun provideUserDao(
         appDb: AppDb,
     ): UserDao = appDb.userDao()
-
-    @Provides
-    fun provideWallDao(
-        appDb: AppDb,
-    ): WallDao = appDb.wallDao()
-
-    @Provides
-    fun provideWallRemoteKeyDao(
-        appDb: AppDb,
-    ): WallRemoteKeyDao = appDb.wallRemoteKeyDao()
 }

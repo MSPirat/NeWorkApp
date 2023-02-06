@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/nav_posts"
-        android:name="ru.netology.neworkapp.activity.FeedFragment"
+        android:name="ru.netology.neworkapp.activity.PostsFragment"
         android:label="@string/title_posts"
-        tools:layout="@layout/fragment_feed" />
+        tools:layout="@layout/fragment_posts" />
 
     <fragment
         android:id="@+id/nav_users"

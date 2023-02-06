@@ -11,10 +11,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import ru.netology.neworkapp.BuildConfig.BASE_URL
 import ru.netology.neworkapp.R
-import ru.netology.neworkapp.databinding.CardAdBinding
 import ru.netology.neworkapp.databinding.CardPostBinding
-import ru.netology.neworkapp.dto.Ad
-import ru.netology.neworkapp.dto.FeedItem
 import ru.netology.neworkapp.dto.Post
 import ru.netology.neworkapp.utils.formatToDate
 import ru.netology.neworkapp.utils.load
@@ -31,13 +28,12 @@ interface OnPostInteractionListener {
 
 class PostsAdapter(
     private val onPostInteractionListener: OnPostInteractionListener,
-) : PagingDataAdapter<FeedItem, RecyclerView.ViewHolder>(PostDiffCallback()) {
+) : PagingDataAdapter<Post, RecyclerView.ViewHolder>(PostDiffCallback()) {
 
     override fun getItemViewType(position: Int): Int =
         when (getItem(position)) {
-            is Ad -> R.layout.card_ad
             is Post -> R.layout.card_post
-            null -> error("Unknown item type")
+            else -> error("Unknown item type")
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
@@ -47,54 +43,38 @@ class PostsAdapter(
                     CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 PostViewHolder(binding, onPostInteractionListener)
             }
-
-            R.layout.card_ad -> {
-                val binding =
-                    CardAdBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                AdViewHolder(binding)
-            }
             else -> error("Unknown item type: $viewType")
         }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val item = getItem(position)) {
-            is Ad -> (holder as? AdViewHolder)?.bind(item)
+//            is Ad -> (holder as? AdViewHolder)?.bind(item)
             is Post -> (holder as? PostViewHolder)?.bind(item)
             null -> error("Unknown item type")
         }
     }
+}
 
-    class AdViewHolder(
-        private val binding: CardAdBinding,
-    ) : RecyclerView.ViewHolder(binding.root) {
+class PostViewHolder(
+    private val binding: CardPostBinding,
+    private val onPostInteractionListener: OnPostInteractionListener,
+) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(ad: Ad) {
-            binding.apply {
-                binding.imageAd.load("${BASE_URL}/media/${ad.image}")
-            }
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun bind(post: Post) {
+
+        with(binding) {
+            textViewAuthorCardPost.text = post.author
+            textViewPublishedCardPost.text = formatToDate(post.published)
+            textViewContentCardPost.text = post.content
+
+            Glide.with(imageViewAvatarCardPost)
+                .load("${post.authorAvatar}")
+                .transform(CircleCrop())
+                .placeholder(R.drawable.ic_default_user_profile_image)
+                .into(imageViewAvatarCardPost)
         }
-    }
-
-    class PostViewHolder(
-        private val binding: CardPostBinding,
-        private val onPostInteractionListener: OnPostInteractionListener,
-    ) : RecyclerView.ViewHolder(binding.root) {
-
-        @RequiresApi(Build.VERSION_CODES.O)
-        fun bind(post: Post) {
-
-            with(binding) {
-                textViewAuthorCardPost.text = post.author
-                textViewPublishedCardPost.text = formatToDate(post.published)
-                textViewContentCardPost.text = post.content
-
-                Glide.with(imageViewAvatarCardPost)
-                    .load("${post.authorAvatar}")
-                    .transform(CircleCrop())
-                    .placeholder(R.drawable.ic_default_user_profile_image)
-                    .into(imageViewAvatarCardPost)
-            }
 //            binding.apply {
 //                author.text = post.author
 //                published.text = post.published
@@ -171,19 +151,18 @@ class PostsAdapter(
 //                    }
 //                }
 //            }
+    }
+}
+
+class PostDiffCallback : DiffUtil.ItemCallback<Post>() {
+    override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
+        if (oldItem::class != newItem::class) {
+            return false
         }
+        return oldItem.id == newItem.id
     }
 
-    class PostDiffCallback : DiffUtil.ItemCallback<FeedItem>() {
-        override fun areItemsTheSame(oldItem: FeedItem, newItem: FeedItem): Boolean {
-            if (oldItem::class != newItem::class) {
-                return false
-            }
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: FeedItem, newItem: FeedItem): Boolean {
-            return oldItem == newItem
-        }
+    override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
+        return oldItem == newItem
     }
 }

@@ -1,11 +1,7 @@
 package ru.netology.neworkapp.dto
 
-sealed interface FeedItem {
-    val id: Long
-}
-
 data class Post(
-    override val id: Long,
+    val id: Long,
     val authorId: Long,
     val author: String,
     val authorAvatar: String?,
@@ -19,9 +15,15 @@ data class Post(
     val likedByMe: Boolean = false,
     val attachment: Attachment? = null,
     val ownedByMe: Boolean = false,
-) : FeedItem
-
-data class Ad(
-    override val id: Long,
-    val image: String,
-) : FeedItem
+) {
+    companion object {
+        val emptyPost = Post(
+            id = 0,
+            authorId = 0,
+            author = "",
+            authorAvatar = "",
+            content = "",
+            published = "2023-02-01T12:00:00.000Z"
+        )
+    }
+}

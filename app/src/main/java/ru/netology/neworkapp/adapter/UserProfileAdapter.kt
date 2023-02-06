@@ -5,7 +5,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.netology.neworkapp.activity.EventsFragment
 import ru.netology.neworkapp.activity.JobsFragment
-import ru.netology.neworkapp.activity.FeedFragment
+import ru.netology.neworkapp.activity.PostsFragment
 import ru.netology.neworkapp.activity.WallFragment
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -23,6 +23,6 @@ class UserProfileAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
             1 -> return EventsFragment()
             2 -> return JobsFragment()
         }
-        return FeedFragment()
+        return PostsFragment()
     }
 }

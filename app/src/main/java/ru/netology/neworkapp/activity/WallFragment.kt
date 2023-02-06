@@ -14,22 +14,27 @@ import kotlinx.coroutines.flow.collectLatest
 import ru.netology.neworkapp.adapter.OnPostInteractionListener
 import ru.netology.neworkapp.adapter.PostLoadingStateAdapter
 import ru.netology.neworkapp.adapter.PostsAdapter
-import ru.netology.neworkapp.databinding.FragmentFeedBinding
+import ru.netology.neworkapp.databinding.FragmentPostsBinding
 import ru.netology.neworkapp.dto.Post
+import ru.netology.neworkapp.viewmodel.AuthViewModel
+import ru.netology.neworkapp.viewmodel.PostViewModel
 import ru.netology.neworkapp.viewmodel.WallViewModel
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class WallFragment : Fragment() {
 
+    private val postViewModel by viewModels<PostViewModel>()
     private val wallViewModel by viewModels<WallViewModel>()
+    private val authViewModel by viewModels<AuthViewModel>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        val binding = FragmentFeedBinding.inflate(
+        val binding = FragmentPostsBinding.inflate(
             inflater,
             container,
             false
@@ -41,7 +46,9 @@ class WallFragment : Fragment() {
             }
         })
 
-        binding.recyclerViewContainerFragmentFeed.adapter =
+        val id = parentFragment?.arguments?.getLong("id")
+
+        binding.recyclerViewContainerFragmentPosts.adapter =
             adapter.withLoadStateHeaderAndFooter(
                 header = PostLoadingStateAdapter {
                     adapter.retry()
@@ -52,23 +59,20 @@ class WallFragment : Fragment() {
             )
 
         lifecycleScope.launchWhenCreated {
-            wallViewModel.data.collectLatest(adapter::submitData)
+            if (id != null) {
+                wallViewModel.loadUserWall(id).collectLatest(adapter::submitData)
+            }
         }
 
         lifecycleScope.launchWhenCreated {
             adapter.loadStateFlow.collectLatest { state ->
-                binding.swipeRefreshFragmentFeed.isRefreshing =
+                binding.swipeRefreshFragmentPosts.isRefreshing =
                     state.refresh is LoadState.Loading
             }
         }
 
-        binding.swipeRefreshFragmentFeed.setOnRefreshListener(adapter::refresh)
+        binding.swipeRefreshFragmentPosts.setOnRefreshListener(adapter::refresh)
 
         return binding.root
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        wallViewModel.removeWall()
     }
 }

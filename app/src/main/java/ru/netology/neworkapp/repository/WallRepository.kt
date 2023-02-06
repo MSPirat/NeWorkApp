@@ -2,11 +2,9 @@ package ru.netology.neworkapp.repository
 
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
-import ru.netology.neworkapp.dto.FeedItem
+import ru.netology.neworkapp.dto.Post
 
 interface WallRepository {
 
-    val data: Flow<PagingData<FeedItem>>
-
-    suspend fun load(id: Long)
+    fun loadUserWall(userId: Long): Flow<PagingData<Post>>
 }

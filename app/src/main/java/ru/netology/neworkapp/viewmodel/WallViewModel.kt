@@ -3,16 +3,12 @@ package ru.netology.neworkapp.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
+import androidx.paging.map
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
-import ru.netology.neworkapp.dao.WallDao
-import ru.netology.neworkapp.dto.FeedItem
-import ru.netology.neworkapp.model.StateModel
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
+import ru.netology.neworkapp.auth.AppAuth
 import ru.netology.neworkapp.repository.WallRepository
 import javax.inject.Inject
 
@@ -20,28 +16,21 @@ import javax.inject.Inject
 @HiltViewModel
 class WallViewModel @Inject constructor(
     private val wallRepository: WallRepository,
-    private val wallDao: WallDao,
+//    private val wallDao: WallDao,
+    private val appAuth: AppAuth,
 ) : ViewModel() {
 
-    private val cached = wallRepository
-        .data
-        .cachedIn(viewModelScope)
+    private val _userId = MutableLiveData<Long>()
+    val userId: LiveData<Long>
+        get() = _userId
 
-    val data: Flow<PagingData<FeedItem>> = cached
 
-    private val _dataState = MutableLiveData<StateModel>()
-    val dataState: LiveData<StateModel>
-        get() = _dataState
-
-    fun loadWall(id: Long) = viewModelScope.launch {
-        try {
-            wallRepository.load(id)
-        } catch (e: Exception) {
-            _dataState.value = StateModel(error = true)
+    fun loadUserWall(id: Long) = appAuth.authStateFlow
+        .flatMapLatest { (myId, _) ->
+            wallRepository.loadUserWall(id).map { pagingData ->
+                pagingData.map { post ->
+                    post.copy(ownedByMe = post.authorId == myId)
+                }
+            }
         }
-    }
-
-    fun removeWall() = viewModelScope.launch {
-        wallDao.removeAll()
-    }
 }

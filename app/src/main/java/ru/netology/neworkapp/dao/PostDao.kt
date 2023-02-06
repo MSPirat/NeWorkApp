@@ -5,16 +5,16 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import kotlinx.coroutines.flow.Flow
 import ru.netology.neworkapp.entity.PostEntity
 
 @Dao
 interface PostDao {
-    @Query("SELECT * FROM PostEntity ORDER BY id DESC")
-    fun getAllPosts(): Flow<List<PostEntity>>
 
     @Query("SELECT * FROM PostEntity ORDER BY id DESC")
     fun getPagingSource(): PagingSource<Int, PostEntity>
+
+    @Query("SELECT * FROM PostEntity WHERE authorId = :authorId ORDER BY id DESC")
+    fun getPagingSource(authorId: Long): PagingSource<Int, PostEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPost(post: PostEntity)
