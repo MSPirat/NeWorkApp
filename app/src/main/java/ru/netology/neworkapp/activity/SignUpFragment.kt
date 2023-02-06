@@ -18,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.netology.neworkapp.R
 import ru.netology.neworkapp.auth.AppAuth
 import ru.netology.neworkapp.databinding.FragmentSignUpBinding
+import ru.netology.neworkapp.utils.AndroidUtils.hideKeyboard
 import ru.netology.neworkapp.viewmodel.SignUpViewModel
 import javax.inject.Inject
 
@@ -69,6 +70,7 @@ class SignUpFragment : Fragment() {
                                 textFieldPassword.editText?.text.toString(),
                                 textFieldName.editText?.text.toString()
                             )
+                            hideKeyboard(requireView())
                         } else
                             textFieldRepeatPassword.error =
                                 getString(R.string.error_password)

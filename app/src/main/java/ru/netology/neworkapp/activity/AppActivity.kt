@@ -19,6 +19,7 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.netology.neworkapp.R
 import ru.netology.neworkapp.auth.AppAuth
 import ru.netology.neworkapp.databinding.ActivityAppBinding
@@ -26,6 +27,7 @@ import ru.netology.neworkapp.viewmodel.AuthViewModel
 import ru.netology.neworkapp.viewmodel.UserViewModel
 import javax.inject.Inject
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class AppActivity : AppCompatActivity() {
 
@@ -87,20 +89,28 @@ class AppActivity : AppCompatActivity() {
                 userViewModel.getUserById(auth.id)
             }
 
-            userViewModel.getUserById(auth.id)
-            val bundle = Bundle().apply {
-                userViewModel.user.value?.id?.let { it ->
-                    putLong("id", it)
+            navView.menu.findItem(R.id.nav_profile).setOnMenuItemClickListener {
+                if (!authViewModel.authorized) {
+                    findNavController(R.id.nav_host_fragment_activity_app)
+                        .navigate(R.id.nav_sign_in_fragment)
+                    true
+                } else {
+                    userViewModel.getUserById(auth.id)
+                    val bundle = Bundle().apply {
+                        userViewModel.user.value?.id?.let { it ->
+                            putLong("id", it)
+                        }
+                        putString("avatar", userViewModel.user.value?.avatar)
+                        putString("name", userViewModel.user.value?.name)
+                    }
+
+                    findNavController(R.id.nav_host_fragment_activity_app).popBackStack()
+
+                    findNavController(R.id.nav_host_fragment_activity_app)
+                        .navigate(R.id.nav_profile, bundle)
+                    true
                 }
-                putString("avatar", userViewModel.user.value?.avatar)
-                putString("name", userViewModel.user.value?.name)
             }
-
-            findNavController(R.id.nav_host_fragment_activity_app).popBackStack()
-
-            findNavController(R.id.nav_host_fragment_activity_app)
-                .navigate(R.id.nav_profile, bundle)
-            true
         }
 
         userViewModel.user.observe(this) {

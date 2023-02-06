@@ -7,13 +7,17 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.netology.neworkapp.R
 import ru.netology.neworkapp.auth.AppAuth
 import ru.netology.neworkapp.databinding.FragmentSignInBinding
+import ru.netology.neworkapp.utils.AndroidUtils.hideKeyboard
 import ru.netology.neworkapp.viewmodel.SignInViewModel
 import javax.inject.Inject
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class SignInFragment : Fragment() {
 
@@ -40,11 +44,21 @@ class SignInFragment : Fragment() {
                     textFieldLogin.editText?.text.toString(),
                     textFieldPassword.editText?.text.toString()
                 )
+                hideKeyboard(requireView())
             }
         }
 
         binding.textFieldPassword.setErrorIconOnClickListener {
             binding.textFieldPassword.error = null
+        }
+
+        viewModel.data.observe(viewLifecycleOwner) {
+            appAuth.setAuth(it.id, it.token)
+            findNavController().navigateUp()
+        }
+
+        binding.buttonSignUp.setOnClickListener {
+            findNavController().navigate(R.id.nav_sign_up_fragment)
         }
 
         viewModel.dataState.observe(viewLifecycleOwner) { state ->
