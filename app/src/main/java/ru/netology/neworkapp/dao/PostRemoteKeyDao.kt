@@ -1,9 +1,7 @@
 package ru.netology.neworkapp.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
+import androidx.room.*
 import androidx.room.OnConflictStrategy.Companion.REPLACE
-import androidx.room.Query
 import ru.netology.neworkapp.entity.PostRemoteKeyEntity
 
 @Dao

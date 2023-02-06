@@ -12,6 +12,7 @@ import retrofit2.create
 import ru.netology.neworkapp.BuildConfig
 import ru.netology.neworkapp.api.PostApiService
 import ru.netology.neworkapp.api.UserApiService
+import ru.netology.neworkapp.api.WallApiService
 import ru.netology.neworkapp.auth.AppAuth
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
@@ -73,4 +74,10 @@ class ApiModule {
     fun provideUserApiService(
         retrofit: Retrofit,
     ): UserApiService = retrofit.create()
+
+    @Provides
+    @Singleton
+    fun provideWallApiService(
+        retrofit: Retrofit,
+    ): WallApiService = retrofit.create()
 }

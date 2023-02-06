@@ -137,6 +137,16 @@
             app:barrierMargin="@dimen/common_spacing_medium"
             app:constraint_referenced_ids="text_view_content_card_post, image_view_attachment_card_post" />
 
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/content_divider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_spacing_medium"
+            app:dividerInsetEnd="@dimen/common_spacing_medium"
+            app:dividerInsetStart="@dimen/common_spacing_medium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/barrier_downer_menu_card_post" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/checkbox_likes_sum_card_post"
             style="@style/Widget.AppTheme.LikeSumCheckBox"
@@ -153,7 +163,7 @@
             style="@style/Widget.AppTheme.LikeCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/common_spacing_medium"
+            android:layout_marginTop="@dimen/common_spacing_small"
             android:checkable="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/checkbox_likes_sum_card_post" />

@@ -40,6 +40,12 @@
         tools:layout="@layout/fragment_new_post" />
 
     <fragment
+        android:id="@+id/nav_wall_fragment"
+        android:name="ru.netology.neworkapp.activity.WallFragment"
+        android:label="@string/title_wall"
+        tools:layout="@layout/fragment_wall" />
+
+    <fragment
         android:id="@+id/nav_sign_in_fragment"
         android:name="ru.netology.neworkapp.activity.SignInFragment"
         android:label="@string/sign_in"

@@ -3,15 +3,19 @@ package ru.netology.neworkapp.db
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import ru.netology.neworkapp.dao.PostDao
-import ru.netology.neworkapp.dao.PostRemoteKeyDao
-import ru.netology.neworkapp.entity.PostEntity
-import ru.netology.neworkapp.entity.PostRemoteKeyEntity
+import ru.netology.neworkapp.dao.*
+import ru.netology.neworkapp.entity.*
 import ru.netology.neworkapp.utils.Converters
 
 @Database(
-    entities = [PostEntity::class, PostRemoteKeyEntity::class],
-    version = 2,
+    entities = [
+        PostEntity::class,
+        PostRemoteKeyEntity::class,
+        UserEntity::class,
+        WallEntity::class,
+        WallRemoteKeyEntity::class
+    ],
+    version = 3,
     exportSchema = false
 )
 
@@ -19,4 +23,7 @@ import ru.netology.neworkapp.utils.Converters
 abstract class AppDb : RoomDatabase() {
     abstract fun postDao(): PostDao
     abstract fun postRemoteKeyDao(): PostRemoteKeyDao
+    abstract fun userDao(): UserDao
+    abstract fun wallDao(): WallDao
+    abstract fun wallRemoteKeyDao(): WallRemoteKeyDao
 }

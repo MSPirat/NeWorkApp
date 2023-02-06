@@ -7,19 +7,19 @@ import ru.netology.neworkapp.dto.Post
 interface PostApiService {
 
     @GET("posts/{id}/before")
-    suspend fun getBefore(
+    suspend fun getPostBefore(
         @Path("id") id: Long,
         @Query("count") count: Int,
     ): Response<List<Post>>
 
     @GET("posts/{id}/after")
-    suspend fun getAfter(
+    suspend fun getPostAfter(
         @Path("id") id: Long,
         @Query("count") count: Int,
     ): Response<List<Post>>
 
     @GET("posts/latest")
-    suspend fun getLatest(@Query("count") count: Int): Response<List<Post>>
+    suspend fun getPostLatest(@Query("count") count: Int): Response<List<Post>>
 
     @POST("posts")
     suspend fun savePost(@Body post: Post): Response<Post>

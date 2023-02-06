@@ -6,6 +6,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.netology.neworkapp.activity.EventsFragment
 import ru.netology.neworkapp.activity.JobsFragment
 import ru.netology.neworkapp.activity.FeedFragment
+import ru.netology.neworkapp.activity.WallFragment
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class UserProfileAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
@@ -18,7 +19,7 @@ class UserProfileAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
     override fun createFragment(position: Int): Fragment {
         when (position) {
-            0 -> return FeedFragment()
+            0 -> return WallFragment()
             1 -> return EventsFragment()
             2 -> return JobsFragment()
         }

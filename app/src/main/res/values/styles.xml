@@ -10,8 +10,8 @@
         <item name="textAllCaps">false</item>
         <item name="android:textSize">12sp</item>
         <item name="rippleColor">@android:color/transparent</item>
-        <item name="android:minWidth">@dimen/button_size_small</item>
-        <item name="android:minHeight">@dimen/button_size_small</item>
+        <item name="android:minWidth">@dimen/button_size_smallest</item>
+        <item name="android:minHeight">@dimen/button_size_smallest</item>
     </style>
 
     <style name="Widget.AppTheme.LikeCheckBox" parent="Widget.MaterialComponents.Button.TextButton">

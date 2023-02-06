@@ -7,7 +7,9 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.netology.neworkapp.api.UserApiService
+import ru.netology.neworkapp.dao.UserDao
 import ru.netology.neworkapp.dto.User
+import ru.netology.neworkapp.entity.UserEntity
 import ru.netology.neworkapp.model.StateModel
 import java.io.IOException
 import javax.inject.Inject
@@ -15,6 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class UserViewModel @Inject constructor(
     private val userApiService: UserApiService,
+    private val userDao: UserDao,
 ) : ViewModel() {
 
     private val _data = MutableLiveData<List<User>>()
@@ -48,6 +51,8 @@ class UserViewModel @Inject constructor(
             if (response.isSuccessful) {
                 _user.value = response.body()
             }
+            userDao.removeAll()
+            userDao.insert(UserEntity(id))
         } catch (e: IOException) {
             _dataState.postValue(StateModel(error = true))
         } catch (e: Exception) {

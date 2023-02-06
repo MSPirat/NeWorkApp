@@ -11,6 +11,7 @@
     <color name="transparent">#00000000</color>
 
     <color name="gray_empty_icon">#FFBDBDBD</color>
+    <color name="background_wall">#EAEAEA</color>
     <color name="purple_fill_icon">#FF6200EE</color>
     <color name="silver_light_background_tint">#FFF5F5F5</color>
 
