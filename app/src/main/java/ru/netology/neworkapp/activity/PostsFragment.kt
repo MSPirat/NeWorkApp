@@ -5,12 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
+import ru.netology.neworkapp.R
 import ru.netology.neworkapp.adapter.OnPostInteractionListener
 import ru.netology.neworkapp.adapter.PostLoadingStateAdapter
 import ru.netology.neworkapp.adapter.PostsAdapter
@@ -23,7 +26,7 @@ import ru.netology.neworkapp.viewmodel.PostViewModel
 @AndroidEntryPoint
 class PostsFragment : Fragment() {
 
-    private val postViewModel by viewModels<PostViewModel>()
+    private val postViewModel by activityViewModels<PostViewModel>()
     private val authViewModel by viewModels<AuthViewModel>()
 
     override fun onCreateView(
@@ -38,8 +41,20 @@ class PostsFragment : Fragment() {
         )
 
         val adapter = PostsAdapter(object : OnPostInteractionListener {
-            override fun onOpenPost(post: Post) {
-                super.onOpenPost(post)
+
+            override fun onOpenPost(post: Post) {}
+
+            override fun onEditPost(post: Post) {
+                postViewModel.edit(post)
+                val bundle = Bundle().apply {
+                    putString("content", post.content)
+                }
+                findNavController()
+                    .navigate(R.id.action_nav_posts_to_nav_new_post_fragment, bundle)
+            }
+
+            override fun onDeletePost(post: Post) {
+                postViewModel.deleteById(post.id)
             }
         })
 

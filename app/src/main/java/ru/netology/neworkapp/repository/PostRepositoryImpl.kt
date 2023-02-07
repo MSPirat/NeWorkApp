@@ -51,4 +51,18 @@ class PostRepositoryImpl @Inject constructor(
             e.printStackTrace()
         }
     }
+
+    override suspend fun deleteById(id: Long) {
+        try {
+            postDao.removeById(id)
+            val response = postApiService.removeById(id)
+            if (!response.isSuccessful) {
+                throw ApiError(response.message())
+            }
+        } catch (e: IOException) {
+            throw NetworkError
+        } catch (e: Exception) {
+            throw UnknownError()
+        }
+    }
 }

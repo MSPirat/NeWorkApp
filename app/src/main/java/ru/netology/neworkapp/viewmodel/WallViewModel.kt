@@ -16,14 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class WallViewModel @Inject constructor(
     private val wallRepository: WallRepository,
-//    private val wallDao: WallDao,
     private val appAuth: AppAuth,
 ) : ViewModel() {
-
-    private val _userId = MutableLiveData<Long>()
-    val userId: LiveData<Long>
-        get() = _userId
-
 
     fun loadUserWall(id: Long) = appAuth.authStateFlow
         .flatMapLatest { (myId, _) ->

@@ -3,32 +3,32 @@ package ru.netology.neworkapp.adapter
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.annotation.RequiresApi
+import androidx.core.view.isVisible
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import ru.netology.neworkapp.BuildConfig.BASE_URL
 import ru.netology.neworkapp.R
 import ru.netology.neworkapp.databinding.CardPostBinding
 import ru.netology.neworkapp.dto.Post
 import ru.netology.neworkapp.utils.formatToDate
-import ru.netology.neworkapp.utils.load
 
 
 interface OnPostInteractionListener {
     fun onOpenPost(post: Post) {}
+    fun onEditPost(post: Post) {}
+    fun onDeletePost(post: Post) {}
 //    fun onLikePost(post: Post) {}
-//    fun onEditPost(post: Post) {}
-//    fun onRemovePost(post: Post) {}
 //    fun onSharePost(post: Post) {}
 //    fun onOpenImage(image: String) {}
 }
 
 class PostsAdapter(
     private val onPostInteractionListener: OnPostInteractionListener,
-) : PagingDataAdapter<Post, RecyclerView.ViewHolder>(PostDiffCallback()) {
+) : PagingDataAdapter<Post, PostViewHolder>(PostDiffCallback()) {
 
     override fun getItemViewType(position: Int): Int =
         when (getItem(position)) {
@@ -36,7 +36,7 @@ class PostsAdapter(
             else -> error("Unknown item type")
         }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder =
         when (viewType) {
             R.layout.card_post -> {
                 val binding =
@@ -47,9 +47,8 @@ class PostsAdapter(
         }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         when (val item = getItem(position)) {
-//            is Ad -> (holder as? AdViewHolder)?.bind(item)
             is Post -> (holder as? PostViewHolder)?.bind(item)
             null -> error("Unknown item type")
         }
@@ -64,7 +63,7 @@ class PostViewHolder(
     @RequiresApi(Build.VERSION_CODES.O)
     fun bind(post: Post) {
 
-        with(binding) {
+        binding.apply {
             textViewAuthorCardPost.text = post.author
             textViewPublishedCardPost.text = formatToDate(post.published)
             textViewContentCardPost.text = post.content
@@ -74,7 +73,7 @@ class PostViewHolder(
                 .transform(CircleCrop())
                 .placeholder(R.drawable.ic_default_user_profile_image)
                 .into(imageViewAvatarCardPost)
-        }
+//        }
 //            binding.apply {
 //                author.text = post.author
 //                published.text = post.published
@@ -105,27 +104,27 @@ class PostViewHolder(
 //                    attachment.visibility = View.GONE
 //                }
 //
-//                menu.isVisible = post.ownedByMe
-//                menu.setOnClickListener {
-//                    PopupMenu(it.context, it).apply {
-//                        inflate(R.menu.options_post)
-//                        menu.setGroupVisible(R.id.owned, post.ownedByMe)
-//                        setOnMenuItemClickListener { item ->
-//                            when (item.itemId) {
-//                                R.id.remove -> {
-//                                    onPostInteractionListener.onRemovePost(post)
-//                                    true
-//                                }
-//                                R.id.edit -> {
-//                                    onPostInteractionListener.onEditPost(post)
-//                                    true
-//                                }
-//
-//                                else -> false
-//                            }
-//                        }
-//                    }.show()
-//                }
+
+            buttonMenuCardPost.isVisible = post.ownedByMe
+            buttonMenuCardPost.setOnClickListener {
+                PopupMenu(it.context, it).apply {
+                    inflate(R.menu.options_post)
+                    menu.setGroupVisible(R.id.owned, post.ownedByMe)
+                    setOnMenuItemClickListener { item ->
+                        when (item.itemId) {
+                            R.id.delete -> {
+                                onPostInteractionListener.onDeletePost(post)
+                                true
+                            }
+                            R.id.edit -> {
+                                onPostInteractionListener.onEditPost(post)
+                                true
+                            }
+                            else -> false
+                        }
+                    }
+                }.show()
+            }
 //
 //                like.setOnClickListener {
 ////                    onInteractionListener.onLike(post)
@@ -150,7 +149,7 @@ class PostViewHolder(
 //                        onPostInteractionListener.onOpenImage(attach.url)
 //                    }
 //                }
-//            }
+        }
     }
 }
 

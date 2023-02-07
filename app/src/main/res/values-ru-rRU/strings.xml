@@ -36,8 +36,8 @@
     <string name="retry">Повтор</string>
     <string name="like">Нравится</string>
     <string name="mention">Упомянуть</string>
-    <string name="ok">Ок</string>
-
-
+    <string name="ok">ОК</string>
+    <string name="post_menu_edit">Редактировать</string>
+    <string name="post_menu_delete">Удалить</string>
 
 </resources>

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -21,7 +22,7 @@ import ru.netology.neworkapp.viewmodel.AuthViewModel
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
 
-    private val authViewModel by viewModels<AuthViewModel>()
+    private val authViewModel by activityViewModels<AuthViewModel>()
 
     private val profileTitles = arrayOf(
         R.string.title_posts,

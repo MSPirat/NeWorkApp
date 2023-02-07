@@ -9,7 +9,36 @@
         android:id="@+id/nav_posts"
         android:name="ru.netology.neworkapp.activity.PostsFragment"
         android:label="@string/title_posts"
-        tools:layout="@layout/fragment_posts" />
+        tools:layout="@layout/fragment_posts">
+        <action
+            android:id="@+id/action_nav_posts_to_nav_new_post_fragment"
+            app:destination="@id/nav_new_post_fragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_nav_posts_to_nav_image_fragment"
+            app:destination="@+id/imageFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_nav_posts_to_nav_sign_in_fragment"
+            app:destination="@id/nav_sign_in_fragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_nav_posts_to_nav_sign_up_fragment"
+            app:destination="@id/nav_sign_up_fragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_users"
@@ -43,7 +72,15 @@
         android:id="@+id/nav_wall_fragment"
         android:name="ru.netology.neworkapp.activity.WallFragment"
         android:label="@string/title_wall"
-        tools:layout="@layout/fragment_wall" />
+        tools:layout="@layout/fragment_wall">
+        <action
+            android:id="@+id/action_nav_wall_fragment_to_nav_new_post_fragment"
+            app:destination="@id/nav_new_post_fragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_sign_in_fragment"
