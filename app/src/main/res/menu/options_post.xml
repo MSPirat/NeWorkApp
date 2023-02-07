@@ -6,8 +6,8 @@
             android:id="@+id/edit"
             android:title="@string/post_menu_edit" />
         <item
-            android:id="@+id/delete"
-            android:title="@string/post_menu_delete" />
+            android:id="@+id/remove"
+            android:title="@string/post_menu_remove" />
     </group>
 
 </menu>

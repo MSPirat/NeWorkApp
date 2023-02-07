@@ -38,7 +38,7 @@
     <string name="retry">Retry</string>
     <string name="ok">OK</string>
     <string name="post_menu_edit">Edit</string>
-    <string name="post_menu_delete">Delete</string>
+    <string name="post_menu_remove">Remove</string>
 
     <string name="description_fab_add" translatable="false" />
     <string name="description_post_author_avatar" translatable="false" />

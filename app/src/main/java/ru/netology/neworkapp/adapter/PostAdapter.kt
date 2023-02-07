@@ -20,7 +20,7 @@ import ru.netology.neworkapp.utils.formatToDate
 interface OnPostInteractionListener {
     fun onOpenPost(post: Post) {}
     fun onEditPost(post: Post) {}
-    fun onDeletePost(post: Post) {}
+    fun onRemovePost(post: Post) {}
 //    fun onLikePost(post: Post) {}
 //    fun onSharePost(post: Post) {}
 //    fun onOpenImage(image: String) {}
@@ -112,8 +112,8 @@ class PostViewHolder(
                     menu.setGroupVisible(R.id.owned, post.ownedByMe)
                     setOnMenuItemClickListener { item ->
                         when (item.itemId) {
-                            R.id.delete -> {
-                                onPostInteractionListener.onDeletePost(post)
+                            R.id.remove -> {
+                                onPostInteractionListener.onRemovePost(post)
                                 true
                             }
                             R.id.edit -> {

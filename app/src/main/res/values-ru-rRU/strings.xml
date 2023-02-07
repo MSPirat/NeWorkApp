@@ -38,6 +38,6 @@
     <string name="mention">Упомянуть</string>
     <string name="ok">ОК</string>
     <string name="post_menu_edit">Редактировать</string>
-    <string name="post_menu_delete">Удалить</string>
+    <string name="post_menu_remove">Удалить</string>
 
 </resources>

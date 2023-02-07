@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
@@ -56,8 +55,8 @@ class WallFragment : Fragment() {
                     .navigate(R.id.action_nav_wall_fragment_to_nav_new_post_fragment, bundle)
             }
 
-            override fun onDeletePost(post: Post) {
-                postViewModel.deleteById(post.id)
+            override fun onRemovePost(post: Post) {
+                postViewModel.removeById(post.id)
             }
         })
 

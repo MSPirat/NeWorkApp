@@ -85,7 +85,7 @@ class PostViewModel @Inject constructor(
         edited.value = edited.value?.copy(content = text)
     }
 
-    fun deleteById(id: Long) = viewModelScope.launch {
+    fun removeById(id: Long) = viewModelScope.launch {
         try {
             postRepository.deleteById(id)
         } catch (e: Exception) {

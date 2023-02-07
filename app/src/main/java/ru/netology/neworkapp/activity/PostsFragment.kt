@@ -53,8 +53,8 @@ class PostsFragment : Fragment() {
                     .navigate(R.id.action_nav_posts_to_nav_new_post_fragment, bundle)
             }
 
-            override fun onDeletePost(post: Post) {
-                postViewModel.deleteById(post.id)
+            override fun onRemovePost(post: Post) {
+                postViewModel.removeById(post.id)
             }
         })
 
