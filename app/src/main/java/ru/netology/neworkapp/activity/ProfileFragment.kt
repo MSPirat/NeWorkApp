@@ -64,7 +64,7 @@ class ProfileFragment : Fragment() {
         }
 
         authViewModel.data.observe(viewLifecycleOwner) {
-            if (!authViewModel.authorized && id == it.id) {
+            if (authViewModel.authorized && id == it.id) {
                 binding.fabAdd.visibility = View.VISIBLE
             }
         }

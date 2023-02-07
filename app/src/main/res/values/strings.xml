@@ -36,6 +36,7 @@
     <string name="mention">Mention</string>
     <string name="empty_posts">There are no posts.\nIf you create a new post, it will appear here</string>
     <string name="retry">Retry</string>
+    <string name="ok">Ok</string>
 
     <string name="description_fab_add" translatable="false" />
     <string name="description_post_author_avatar" translatable="false" />
