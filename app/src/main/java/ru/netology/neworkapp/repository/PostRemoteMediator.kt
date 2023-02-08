@@ -68,6 +68,7 @@ class PostRemoteMediator(
                                 )
                             )
                         }
+                        postDao.removeAll()
                     }
 
                     APPEND -> {
@@ -88,7 +89,7 @@ class PostRemoteMediator(
                         )
                     }
                 }
-                postDao.insertPosts(body.map(PostEntity.Companion::fromDto))
+                postDao.insertPosts(body.map(PostEntity::fromDto))
             }
             return MediatorResult.Success(body.isEmpty())
         } catch (e: IOException) {

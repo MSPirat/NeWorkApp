@@ -26,10 +26,10 @@ class PostRepositoryImpl @Inject constructor(
         config = PagingConfig(pageSize = 10, enablePlaceholders = false),
         pagingSourceFactory = { postDao.getPagingSource() },
         remoteMediator = PostRemoteMediator(
-            postApiService = postApiService,
-            postDao = postDao,
-            postRemoteKeyDao = postRemoteKeyDao,
-            appDb = appDb,
+            postDao,
+            postApiService,
+            postRemoteKeyDao,
+            appDb,
         )
     ).flow
         .map {
@@ -52,7 +52,7 @@ class PostRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun deleteById(id: Long) {
+    override suspend fun removeById(id: Long) {
         try {
             postDao.removeById(id)
             val response = postApiService.removeById(id)

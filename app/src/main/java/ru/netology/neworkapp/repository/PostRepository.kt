@@ -9,5 +9,5 @@ interface PostRepository {
 
     suspend fun savePost(post: Post)
 
-    suspend fun deleteById(id: Long)
+    suspend fun removeById(id: Long)
 }

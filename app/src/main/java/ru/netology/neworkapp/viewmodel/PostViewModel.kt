@@ -17,6 +17,7 @@ import ru.netology.neworkapp.dto.Post
 import ru.netology.neworkapp.model.StateModel
 import ru.netology.neworkapp.repository.PostRepository
 import ru.netology.neworkapp.utils.SingleLiveEvent
+import java.io.IOException
 import javax.inject.Inject
 
 private val empty = Post(
@@ -61,16 +62,18 @@ class PostViewModel @Inject constructor(
 
     private val scope = MainScope()
 
-
     fun save() {
         edited.value?.let { post ->
             viewModelScope.launch {
+                _dataState.postValue(StateModel(loading = true))
                 try {
                     postRepository.savePost(post)
-                    _dataState.value = StateModel()
+                    _dataState.postValue(StateModel())
                     _postCreated.value = Unit
+                } catch (e: IOException) {
+                    _dataState.postValue(StateModel(error = true))
                 } catch (e: Exception) {
-                    _dataState.value = StateModel(error = true)
+                    throw UnknownError()
                 }
             }
         }
@@ -87,7 +90,7 @@ class PostViewModel @Inject constructor(
 
     fun removeById(id: Long) = viewModelScope.launch {
         try {
-            postRepository.deleteById(id)
+            postRepository.removeById(id)
         } catch (e: Exception) {
             _dataState.value = StateModel(error = true)
         }

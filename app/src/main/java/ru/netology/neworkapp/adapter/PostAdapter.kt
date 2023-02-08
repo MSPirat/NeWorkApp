@@ -30,27 +30,42 @@ class PostsAdapter(
     private val onPostInteractionListener: OnPostInteractionListener,
 ) : PagingDataAdapter<Post, PostViewHolder>(PostDiffCallback()) {
 
-    override fun getItemViewType(position: Int): Int =
-        when (getItem(position)) {
-            is Post -> R.layout.card_post
-            else -> error("Unknown item type")
-        }
+//    override fun getItemViewType(position: Int): Int =
+//        when (getItem(position)) {
+//            is Post -> R.layout.card_post
+//            else -> error("Unknown item type")
+//        }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder =
-        when (viewType) {
-            R.layout.card_post -> {
-                val binding =
-                    CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                PostViewHolder(binding, onPostInteractionListener)
-            }
-            else -> error("Unknown item type: $viewType")
-        }
+//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder =
+//        when (viewType) {
+//            R.layout.card_post -> {
+//                val binding =
+//                    CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+//                PostViewHolder(binding, onPostInteractionListener)
+//            }
+//            else -> error("Unknown item type: $viewType")
+//        }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
+        val binding = CardPostBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return PostViewHolder(binding, onPostInteractionListener)
+    }
+
+    //    @RequiresApi(Build.VERSION_CODES.O)
+//    override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
+//        when (val item = getItem(position)) {
+//            is Post -> (holder as? PostViewHolder)?.bind(item)
+//            null -> error("Unknown item type")
+//        }
+//    }
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        when (val item = getItem(position)) {
-            is Post -> (holder as? PostViewHolder)?.bind(item)
-            null -> error("Unknown item type")
+        getItem(position)?.let {
+            holder.bind(it)
         }
     }
 }
