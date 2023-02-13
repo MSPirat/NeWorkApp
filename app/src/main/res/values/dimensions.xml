@@ -13,6 +13,7 @@
     <dimen name="button_size">24dp</dimen>
     <dimen name="button_size_large">48dp</dimen>
     <dimen name="divider_start_margin">80dp</dimen>
+    <dimen name="seek_bar">300dp</dimen>
 
     <dimen name="sign_avatar_size">100dp</dimen>
     <dimen name="sign_spacing_bigger">200dp</dimen>

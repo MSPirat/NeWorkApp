@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -16,7 +15,6 @@ import ru.netology.neworkapp.adapter.UserAdapter
 import ru.netology.neworkapp.adapter.UserCallback
 import ru.netology.neworkapp.databinding.FragmentUsersBinding
 import ru.netology.neworkapp.dto.User
-import ru.netology.neworkapp.viewmodel.PostViewModel
 import ru.netology.neworkapp.viewmodel.UserViewModel
 
 @ExperimentalCoroutinesApi
@@ -40,6 +38,7 @@ class UsersFragment : Fragment() {
 
         val adapter = UserAdapter(object : UserCallback {
             override fun openProfile(user: User) {
+                userViewModel.getUserById(user.id)
                 val bundle = Bundle().apply {
                     putLong("id", user.id)
                     putString("avatar", user.avatar)

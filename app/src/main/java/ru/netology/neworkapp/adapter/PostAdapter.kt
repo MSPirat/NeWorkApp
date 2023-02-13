@@ -2,6 +2,7 @@ package ru.netology.neworkapp.adapter
 
 import android.os.Build
 import android.view.LayoutInflater
+import android.view.View.*
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.annotation.RequiresApi
@@ -10,12 +11,11 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import ru.netology.neworkapp.R
 import ru.netology.neworkapp.databinding.CardPostBinding
 import ru.netology.neworkapp.dto.Post
+import ru.netology.neworkapp.enumeration.AttachmentType.*
 import ru.netology.neworkapp.utils.formatToDate
-
 
 interface OnPostInteractionListener {
     fun onOpenPost(post: Post) {}
@@ -82,43 +82,34 @@ class PostViewHolder(
             textViewAuthorCardPost.text = post.author
             textViewPublishedCardPost.text = formatToDate(post.published)
             textViewContentCardPost.text = post.content
-
-            Glide.with(imageViewAvatarCardPost)
-                .load("${post.authorAvatar}")
-                .transform(CircleCrop())
-                .placeholder(R.drawable.ic_default_user_profile_image)
-                .into(imageViewAvatarCardPost)
-//        }
-//            binding.apply {
-//                author.text = post.author
-//                published.text = post.published
-//                content.text = post.content
 //                like.isChecked = post.likedByMe
 //                like.text = "${post.likes}"
-//                attachment.visibility = View.GONE
-//
-//                val url = "${BASE_URL}/avatars/${post.authorAvatar}"
-//                Glide.with(itemView)
-//                    .load(url)
-//                    .placeholder(R.drawable.ic_loading_24dp)
-//                    .error(R.drawable.ic_baseline_error_outline_24dp)
-//                    .timeout(10_000)
-//                    .circleCrop()
-//                    .into(avatar)
-//
-//                val urlAttachment = "${BASE_URL}/media/${post.attachment?.url}"
-//                if (post.attachment != null) {
-//                    attachment.visibility = View.VISIBLE
-//                    Glide.with(itemView)
-//                        .load(urlAttachment)
-//                        .placeholder(R.drawable.ic_loading_24dp)
-//                        .error(R.drawable.ic_baseline_error_outline_24dp)
-//                        .timeout(10_000)
-//                        .into(attachment)
-//                } else {
-//                    attachment.visibility = View.GONE
-//                }
-//
+
+            imageViewAttachmentImageCardPost.visibility =
+                if (post.attachment != null && post.attachment.type == IMAGE) VISIBLE else GONE
+
+            groupAttachmentAudioCardPost.visibility =
+                if (post.attachment != null && post.attachment.type == AUDIO) VISIBLE else GONE
+
+            groupAttachmentVideoCardPost.visibility =
+                if (post.attachment != null && post.attachment.type == VIDEO) VISIBLE else GONE
+
+            Glide.with(itemView)
+                .load("${post.authorAvatar}")
+                .placeholder(R.drawable.ic_default_user_profile_image)
+                .error(R.drawable.ic_baseline_error_outline_24)
+                .timeout(10_000)
+                .circleCrop()
+                .into(imageViewAvatarCardPost)
+
+            post.attachment?.apply {
+                Glide.with(imageViewAttachmentImageCardPost)
+                    .load(this.url)
+                    .placeholder(R.drawable.ic_baseline_loading_24)
+                    .error(R.drawable.ic_baseline_error_outline_24)
+                    .timeout(10_000)
+                    .into(imageViewAttachmentImageCardPost)
+            }
 
             buttonMenuCardPost.isVisible = post.ownedByMe
             buttonMenuCardPost.setOnClickListener {

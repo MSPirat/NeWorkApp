@@ -1,7 +1,9 @@
 package ru.netology.neworkapp.api
 
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
+import ru.netology.neworkapp.dto.Media
 import ru.netology.neworkapp.dto.Post
 
 interface PostApiService {
@@ -26,4 +28,8 @@ interface PostApiService {
 
     @DELETE("posts/{id}")
     suspend fun removeById(@Path("id") id: Long): Response<Unit>
+
+    @Multipart
+    @POST("media")
+    suspend fun uploadMedia(@Part media: MultipartBody.Part): Response<Media>
 }

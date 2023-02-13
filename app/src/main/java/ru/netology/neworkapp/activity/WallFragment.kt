@@ -52,7 +52,7 @@ class WallFragment : Fragment() {
                     putString("content", post.content)
                 }
                 findNavController()
-                    .navigate(R.id.action_nav_wall_fragment_to_nav_new_post_fragment, bundle)
+                    .navigate(R.id.nav_new_post_fragment, bundle)
             }
 
             override fun onRemovePost(post: Post) {

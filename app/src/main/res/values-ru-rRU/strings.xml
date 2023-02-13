@@ -37,6 +37,8 @@
     <string name="like">Нравится</string>
     <string name="mention">Упомянуть</string>
     <string name="ok">ОК</string>
+    <string name="save">Сохранить</string>
+    <string name="clear">Очистить</string>
     <string name="post_menu_edit">Редактировать</string>
     <string name="post_menu_remove">Удалить</string>
 

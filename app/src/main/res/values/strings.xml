@@ -37,6 +37,8 @@
     <string name="empty_posts">There are no posts.\nIf you create a new post, it will appear here</string>
     <string name="retry">Retry</string>
     <string name="ok">OK</string>
+    <string name="save">Save</string>
+    <string name="clear">Clear</string>
     <string name="post_menu_edit">Edit</string>
     <string name="post_menu_remove">Remove</string>
 
@@ -46,5 +48,10 @@
     <string name="description_share" translatable="false" />
     <string name="description_view" translatable="false" />
     <string name="description_mention" translatable="false" />
+    <string name="description_background_video" translatable="false" />
+    <string name="description_play" translatable="false" />
+    <string name="description_photo" translatable="false" />
+    <string name="description_take_photo" translatable="false" />
+    <string name="description_pick_photo" translatable="false" />
 
 </resources>

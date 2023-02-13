@@ -1,5 +1,7 @@
 package ru.netology.neworkapp.viewmodel
 
+import android.net.Uri
+import androidx.core.net.toFile
 import androidx.lifecycle.*
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
@@ -13,11 +15,12 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import ru.netology.neworkapp.auth.AppAuth
+import ru.netology.neworkapp.dto.MediaUpload
 import ru.netology.neworkapp.dto.Post
+import ru.netology.neworkapp.model.PhotoModel
 import ru.netology.neworkapp.model.StateModel
 import ru.netology.neworkapp.repository.PostRepository
 import ru.netology.neworkapp.utils.SingleLiveEvent
-import java.io.IOException
 import javax.inject.Inject
 
 private val empty = Post(
@@ -28,6 +31,8 @@ private val empty = Post(
     content = "",
     published = "2023-01-27T17:00:00.000Z",
 )
+
+private val noPhoto = PhotoModel()
 
 @ExperimentalCoroutinesApi
 @HiltViewModel
@@ -60,24 +65,36 @@ class PostViewModel @Inject constructor(
     val postCreated: LiveData<Unit>
         get() = _postCreated
 
+    private val _photo = MutableLiveData(noPhoto)
+    val photo: LiveData<PhotoModel>
+        get() = _photo
+
     private val scope = MainScope()
 
     fun save() {
         edited.value?.let { post ->
             viewModelScope.launch {
-                _dataState.postValue(StateModel(loading = true))
+//                _dataState.postValue(StateModel(loading = true))
                 try {
-                    postRepository.savePost(post)
-                    _dataState.postValue(StateModel())
+                    when (_photo.value) {
+                        noPhoto ->
+                            postRepository.savePost(post)
+                        else ->
+                            _photo.value?.uri?.let {
+                                MediaUpload(it.toFile())
+                            }?.let {
+                                postRepository.saveWithAttachment(post, it)
+                            }
+                    }
+                    _dataState.value = StateModel()
                     _postCreated.value = Unit
-                } catch (e: IOException) {
-                    _dataState.postValue(StateModel(error = true))
                 } catch (e: Exception) {
-                    throw UnknownError()
+                    _dataState.value = StateModel(error = true)
                 }
             }
         }
         edited.value = empty
+        _photo.value = noPhoto
     }
 
     fun changeContent(content: String) {
@@ -86,6 +103,10 @@ class PostViewModel @Inject constructor(
             return
         }
         edited.value = edited.value?.copy(content = text)
+    }
+
+    fun changePhoto(uri: Uri?) {
+        _photo.value = PhotoModel(uri)
     }
 
     fun removeById(id: Long) = viewModelScope.launch {
