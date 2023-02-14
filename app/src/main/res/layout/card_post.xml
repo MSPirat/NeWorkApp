@@ -127,6 +127,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/common_spacing_small"
             android:layout_marginEnd="@dimen/common_spacing_large"
+            android:splitTrack="false"
+            android:progress="0"
+            android:progressDrawable="@drawable/track"
+            android:thumb="@drawable/thumb"
+            android:indeterminate="false"
             app:layout_constraintBottom_toBottomOf="@+id/image_button_play_pause_audio_card_post"
             app:layout_constraintStart_toEndOf="@+id/image_button_play_pause_audio_card_post"
             app:layout_constraintTop_toTopOf="@+id/image_button_play_pause_audio_card_post" />
@@ -162,13 +167,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/common_spacing_medium"
             android:adjustViewBounds="true"
-            android:background="@color/transparent"
             android:checkable="true"
             android:contentDescription="@string/description_background_video"
             android:src="@drawable/background_video"
             app:layout_constraintEnd_toEndOf="@id/group_attachment_video_card_post"
             app:layout_constraintStart_toStartOf="@id/group_attachment_video_card_post"
             app:layout_constraintTop_toBottomOf="@+id/image_button_play_pause_audio_card_post"
+            tools:background="@color/transparent"
             tools:srcCompat="@drawable/back_video" />
 
         <ImageButton

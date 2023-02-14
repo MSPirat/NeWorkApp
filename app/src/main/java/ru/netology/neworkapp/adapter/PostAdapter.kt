@@ -1,9 +1,13 @@
 package ru.netology.neworkapp.adapter
 
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.os.Build
 import android.view.LayoutInflater
+import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
+import android.view.animation.BounceInterpolator
 import android.widget.PopupMenu
 import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
@@ -21,7 +25,7 @@ interface OnPostInteractionListener {
     fun onOpenPost(post: Post) {}
     fun onEditPost(post: Post) {}
     fun onRemovePost(post: Post) {}
-//    fun onLikePost(post: Post) {}
+    fun onLikePost(post: Post) {}
 //    fun onSharePost(post: Post) {}
 //    fun onOpenImage(image: String) {}
 }
@@ -82,8 +86,8 @@ class PostViewHolder(
             textViewAuthorCardPost.text = post.author
             textViewPublishedCardPost.text = formatToDate(post.published)
             textViewContentCardPost.text = post.content
-//                like.isChecked = post.likedByMe
-//                like.text = "${post.likes}"
+            buttonLikeCardPost.isChecked = post.likedByMe
+            checkboxLikesSumCardPost.text = post.likeOwnerIds.count().toString()
 
             imageViewAttachmentImageCardPost.visibility =
                 if (post.attachment != null && post.attachment.type == IMAGE) VISIBLE else GONE
@@ -131,20 +135,20 @@ class PostViewHolder(
                     }
                 }.show()
             }
-//
-//                like.setOnClickListener {
-////                    onInteractionListener.onLike(post)
-//                    like.setOnClickListener {
-//                        val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1F, 1.25F, 1F)
-//                        val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1F, 1.25F, 1F)
-//                        ObjectAnimator.ofPropertyValuesHolder(it, scaleX, scaleY).apply {
-//                            duration = 500
-//                            repeatCount = 100
-//                            interpolator = BounceInterpolator()
-//                        }.start()
-//                        onPostInteractionListener.onLikePost(post)
-//                    }
-//                }
+
+            buttonLikeCardPost.setOnClickListener {
+                onPostInteractionListener.onLikePost(post)
+                buttonLikeCardPost.setOnClickListener {
+                    val scaleX = PropertyValuesHolder.ofFloat(SCALE_X, 1F, 1.25F, 1F)
+                    val scaleY = PropertyValuesHolder.ofFloat(SCALE_Y, 1F, 1.25F, 1F)
+                    ObjectAnimator.ofPropertyValuesHolder(it, scaleX, scaleY).apply {
+                        duration = 500
+                        repeatCount = 100
+                        interpolator = BounceInterpolator()
+                    }.start()
+                    onPostInteractionListener.onLikePost(post)
+                }
+            }
 //
 //                share.setOnClickListener {
 //                    onPostInteractionListener.onSharePost(post)

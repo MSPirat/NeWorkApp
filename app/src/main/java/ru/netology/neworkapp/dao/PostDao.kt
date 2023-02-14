@@ -36,4 +36,20 @@ interface PostDao {
 
     @Query("DELETE FROM PostEntity")
     suspend fun removeAll()
+
+    @Query(
+        """
+        UPDATE PostEntity SET `likeOwnerIds` = `likeOwnerIds`+ 1, likedByMe = 1
+        WHERE id = :id AND likedByMe = 0;
+    """,
+    )
+    suspend fun likeById(id: Long)
+
+    @Query(
+        """
+        UPDATE PostEntity SET `likeOwnerIds` = `likeOwnerIds`- 1, likedByMe = 0
+        WHERE id = :id AND likedByMe = 1;
+    """,
+    )
+    suspend fun unlikeById(id: Long)
 }

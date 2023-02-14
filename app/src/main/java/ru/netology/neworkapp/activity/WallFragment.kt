@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -57,6 +58,17 @@ class WallFragment : Fragment() {
 
             override fun onRemovePost(post: Post) {
                 postViewModel.removeById(post.id)
+            }
+
+            override fun onLikePost(post: Post) {
+                if (authViewModel.authorized) {
+                    if (!post.likedByMe)
+                        postViewModel.likeById(post.id)
+                    else postViewModel.unlikeById(post.id)
+                } else {
+                    Toast.makeText(activity, R.string.error_auth, Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
         })
 

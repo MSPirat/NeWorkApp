@@ -50,7 +50,10 @@ class PostViewModel @Inject constructor(
             .flatMapLatest { (myId, _) ->
                 cached.map { pagingData ->
                     pagingData.map { post ->
-                        post.copy(ownedByMe = post.authorId == myId)
+                        post.copy(
+                            ownedByMe = post.authorId == myId,
+                            likedByMe = post.likeOwnerIds.contains(myId)
+                        )
                     }
                 }
             }
@@ -119,6 +122,22 @@ class PostViewModel @Inject constructor(
 
     fun edit(post: Post) {
         edited.value = post
+    }
+
+    fun likeById(id: Long) = viewModelScope.launch {
+        try {
+            postRepository.likeById(id)
+        } catch (e: Exception) {
+            _dataState.value = StateModel(error = true)
+        }
+    }
+
+    fun unlikeById(id: Long) = viewModelScope.launch {
+        try {
+            postRepository.unlikeById(id)
+        } catch (e: Exception) {
+            _dataState.value = StateModel(error = true)
+        }
     }
 
     override fun onCleared() {

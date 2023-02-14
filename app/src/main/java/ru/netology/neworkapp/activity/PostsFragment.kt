@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
@@ -27,7 +27,7 @@ import ru.netology.neworkapp.viewmodel.PostViewModel
 class PostsFragment : Fragment() {
 
     private val postViewModel by activityViewModels<PostViewModel>()
-    private val authViewModel by viewModels<AuthViewModel>()
+    private val authViewModel by activityViewModels<AuthViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,11 +50,22 @@ class PostsFragment : Fragment() {
                     putString("content", post.content)
                 }
                 findNavController()
-                    .navigate(R.id.action_nav_posts_to_nav_new_post_fragment, bundle)
+                    .navigate(R.id.nav_new_post_fragment, bundle)
             }
 
             override fun onRemovePost(post: Post) {
                 postViewModel.removeById(post.id)
+            }
+
+            override fun onLikePost(post: Post) {
+                if (authViewModel.authorized) {
+                    if (!post.likedByMe)
+                        postViewModel.likeById(post.id)
+                    else postViewModel.unlikeById(post.id)
+                } else {
+                    Toast.makeText(activity, R.string.error_auth, Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
         })
 

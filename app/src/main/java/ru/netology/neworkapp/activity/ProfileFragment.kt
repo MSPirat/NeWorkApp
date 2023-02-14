@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
@@ -16,13 +15,17 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.netology.neworkapp.R
 import ru.netology.neworkapp.adapter.UserProfileAdapter
 import ru.netology.neworkapp.databinding.FragmentProfileBinding
+import ru.netology.neworkapp.dto.Post
 import ru.netology.neworkapp.viewmodel.AuthViewModel
+import ru.netology.neworkapp.viewmodel.PostViewModel
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
 
     private val authViewModel by activityViewModels<AuthViewModel>()
+
+    private val postViewModel by activityViewModels<PostViewModel>()
 
     private val profileTitles = arrayOf(
         R.string.title_posts,
@@ -82,6 +85,7 @@ class ProfileFragment : Fragment() {
         }
 
         binding.fabAddPost.setOnClickListener {
+            postViewModel.edit(Post.emptyPost)
             findNavController().navigate(R.id.action_nav_profile_to_new_post_fragment)
         }
 

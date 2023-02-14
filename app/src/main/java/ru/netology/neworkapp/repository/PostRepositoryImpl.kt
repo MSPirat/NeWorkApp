@@ -109,4 +109,38 @@ class PostRepositoryImpl @Inject constructor(
             throw UnknownError()
         }
     }
+
+    override suspend fun likeById(id: Long) {
+        try {
+            postDao.likeById(id)
+            val response = postApiService.likeById(id)
+            if (!response.isSuccessful) {
+                throw ApiError(response.message())
+            }
+            val body = response.body() ?: throw ApiError(response.message())
+
+            postDao.insertPost(PostEntity.fromDto(body))
+        } catch (e: IOException) {
+            throw NetworkError
+        } catch (e: Exception) {
+            throw UnknownError()
+        }
+    }
+
+    override suspend fun unlikeById(id: Long) {
+        try {
+            postDao.unlikeById(id)
+            val response = postApiService.unlikeById(id)
+            if (!response.isSuccessful) {
+                throw ApiError(response.message())
+            }
+            val body = response.body() ?: throw ApiError(response.message())
+
+            postDao.insertPost(PostEntity.fromDto(body))
+        } catch (e: IOException) {
+            throw NetworkError
+        } catch (e: Exception) {
+            throw UnknownError()
+        }
+    }
 }
