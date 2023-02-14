@@ -1,7 +1,5 @@
 package ru.netology.neworkapp.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.map
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,7 +21,10 @@ class WallViewModel @Inject constructor(
         .flatMapLatest { (myId, _) ->
             wallRepository.loadUserWall(id).map { pagingData ->
                 pagingData.map { post ->
-                    post.copy(ownedByMe = post.authorId == myId)
+                    post.copy(
+                        ownedByMe = post.authorId == myId,
+                        likedByMe = post.likeOwnerIds.contains(myId)
+                    )
                 }
             }
         }
