@@ -11,18 +11,18 @@ import ru.netology.neworkapp.R
 import ru.netology.neworkapp.databinding.CardUserBinding
 import ru.netology.neworkapp.dto.User
 
-interface UserCallback {
+interface OnUserInteractionListener {
     fun openProfile(user: User)
 }
 
-class UserAdapter(private val userCallback: UserCallback) :
+class UserAdapter(private val onUserInteractionListener: OnUserInteractionListener) :
     ListAdapter<User, UserViewHolder>(UserDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val binding = CardUserBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
-        return UserViewHolder(binding, userCallback)
+        return UserViewHolder(binding, onUserInteractionListener)
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
@@ -33,7 +33,7 @@ class UserAdapter(private val userCallback: UserCallback) :
 
 class UserViewHolder(
     private val binding: CardUserBinding,
-    private val userCallback: UserCallback,
+    private val onUserInteractionListener: OnUserInteractionListener,
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(user: User) {
@@ -46,7 +46,7 @@ class UserViewHolder(
                 .into(userAvatarCard)
 
             userView.setOnClickListener {
-                userCallback.openProfile(user)
+                onUserInteractionListener.openProfile(user)
             }
         }
     }

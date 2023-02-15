@@ -67,6 +67,19 @@ class PostsFragment : Fragment() {
                         .show()
                 }
             }
+
+            override fun onMentionPost(post: Post) {
+                if (authViewModel.authorized) {
+                    postViewModel.edit(post)
+                    val bundle = Bundle().apply {
+                        putString("open", "mention")
+                    }
+                    findNavController().navigate(R.id.nav_users, bundle)
+                } else {
+                    Toast.makeText(activity, R.string.error_auth, Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
         })
 
         binding.recyclerViewContainerFragmentPosts.adapter =

@@ -52,4 +52,12 @@ interface PostDao {
     """,
     )
     suspend fun unlikeById(id: Long)
+
+    @Query(
+        """
+            UPDATE PostEntity SET `mentionIds` = `mentionIds` + 1
+            WHERE id = :id;
+        """,
+    )
+    suspend fun mentionById(id: Long)
 }

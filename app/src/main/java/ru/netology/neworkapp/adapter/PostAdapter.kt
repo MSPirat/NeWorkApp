@@ -4,7 +4,6 @@ import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
 import android.os.Build
 import android.view.LayoutInflater
-import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
 import android.view.animation.BounceInterpolator
@@ -26,6 +25,7 @@ interface OnPostInteractionListener {
     fun onEditPost(post: Post) {}
     fun onRemovePost(post: Post) {}
     fun onLikePost(post: Post) {}
+    fun onMentionPost(post: Post) {}
 //    fun onSharePost(post: Post) {}
 //    fun onOpenImage(image: String) {}
 }
@@ -88,6 +88,9 @@ class PostViewHolder(
             textViewContentCardPost.text = post.content
             buttonLikeCardPost.isChecked = post.likedByMe
             checkboxLikesSumCardPost.text = post.likeOwnerIds.count().toString()
+            buttonMentionCardPost.isChecked = post.mentionedMe
+            buttonMentionCardPost.text = post.mentionIds.count().toString()
+
 
             imageViewAttachmentImageCardPost.visibility =
                 if (post.attachment != null && post.attachment.type == IMAGE) VISIBLE else GONE
@@ -148,6 +151,10 @@ class PostViewHolder(
                     }.start()
                     onPostInteractionListener.onLikePost(post)
                 }
+            }
+
+            buttonMentionCardPost.setOnClickListener {
+                onPostInteractionListener.onMentionPost(post)
             }
 //
 //                share.setOnClickListener {

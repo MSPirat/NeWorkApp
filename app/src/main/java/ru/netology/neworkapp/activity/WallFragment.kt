@@ -31,7 +31,6 @@ class WallFragment : Fragment() {
     private val wallViewModel by activityViewModels<WallViewModel>()
     private val authViewModel by activityViewModels<AuthViewModel>()
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -65,6 +64,19 @@ class WallFragment : Fragment() {
                     if (!post.likedByMe)
                         postViewModel.likeById(post.id)
                     else postViewModel.unlikeById(post.id)
+                } else {
+                    Toast.makeText(activity, R.string.error_auth, Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+
+            override fun onMentionPost(post: Post) {
+                if (authViewModel.authorized) {
+                    postViewModel.edit(post)
+                    val bundle = Bundle().apply {
+                        putString("open", "mention")
+                    }
+                    findNavController().navigate(R.id.nav_users, bundle)
                 } else {
                     Toast.makeText(activity, R.string.error_auth, Toast.LENGTH_SHORT)
                         .show()
