@@ -1,5 +1,6 @@
 package ru.netology.neworkapp.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -79,6 +80,16 @@ class PostsFragment : Fragment() {
                     Toast.makeText(activity, R.string.error_auth, Toast.LENGTH_SHORT)
                         .show()
                 }
+            }
+
+            override fun onSharePost(post: Post) {
+                val intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, post.content)
+                    type = "text/plain"
+                }
+                val shareIntent = Intent.createChooser(intent, "Share post")
+                startActivity(shareIntent)
             }
         })
 

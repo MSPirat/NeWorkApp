@@ -26,7 +26,7 @@ interface OnPostInteractionListener {
     fun onRemovePost(post: Post) {}
     fun onLikePost(post: Post) {}
     fun onMentionPost(post: Post) {}
-//    fun onSharePost(post: Post) {}
+    fun onSharePost(post: Post) {}
 //    fun onOpenImage(image: String) {}
 }
 
@@ -90,7 +90,6 @@ class PostViewHolder(
             checkboxLikesSumCardPost.text = post.likeOwnerIds.count().toString()
             buttonMentionCardPost.isChecked = post.mentionedMe
             buttonMentionCardPost.text = post.mentionIds.count().toString()
-
 
             imageViewAttachmentImageCardPost.visibility =
                 if (post.attachment != null && post.attachment.type == IMAGE) VISIBLE else GONE
@@ -156,10 +155,10 @@ class PostViewHolder(
             buttonMentionCardPost.setOnClickListener {
                 onPostInteractionListener.onMentionPost(post)
             }
-//
-//                share.setOnClickListener {
-//                    onPostInteractionListener.onSharePost(post)
-//                }
+
+            buttonShareCardPost.setOnClickListener {
+                onPostInteractionListener.onSharePost(post)
+            }
 //
 //                attachment.setOnClickListener {
 //                    post.attachment?.let { attach ->

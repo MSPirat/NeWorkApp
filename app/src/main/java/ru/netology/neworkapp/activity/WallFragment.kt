@@ -1,5 +1,6 @@
 package ru.netology.neworkapp.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -77,6 +78,21 @@ class WallFragment : Fragment() {
                         putString("open", "mention")
                     }
                     findNavController().navigate(R.id.nav_users, bundle)
+                } else {
+                    Toast.makeText(activity, R.string.error_auth, Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+
+            override fun onSharePost(post: Post) {
+                if (authViewModel.authorized) {
+                    val intent = Intent().apply {
+                        action = Intent.ACTION_SEND
+                        putExtra(Intent.EXTRA_TEXT, post.content)
+                        type = "text/plain"
+                    }
+                    val shareIntent = Intent.createChooser(intent, "Share post")
+                    startActivity(shareIntent)
                 } else {
                     Toast.makeText(activity, R.string.error_auth, Toast.LENGTH_SHORT)
                         .show()
