@@ -3,6 +3,7 @@ package ru.netology.neworkapp.activity
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -90,10 +91,6 @@ class NewPostFragment : Fragment() {
             postViewModel.changePhoto(null)
         }
 
-        postViewModel.postCreated.observe(viewLifecycleOwner) {
-            findNavController().navigateUp()
-        }
-
         postViewModel.photo.observe(viewLifecycleOwner) {
             if (it?.uri == null) {
                 binding.frameLayoutPhotoFragmentNewPost.visibility = View.GONE
@@ -101,6 +98,10 @@ class NewPostFragment : Fragment() {
             }
             binding.frameLayoutPhotoFragmentNewPost.visibility = View.VISIBLE
             binding.imageViewPhotoFragmentNewPost.setImageURI(it.uri)
+        }
+
+        postViewModel.postCreated.observe(viewLifecycleOwner) {
+            findNavController().navigateUp()
         }
 
         requireActivity().addMenuProvider(object : MenuProvider {
@@ -111,11 +112,22 @@ class NewPostFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean =
                 when (menuItem.itemId) {
                     R.id.save -> {
-                        postViewModel.changeContent(
-                            binding.editTextFragmentNewPost.text.toString()
-                        )
-                        postViewModel.save()
-                        AndroidUtils.hideKeyboard(requireView())
+                        fragmentNewPostBinding?.let {
+                            if (it.editTextFragmentNewPost.text.isNullOrBlank()) {
+                                Toast.makeText(
+                                    activity,
+                                    R.string.error_empty_content,
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                            } else {
+                                postViewModel.changeContent(
+                                    binding.editTextFragmentNewPost.text.toString()
+                                )
+                                postViewModel.save()
+                                AndroidUtils.hideKeyboard(requireView())
+                            }
+                        }
                         true
                     }
                     else -> false
