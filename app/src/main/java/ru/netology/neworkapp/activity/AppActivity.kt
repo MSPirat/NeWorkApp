@@ -72,7 +72,6 @@ class AppActivity : AppCompatActivity() {
                 R.id.nav_posts,
                 R.id.nav_users,
                 R.id.nav_events,
-                R.id.nav_profile
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -144,6 +143,9 @@ class AppActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            android.R.id.home -> {
+                findNavController(R.id.nav_host_fragment_activity_app).navigateUp()
+            }
             R.id.sign_in -> {
                 findNavController(R.id.nav_host_fragment_activity_app)
                     .navigate(R.id.nav_sign_in_fragment)

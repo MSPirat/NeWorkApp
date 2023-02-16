@@ -13,7 +13,7 @@ import ru.netology.neworkapp.utils.Converters
         PostRemoteKeyEntity::class,
         UserEntity::class,
     ],
-    version = 7,
+    version = 8,
     exportSchema = false
 )
 

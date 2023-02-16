@@ -13,6 +13,7 @@
     <string name="title_job">Место работы</string>
     <string name="title_new_post">Новый пост</string>
     <string name="title_wall">Стена</string>
+    <string name="title_bottom_sheet">Нижняя панель</string>
     <string name="sign_login">Логин</string>
     <string name="sign_password">Пароль</string>
     <string name="sign_repeat_password">Повтор пароля</string>

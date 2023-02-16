@@ -22,6 +22,7 @@ import ru.netology.neworkapp.databinding.FragmentPostsBinding
 import ru.netology.neworkapp.dto.Post
 import ru.netology.neworkapp.viewmodel.AuthViewModel
 import ru.netology.neworkapp.viewmodel.PostViewModel
+import ru.netology.neworkapp.viewmodel.UserViewModel
 
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
@@ -29,6 +30,7 @@ class PostsFragment : Fragment() {
 
     private val postViewModel by activityViewModels<PostViewModel>()
     private val authViewModel by activityViewModels<AuthViewModel>()
+    private val userViewModel by activityViewModels<UserViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -90,6 +92,16 @@ class PostsFragment : Fragment() {
                 }
                 val shareIntent = Intent.createChooser(intent, "Share post")
                 startActivity(shareIntent)
+            }
+
+            override fun onOpenLikers(post: Post) {
+                userViewModel.getLikeOwnerIds(post)
+                findNavController().navigate(R.id.action_nav_posts_to_nav_bottom_sheet_fragment)
+            }
+
+            override fun onOpenMentions(post: Post) {
+                userViewModel.getMentionIds(post)
+                findNavController().navigate(R.id.action_nav_posts_to_nav_bottom_sheet_fragment)
             }
         })
 

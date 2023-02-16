@@ -27,6 +27,8 @@ interface OnPostInteractionListener {
     fun onLikePost(post: Post) {}
     fun onMentionPost(post: Post) {}
     fun onSharePost(post: Post) {}
+    fun onOpenLikers(post: Post) {}
+    fun onOpenMentions(post: Post) {}
 //    fun onOpenImage(image: String) {}
 }
 
@@ -158,6 +160,14 @@ class PostViewHolder(
 
             buttonShareCardPost.setOnClickListener {
                 onPostInteractionListener.onSharePost(post)
+            }
+
+            checkboxLikesSumCardPost.setOnClickListener {
+                onPostInteractionListener.onOpenLikers(post)
+            }
+
+            checkboxMentionsSumCardPost.setOnClickListener {
+                onPostInteractionListener.onOpenMentions(post)
             }
 //
 //                attachment.setOnClickListener {

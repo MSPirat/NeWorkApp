@@ -37,8 +37,6 @@ class UsersFragment : Fragment() {
             false
         )
 
-        userViewModel.getUsers()
-
         val open = arguments?.getString("open")
 
         val adapter = UserAdapter(object : OnUserInteractionListener {
