@@ -10,6 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import ru.netology.neworkapp.BuildConfig
+import ru.netology.neworkapp.api.EventApiService
 import ru.netology.neworkapp.api.PostApiService
 import ru.netology.neworkapp.api.UserApiService
 import ru.netology.neworkapp.api.WallApiService
@@ -68,6 +69,12 @@ class ApiModule {
     fun providePostApiService(
         retrofit: Retrofit,
     ): PostApiService = retrofit.create()
+
+    @Provides
+    @Singleton
+    fun provideEventApiService(
+        retrofit: Retrofit,
+    ): EventApiService = retrofit.create()
 
     @Provides
     @Singleton

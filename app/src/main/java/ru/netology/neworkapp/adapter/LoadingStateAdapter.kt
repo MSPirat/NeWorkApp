@@ -8,25 +8,25 @@ import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.neworkapp.databinding.ItemLoadingBinding
 
-class PostLoadingStateAdapter(
+class LoadingStateAdapter(
     private val retryListener: () -> Unit,
-) : LoadStateAdapter<PostLoadingViewHolder>() {
+) : LoadStateAdapter<LoadingViewHolder>() {
 
-    override fun onBindViewHolder(holder: PostLoadingViewHolder, loadState: LoadState) {
+    override fun onBindViewHolder(holder: LoadingViewHolder, loadState: LoadState) {
         holder.bind(loadState)
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         loadState: LoadState,
-    ): PostLoadingViewHolder =
-        PostLoadingViewHolder(
+    ): LoadingViewHolder =
+        LoadingViewHolder(
             ItemLoadingBinding.inflate(LayoutInflater.from(parent.context), parent, false),
             retryListener
         )
 }
 
-class PostLoadingViewHolder(
+class LoadingViewHolder(
     private val itemLoadingBinding: ItemLoadingBinding,
     private val retryListener: () -> Unit,
 ) : RecyclerView.ViewHolder(itemLoadingBinding.root) {

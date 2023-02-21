@@ -35,6 +35,16 @@ object DbModule {
     ): PostRemoteKeyDao = appDb.postRemoteKeyDao()
 
     @Provides
+    fun provideEventDao(
+        appDb: AppDb,
+    ): EventDao = appDb.eventDao()
+
+    @Provides
+    fun provideEventRemoteKeyDao(
+        appDb: AppDb,
+    ): EventRemoteKeyDao = appDb.eventRemoteKeyDao()
+
+    @Provides
     fun provideUserDao(
         appDb: AppDb,
     ): UserDao = appDb.userDao()

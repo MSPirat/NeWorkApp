@@ -16,8 +16,10 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.netology.neworkapp.R
 import ru.netology.neworkapp.adapter.UserProfileAdapter
 import ru.netology.neworkapp.databinding.FragmentProfileBinding
+import ru.netology.neworkapp.dto.Event
 import ru.netology.neworkapp.dto.Post
 import ru.netology.neworkapp.viewmodel.AuthViewModel
+import ru.netology.neworkapp.viewmodel.EventViewModel
 import ru.netology.neworkapp.viewmodel.PostViewModel
 
 @ExperimentalCoroutinesApi
@@ -27,6 +29,8 @@ class ProfileFragment : Fragment() {
     private val authViewModel by activityViewModels<AuthViewModel>()
 
     private val postViewModel by activityViewModels<PostViewModel>()
+
+    private val eventViewModel by activityViewModels<EventViewModel>()
 
     private val profileTitles = arrayOf(
         R.string.title_posts,
@@ -90,6 +94,11 @@ class ProfileFragment : Fragment() {
         binding.fabAddPost.setOnClickListener {
             postViewModel.edit(Post.emptyPost)
             findNavController().navigate(R.id.action_nav_profile_to_new_post_fragment)
+        }
+
+        binding.fabAddEvent.setOnClickListener {
+            eventViewModel.edit(Event.emptyEvent)
+            findNavController().navigate(R.id.action_nav_profile_to_new_event_fragment)
         }
 
         return binding.root

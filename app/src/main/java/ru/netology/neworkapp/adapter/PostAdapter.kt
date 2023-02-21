@@ -91,7 +91,7 @@ class PostViewHolder(
             buttonLikeCardPost.isChecked = post.likedByMe
             checkboxLikesSumCardPost.text = post.likeOwnerIds.count().toString()
             buttonMentionCardPost.isChecked = post.mentionedMe
-            buttonMentionCardPost.text = post.mentionIds.count().toString()
+            checkboxMentionsSumCardPost.text = post.mentionIds.count().toString()
 
             imageViewAttachmentImageCardPost.visibility =
                 if (post.attachment != null && post.attachment.type == IMAGE) VISIBLE else GONE
@@ -140,19 +140,19 @@ class PostViewHolder(
                 }.show()
             }
 
+//            buttonLikeCardPost.setOnClickListener {
+//                onPostInteractionListener.onLikePost(post)
             buttonLikeCardPost.setOnClickListener {
+                val scaleX = PropertyValuesHolder.ofFloat(SCALE_X, 1F, 1.25F, 1F)
+                val scaleY = PropertyValuesHolder.ofFloat(SCALE_Y, 1F, 1.25F, 1F)
+                ObjectAnimator.ofPropertyValuesHolder(it, scaleX, scaleY).apply {
+                    duration = 500
+                    repeatCount = 100
+                    interpolator = BounceInterpolator()
+                }.start()
                 onPostInteractionListener.onLikePost(post)
-                buttonLikeCardPost.setOnClickListener {
-                    val scaleX = PropertyValuesHolder.ofFloat(SCALE_X, 1F, 1.25F, 1F)
-                    val scaleY = PropertyValuesHolder.ofFloat(SCALE_Y, 1F, 1.25F, 1F)
-                    ObjectAnimator.ofPropertyValuesHolder(it, scaleX, scaleY).apply {
-                        duration = 500
-                        repeatCount = 100
-                        interpolator = BounceInterpolator()
-                    }.start()
-                    onPostInteractionListener.onLikePost(post)
-                }
             }
+//            }
 
             buttonMentionCardPost.setOnClickListener {
                 onPostInteractionListener.onMentionPost(post)

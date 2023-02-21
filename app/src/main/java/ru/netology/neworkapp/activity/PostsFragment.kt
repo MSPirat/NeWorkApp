@@ -16,7 +16,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import ru.netology.neworkapp.R
 import ru.netology.neworkapp.adapter.OnPostInteractionListener
-import ru.netology.neworkapp.adapter.PostLoadingStateAdapter
+import ru.netology.neworkapp.adapter.LoadingStateAdapter
 import ru.netology.neworkapp.adapter.PostsAdapter
 import ru.netology.neworkapp.databinding.FragmentPostsBinding
 import ru.netology.neworkapp.dto.Post
@@ -90,7 +90,7 @@ class PostsFragment : Fragment() {
                     putExtra(Intent.EXTRA_TEXT, post.content)
                     type = "text/plain"
                 }
-                val shareIntent = Intent.createChooser(intent, "Share post")
+                val shareIntent = Intent.createChooser(intent, "Share Post")
                 startActivity(shareIntent)
             }
 
@@ -107,10 +107,10 @@ class PostsFragment : Fragment() {
 
         binding.recyclerViewContainerFragmentPosts.adapter =
             adapter.withLoadStateHeaderAndFooter(
-                header = PostLoadingStateAdapter {
+                header = LoadingStateAdapter {
                     adapter.retry()
                 },
-                footer = PostLoadingStateAdapter {
+                footer = LoadingStateAdapter {
                     adapter.retry()
                 }
             )

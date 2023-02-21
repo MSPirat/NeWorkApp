@@ -2,6 +2,7 @@ package ru.netology.neworkapp.utils
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -16,4 +17,16 @@ fun formatToDate(value: String): String {
         .withZone(ZoneId.systemDefault())
 
     return transformation.format(Instant.parse(value))
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
+fun formatToInstant(value: String): String {
+    val datetime = SimpleDateFormat(
+        "yyyy-MM-dd HH-mm",
+        Locale.getDefault()
+    )
+        .parse(value)
+    val transformation = DateTimeFormatter.ISO_INSTANT
+
+    return transformation.format(datetime?.toInstant())
 }
