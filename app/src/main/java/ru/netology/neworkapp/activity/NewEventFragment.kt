@@ -1,9 +1,5 @@
 package ru.netology.neworkapp.activity
 
-import android.app.DatePickerDialog
-import android.app.DatePickerDialog.OnDateSetListener
-import android.app.TimePickerDialog
-import android.app.TimePickerDialog.OnTimeSetListener
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -21,11 +17,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.netology.neworkapp.R
 import ru.netology.neworkapp.databinding.FragmentNewEventBinding
-import ru.netology.neworkapp.utils.AndroidUtils
-import ru.netology.neworkapp.utils.StringArg
-import ru.netology.neworkapp.utils.formatToInstant
+import ru.netology.neworkapp.utils.*
 import ru.netology.neworkapp.viewmodel.EventViewModel
-import java.text.SimpleDateFormat
 import java.util.*
 
 @ExperimentalCoroutinesApi
@@ -40,8 +33,6 @@ class NewEventFragment : Fragment() {
 
     private var fragmentNewEventBinding: FragmentNewEventBinding? = null
 
-    private val calendar = Calendar.getInstance()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,6 +43,18 @@ class NewEventFragment : Fragment() {
             container,
             false
         )
+
+        binding.editTextDateFragmentNewEvent.setOnClickListener {
+            context?.let { item ->
+                it.pickDate(binding.editTextDateFragmentNewEvent, item)
+            }
+        }
+
+        binding.editTextTimeFragmentNewEvent.setOnClickListener {
+            context?.let { item ->
+                it.pickTime(binding.editTextTimeFragmentNewEvent, item)
+            }
+        }
 
         fragmentNewEventBinding = binding
 
@@ -111,50 +114,12 @@ class NewEventFragment : Fragment() {
             binding.imageViewPhotoFragmentNewEvent.setImageURI(it.uri)
         }
 
-        val datePicker = OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-            calendar[Calendar.YEAR] = year
-            calendar[Calendar.MONTH] = monthOfYear
-            calendar[Calendar.DAY_OF_MONTH] = dayOfMonth
 
-            binding.editTextDateFragmentNewEvent.setText(
-                SimpleDateFormat("yyyy-MM-dd", Locale.ROOT)
-                    .format(calendar.time)
-            )
-        }
 
-        binding.editTextDateFragmentNewEvent.setOnClickListener {
-            context?.let {
-                DatePickerDialog(
-                    it,
-                    datePicker,
-                    calendar[Calendar.YEAR],
-                    calendar[Calendar.MONTH],
-                    calendar[Calendar.DAY_OF_MONTH]
-                )
-                    .show()
-            }
-        }
 
-        val timePicker = OnTimeSetListener { _, hourOfDay, minute ->
-            calendar[Calendar.HOUR_OF_DAY] = hourOfDay
-            calendar[Calendar.MINUTE] = minute
 
-            binding.editTextTimeFragmentNewEvent.setText(
-                SimpleDateFormat("HH-mm", Locale.ROOT)
-                    .format(calendar.time)
-            )
-        }
 
-        binding.editTextTimeFragmentNewEvent.setOnClickListener {
-            TimePickerDialog(
-                context,
-                timePicker,
-                calendar.get(Calendar.HOUR_OF_DAY),
-                calendar.get(Calendar.MINUTE),
-                true
-            )
-                .show()
-        }
+
 
         eventViewModel.eventCreated.observe(viewLifecycleOwner) {
             findNavController().navigateUp()
