@@ -65,7 +65,7 @@ class EventViewModel @Inject constructor(
                 }
             }
 
-    private val edited = MutableLiveData(empty)
+    val edited = MutableLiveData(empty)
 
     private val _dataState = MutableLiveData<StateModel>()
     val dataState: LiveData<StateModel>

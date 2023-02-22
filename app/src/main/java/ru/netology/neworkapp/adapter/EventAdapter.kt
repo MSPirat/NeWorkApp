@@ -46,13 +46,6 @@ class EventAdapter(
         return EventViewHolder(binding, onEventInteractionListener)
     }
 
-    //    @RequiresApi(Build.VERSION_CODES.O)
-//    override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-//        when (val item = getItem(position)) {
-//            is Post -> (holder as? PostViewHolder)?.bind(item)
-//            null -> error("Unknown item type")
-//        }
-//    }
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
         getItem(position)?.let {

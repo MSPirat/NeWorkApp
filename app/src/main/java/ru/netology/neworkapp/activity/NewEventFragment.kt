@@ -33,6 +33,7 @@ class NewEventFragment : Fragment() {
 
     private var fragmentNewEventBinding: FragmentNewEventBinding? = null
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -43,6 +44,25 @@ class NewEventFragment : Fragment() {
             container,
             false
         )
+
+        fragmentNewEventBinding = binding
+
+        arguments?.textArg
+            ?.let(binding.editTextFragmentNewEvent::setText)
+
+        binding.editTextFragmentNewEvent.requestFocus()
+
+        val datetime = arguments?.getString("datetime")?.let {
+            formatToDate(it)
+        }
+        val date = datetime?.substring(0, 10)
+        val time = datetime?.substring(11)
+
+        binding.editTextFragmentNewEvent.setText(
+            arguments?.getString("content")
+        )
+        binding.editTextDateFragmentNewEvent.setText(date)
+        binding.editTextTimeFragmentNewEvent.setText(time)
 
         binding.editTextDateFragmentNewEvent.setOnClickListener {
             context?.let { item ->
@@ -56,12 +76,18 @@ class NewEventFragment : Fragment() {
             }
         }
 
-        fragmentNewEventBinding = binding
+        binding.buttonAddSpeakersFragmentNewEvent.setOnClickListener {
+            val bundle = Bundle().apply {
+                putString("open", "speaker")
+            }
+            findNavController().navigate(R.id.nav_users, bundle)
+        }
 
-        arguments?.textArg
-            ?.let(binding.editTextFragmentNewEvent::setText)
-
-        binding.editTextFragmentNewEvent.requestFocus()
+        eventViewModel.edited.observe(viewLifecycleOwner) {
+            binding.buttonAddSpeakersFragmentNewEvent.apply {
+                "$text${eventViewModel.edited.value?.speakerIds?.count().toString()}".also { text = it }
+            }
+        }
 
         val photoLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -113,13 +139,6 @@ class NewEventFragment : Fragment() {
             binding.frameLayoutPhotoFragmentNewEvent.visibility = View.VISIBLE
             binding.imageViewPhotoFragmentNewEvent.setImageURI(it.uri)
         }
-
-
-
-
-
-
-
 
         eventViewModel.eventCreated.observe(viewLifecycleOwner) {
             findNavController().navigateUp()

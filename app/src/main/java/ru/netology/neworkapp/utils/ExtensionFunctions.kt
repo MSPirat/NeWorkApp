@@ -44,7 +44,7 @@ fun View.pickTime(editText: EditText, context: Context) {
         calendar[Calendar.MINUTE] = minute
 
         editText.setText(
-            SimpleDateFormat("HH-mm", Locale.ROOT)
+            SimpleDateFormat("HH:mm", Locale.ROOT)
                 .format(calendar.time)
         )
     }
@@ -72,7 +72,7 @@ fun formatToDate(value: String): String {
 @RequiresApi(Build.VERSION_CODES.O)
 fun formatToInstant(value: String): String {
     val datetime = SimpleDateFormat(
-        "yyyy-MM-dd HH-mm",
+        "yyyy-MM-dd HH:mm",
         Locale.getDefault()
     )
         .parse(value)
