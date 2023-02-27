@@ -35,7 +35,8 @@ private val empty = Event(
     content = "",
     published = "2023-01-27T17:00:00.000Z",
     datetime = "2023-01-27T17:00:00.000Z",
-    type = EventType.ONLINE
+    type = EventType.ONLINE,
+    speakerIds = emptySet()
 )
 
 private val noPhoto = PhotoModel()
@@ -109,13 +110,20 @@ class EventViewModel @Inject constructor(
     fun changeContent(content: String, date: String) {
         edited.value?.let {
             val text = content.trim()
-            val dateText = content.trim()
 
             if (edited.value?.content != text) {
                 edited.value = edited.value?.copy(content = text)
             }
             if (edited.value?.datetime != date)
-                edited.value = edited.value?.copy(datetime = dateText)
+                edited.value = edited.value?.copy(datetime = date)
+        }
+    }
+
+    fun setSpeaker(id: Long) {
+        if (edited.value?.speakerIds?.contains(id) == false) {
+            edited.value = edited.value?.speakerIds?.plus(id)?.let {
+                edited.value?.copy(speakerIds = it)
+            }
         }
     }
 
@@ -166,7 +174,6 @@ class EventViewModel @Inject constructor(
             _dataState.value = StateModel(error = true)
         }
     }
-
 
     override fun onCleared() {
         super.onCleared()

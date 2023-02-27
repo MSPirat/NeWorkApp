@@ -16,6 +16,7 @@ import ru.netology.neworkapp.adapter.UserAdapter
 import ru.netology.neworkapp.adapter.OnUserInteractionListener
 import ru.netology.neworkapp.databinding.FragmentUsersBinding
 import ru.netology.neworkapp.dto.User
+import ru.netology.neworkapp.viewmodel.EventViewModel
 import ru.netology.neworkapp.viewmodel.PostViewModel
 import ru.netology.neworkapp.viewmodel.UserViewModel
 
@@ -25,6 +26,8 @@ class UsersFragment : Fragment() {
 
     private val userViewModel by viewModels<UserViewModel>()
     private val postViewModel by activityViewModels<PostViewModel>()
+    private val eventViewModel by activityViewModels<EventViewModel>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,20 +44,28 @@ class UsersFragment : Fragment() {
 
         val adapter = UserAdapter(object : OnUserInteractionListener {
             override fun openProfile(user: User) {
-                if (open == "mention") {
-                    postViewModel.changeMentionIds(user.id)
-                    postViewModel.save()
-                    findNavController().navigateUp()
-                } else {
-                    userViewModel.getUserById(user.id)
-                    val bundle = Bundle().apply {
-                        putLong("id", user.id)
-                        putString("avatar", user.avatar)
-                        putString("name", user.name)
+                when (open) {
+                    "mention" -> {
+                        postViewModel.changeMentionIds(user.id)
+                        postViewModel.save()
+                        findNavController().navigateUp()
                     }
-                    findNavController().apply {
-                        this.popBackStack(R.id.nav_users, true)
-                        this.navigate(R.id.nav_profile, bundle)
+                    "speaker" -> {
+                        eventViewModel.setSpeaker(user.id)
+                        findNavController().navigateUp()
+                    }
+                    else -> {
+                        userViewModel.getUserById(user.id)
+
+                        val bundle = Bundle().apply {
+                            putLong("id", user.id)
+                            putString("avatar", user.avatar)
+                            putString("name", user.name)
+                        }
+                        findNavController().apply {
+                            this.popBackStack(R.id.nav_users, true)
+                            this.navigate(R.id.nav_profile, bundle)
+                        }
                     }
                 }
             }
@@ -62,11 +73,13 @@ class UsersFragment : Fragment() {
 
         binding.fragmentListUsers.adapter = adapter
 
-        userViewModel.data.observe(viewLifecycleOwner) {
+        userViewModel.data.observe(viewLifecycleOwner)
+        {
             adapter.submitList(it)
         }
 
-        userViewModel.dataState.observe(viewLifecycleOwner) { state ->
+        userViewModel.dataState.observe(viewLifecycleOwner)
+        { state ->
             when {
                 state.error -> {
                     Toast.makeText(context, R.string.error_loading, Toast.LENGTH_SHORT)

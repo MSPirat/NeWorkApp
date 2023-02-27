@@ -71,7 +71,7 @@ class EventsFragment : Fragment() {
             }
 
             override fun onOpenSpeakers(event: Event) {
-                userViewModel.getSpeakerIds(event)
+                userViewModel.getUsersIds(event.speakerIds)
                 if (event.speakerIds.isEmpty()) {
                     Toast.makeText(context, R.string.no_speakers, Toast.LENGTH_SHORT)
                         .show()
@@ -117,7 +117,7 @@ class EventsFragment : Fragment() {
             }
 
             override fun onOpenLikers(event: Event) {
-                userViewModel.getLikeOwnerIds(event)
+                userViewModel.getUsersIds(event.likeOwnerIds)
                 if (event.likeOwnerIds.isEmpty()) {
                     Toast.makeText(context, R.string.no_likers, Toast.LENGTH_SHORT)
                         .show()
@@ -127,7 +127,7 @@ class EventsFragment : Fragment() {
             }
 
             override fun onOpenParticipants(event: Event) {
-                userViewModel.getParticipants(event)
+                userViewModel.getUsersIds(event.participantsIds)
                 if (event.participantsIds.isEmpty()) {
                     Toast.makeText(context, R.string.no_participants, Toast.LENGTH_SHORT)
                         .show()

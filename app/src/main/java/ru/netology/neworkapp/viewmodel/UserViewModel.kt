@@ -5,8 +5,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.netology.neworkapp.api.UserApiService
-import ru.netology.neworkapp.dto.Event
-import ru.netology.neworkapp.dto.Post
 import ru.netology.neworkapp.dto.User
 import ru.netology.neworkapp.model.StateModel
 import ru.netology.neworkapp.repository.UserRepository
@@ -60,28 +58,33 @@ class UserViewModel @Inject constructor(
         }
     }
 
-    fun getMentionIds(post: Post) =
+    fun getUsersIds(set: Set<Long>) =
         viewModelScope.launch {
-            _userIds.value = post.mentionIds
+            _userIds.value = set
         }
 
-    fun getLikeOwnerIds(post: Post) =
-        viewModelScope.launch {
-            _userIds.value = post.likeOwnerIds
-        }
-
-    fun getSpeakerIds(event: Event) =
-        viewModelScope.launch {
-            _userIds.value = event.speakerIds
-        }
-
-    fun getLikeOwnerIds(event: Event) =
-        viewModelScope.launch {
-            _userIds.value = event.likeOwnerIds
-        }
-
-    fun getParticipants(event: Event) =
-        viewModelScope.launch {
-            _userIds.value = event.participantsIds
-        }
+//    fun getMentionIds(post: Post) =
+//        viewModelScope.launch {
+//            _userIds.value = post.mentionIds
+//        }
+//
+//    fun getLikeOwnerIds(post: Post) =
+//        viewModelScope.launch {
+//            _userIds.value = post.likeOwnerIds
+//        }
+//
+//    fun getSpeakerIds(event: Event) =
+//        viewModelScope.launch {
+//            _userIds.value = event.speakerIds
+//        }
+//
+//    fun getLikeOwnerIds(event: Event) =
+//        viewModelScope.launch {
+//            _userIds.value = event.likeOwnerIds
+//        }
+//
+//    fun getParticipants(event: Event) =
+//        viewModelScope.launch {
+//            _userIds.value = event.participantsIds
+//        }
 }

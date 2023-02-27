@@ -95,12 +95,12 @@ class PostsFragment : Fragment() {
             }
 
             override fun onOpenLikers(post: Post) {
-                userViewModel.getLikeOwnerIds(post)
+                userViewModel.getUsersIds(post.likeOwnerIds)
                 findNavController().navigate(R.id.action_nav_posts_to_nav_bottom_sheet_fragment)
             }
 
             override fun onOpenMentions(post: Post) {
-                userViewModel.getMentionIds(post)
+                userViewModel.getUsersIds(post.mentionIds)
                 findNavController().navigate(R.id.action_nav_posts_to_nav_bottom_sheet_fragment)
             }
         })
