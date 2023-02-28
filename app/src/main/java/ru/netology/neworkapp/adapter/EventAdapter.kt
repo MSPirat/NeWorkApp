@@ -26,6 +26,7 @@ interface OnEventInteractionListener {
     fun onRemoveEvent(event: Event)
     fun onOpenSpeakers(event: Event)
     fun onOpenMap(event: Event)
+    fun onOpenImageAttachment(event: Event)
     fun onLikeEvent(event: Event)
     fun onParticipateEvent(event: Event)
     fun onShareEvent(event: Event)
@@ -74,7 +75,9 @@ class EventViewHolder(
             checkboxParticipantsSumCardEvent.text = event.participantsIds.count().toString()
 
             imageViewAttachmentImageCardEvent.visibility =
-                if (event.attachment != null && event.attachment.type == AttachmentType.IMAGE) View.VISIBLE else View.GONE
+                if (
+                    event.attachment != null && event.attachment.type == AttachmentType.IMAGE
+                ) View.VISIBLE else View.GONE
 
             Glide.with(itemView)
                 .load("${event.authorAvatar}")
@@ -118,6 +121,12 @@ class EventViewHolder(
                 onEventInteractionListener.onOpenSpeakers(event)
             }
 
+            imageViewAttachmentImageCardEvent.setOnClickListener {
+                event.attachment?.let {
+                    onEventInteractionListener.onOpenImageAttachment(event)
+                }
+            }
+
             buttonLocationCardEvent.visibility =
                 if (
                     event.coordinates == null ||
@@ -155,12 +164,6 @@ class EventViewHolder(
             checkboxParticipantsSumCardEvent.setOnClickListener {
                 onEventInteractionListener.onOpenParticipants(event)
             }
-//
-//                attachment.setOnClickListener {
-//                    post.attachment?.let { attach ->
-//                        onPostInteractionListener.onOpenImage(attach.url)
-//                    }
-//                }
         }
     }
 }

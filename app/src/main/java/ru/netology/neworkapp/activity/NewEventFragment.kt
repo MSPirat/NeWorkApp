@@ -1,6 +1,5 @@
 package ru.netology.neworkapp.activity
 
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.*
@@ -12,11 +11,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.netology.neworkapp.R
 import ru.netology.neworkapp.databinding.FragmentNewEventBinding
+import ru.netology.neworkapp.enumeration.AttachmentType
 import ru.netology.neworkapp.utils.*
 import ru.netology.neworkapp.viewmodel.EventViewModel
 import java.util.*
@@ -28,6 +27,8 @@ class NewEventFragment : Fragment() {
     companion object {
         var Bundle.textArg: String? by StringArg
     }
+
+    var type: AttachmentType? = null
 
     private val eventViewModel by activityViewModels<EventViewModel>()
 
@@ -85,24 +86,19 @@ class NewEventFragment : Fragment() {
 
         eventViewModel.edited.observe(viewLifecycleOwner) {
             binding.buttonAddSpeakersFragmentNewEvent.apply {
-                "$text${eventViewModel.edited.value?.speakerIds?.count().toString()}".also { text = it }
+                "$text${eventViewModel.edited.value?.speakerIds?.count().toString()}".also {
+                    text = it
+                }
             }
         }
 
         val photoLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                when (it.resultCode) {
-                    ImagePicker.RESULT_ERROR -> {
-                        Snackbar.make(
-                            binding.root,
-                            ImagePicker.getError(it.data),
-                            Snackbar.LENGTH_LONG
-                        ).show()
+                it.data?.data.let { uri ->
+                    val stream = uri?.let {
+                        context?.contentResolver?.openInputStream(it)
                     }
-                    else -> {
-                        val uri: Uri? = it.data?.data
-                        eventViewModel.changePhoto(uri)
-                    }
+                    eventViewModel.changeMedia(uri, stream, type)
                 }
             }
 
@@ -118,6 +114,7 @@ class NewEventFragment : Fragment() {
                 )
                 .maxResultSize(2048, 2048)
                 .createIntent(photoLauncher::launch)
+            type = AttachmentType.IMAGE
         }
 
         binding.imageViewTakePhotoFragmentNewEvent.setOnClickListener {
@@ -128,10 +125,10 @@ class NewEventFragment : Fragment() {
         }
 
         binding.buttonRemovePhotoFragmentNewEvent.setOnClickListener {
-            eventViewModel.changePhoto(null)
+            eventViewModel.changeMedia(null, null, null)
         }
 
-        eventViewModel.photo.observe(viewLifecycleOwner) {
+        eventViewModel.media.observe(viewLifecycleOwner) {
             if (it?.uri == null) {
                 binding.frameLayoutPhotoFragmentNewEvent.visibility = View.GONE
                 return@observe

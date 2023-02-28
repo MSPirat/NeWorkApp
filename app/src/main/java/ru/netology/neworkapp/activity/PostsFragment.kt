@@ -126,6 +126,15 @@ class PostsFragment : Fragment() {
             }
         }
 
+        postViewModel.dataState.observe(viewLifecycleOwner) {
+            when {
+                it.error -> {
+                    Toast.makeText(context, R.string.error_loading, Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        }
+
         binding.swipeRefreshFragmentPosts.setOnRefreshListener(adapter::refresh)
 
         return binding.root

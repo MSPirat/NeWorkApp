@@ -84,6 +84,10 @@ class EventsFragment : Fragment() {
                 TODO("Not yet implemented")
             }
 
+            override fun onOpenImageAttachment(event: Event) {
+                TODO("Not yet implemented")
+            }
+
             override fun onLikeEvent(event: Event) {
                 if (authViewModel.authorized) {
                     if (!event.likedByMe)

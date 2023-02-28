@@ -3,16 +3,14 @@ package ru.netology.neworkapp.repository
 import androidx.paging.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import ru.netology.neworkapp.api.PostApiService
 import ru.netology.neworkapp.dao.PostDao
 import ru.netology.neworkapp.dao.PostRemoteKeyDao
 import ru.netology.neworkapp.db.AppDb
-import ru.netology.neworkapp.dto.Attachment
-import ru.netology.neworkapp.dto.Media
-import ru.netology.neworkapp.dto.MediaUpload
-import ru.netology.neworkapp.dto.Post
+import ru.netology.neworkapp.dto.*
 import ru.netology.neworkapp.entity.PostEntity
 import ru.netology.neworkapp.enumeration.AttachmentType
 import ru.netology.neworkapp.errors.ApiError
@@ -45,7 +43,7 @@ class PostRepositoryImpl @Inject constructor(
 
     override suspend fun savePost(post: Post) {
         try {
-            postDao.savePost(PostEntity.fromDto(post))
+//            postDao.savePost(PostEntity.fromDto(post))
             val response = postApiService.savePost(post)
             if (!response.isSuccessful) {
                 throw ApiError(response.message())
@@ -59,11 +57,15 @@ class PostRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun saveWithAttachment(post: Post, upload: MediaUpload) {
+    override suspend fun saveWithAttachment(
+        post: Post,
+        upload: MediaUpload,
+        type: AttachmentType,
+    ) {
         try {
             val media = uploadWithContent(upload)
             val postWithAttachment =
-                post.copy(attachment = Attachment(media.url, AttachmentType.IMAGE))
+                post.copy(attachment = Attachment(media.url, type))
             savePost(postWithAttachment)
         } catch (e: AppError) {
             throw e
@@ -78,8 +80,9 @@ class PostRepositoryImpl @Inject constructor(
         try {
             val media = MultipartBody.Part.createFormData(
                 "file",
-                upload.file.name,
-                upload.file.asRequestBody()
+                "name",
+                upload.inputStream.readBytes()
+                    .toRequestBody("*/*".toMediaTypeOrNull())
             )
 
 //            val content = MultipartBody.Part.createFormData("content", "text")

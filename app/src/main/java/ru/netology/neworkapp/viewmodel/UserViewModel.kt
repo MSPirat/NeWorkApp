@@ -41,7 +41,7 @@ class UserViewModel @Inject constructor(
         try {
             userRepository.getAll()
         } catch (e: Exception) {
-            throw UnknownError()
+            _dataState.value = StateModel(error = true)
         }
     }
 

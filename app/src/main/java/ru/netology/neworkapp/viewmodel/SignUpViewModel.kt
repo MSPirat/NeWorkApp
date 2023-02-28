@@ -13,7 +13,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import ru.netology.neworkapp.api.UserApiService
-import ru.netology.neworkapp.dto.MediaUpload
+import ru.netology.neworkapp.dto.PhotoUpload
 import ru.netology.neworkapp.dto.Token
 import ru.netology.neworkapp.errors.ApiError
 import ru.netology.neworkapp.model.PhotoModel
@@ -46,7 +46,7 @@ class SignUpViewModel @Inject constructor(
                     password.toRequestBody("text/plain".toMediaType()),
                     name.toRequestBody("text/plain".toMediaType()),
                     photo.value?.uri?.toFile()?.let {
-                        val upload = MediaUpload(it)
+                        val upload = PhotoUpload(it)
 
                         MultipartBody.Part.createFormData(
                             "file",

@@ -1,6 +1,5 @@
 package ru.netology.neworkapp.activity
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -10,11 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.netology.neworkapp.R
 import ru.netology.neworkapp.databinding.FragmentNewPostBinding
+import ru.netology.neworkapp.enumeration.AttachmentType
 import ru.netology.neworkapp.utils.AndroidUtils
 import ru.netology.neworkapp.utils.StringArg
 import ru.netology.neworkapp.viewmodel.PostViewModel
@@ -26,6 +25,8 @@ class NewPostFragment : Fragment() {
     companion object {
         var Bundle.textArg: String? by StringArg
     }
+
+    var type: AttachmentType? = null
 
     private val postViewModel by activityViewModels<PostViewModel>()
 
@@ -51,52 +52,55 @@ class NewPostFragment : Fragment() {
 
         val photoLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-                when (it.resultCode) {
-                    ImagePicker.RESULT_ERROR -> {
-                        Snackbar.make(
-                            binding.root,
-                            ImagePicker.getError(it.data),
-                            Snackbar.LENGTH_LONG
-                        ).show()
+                it.data?.data.let { uri ->
+                    val stream = uri?.let {
+                        context?.contentResolver?.openInputStream(it)
                     }
-                    else -> {
-                        val uri: Uri? = it.data?.data
-                        postViewModel.changePhoto(uri)
-                    }
+                    postViewModel.changeMedia(uri, stream, type)
                 }
             }
 
-        binding.imageViewPickPhotoFragmentNewPost.setOnClickListener {
-            ImagePicker.Builder(this)
-                .galleryOnly()
-                .galleryMimeTypes(
-                    arrayOf(
-                        "image/png",
-                        "image/jpeg",
-                        "image/jpg"
-                    )
-                )
-                .maxResultSize(2048, 2048)
-                .createIntent(photoLauncher::launch)
-        }
+        val mediaLauncher =
+            registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+                uri?.let {
+                    val stream = context?.contentResolver?.openInputStream(it)
+                    postViewModel.changeMedia(it, stream, type)
+                }
+            }
 
         binding.imageViewTakePhotoFragmentNewPost.setOnClickListener {
             ImagePicker.Builder(this)
                 .cameraOnly()
                 .maxResultSize(2048, 2048)
                 .createIntent(photoLauncher::launch)
+            type = AttachmentType.IMAGE
+        }
+
+        binding.imageViewPickPhotoFragmentNewPost.setOnClickListener {
+            mediaLauncher.launch("image/*")
+            type = AttachmentType.IMAGE
+        }
+
+        binding.imageViewPickAudioFragmentNewPost.setOnClickListener {
+            mediaLauncher.launch("audio/*")
+            type = AttachmentType.AUDIO
+        }
+
+        binding.imageViewPickVideoFragmentNewPost.setOnClickListener {
+            mediaLauncher.launch("video/*")
+            type = AttachmentType.VIDEO
         }
 
         binding.buttonRemovePhotoFragmentNewPost.setOnClickListener {
-            postViewModel.changePhoto(null)
+            postViewModel.changeMedia(null, null, null)
         }
 
-        postViewModel.photo.observe(viewLifecycleOwner) {
+        postViewModel.media.observe(viewLifecycleOwner) {
             if (it?.uri == null) {
-                binding.frameLayoutPhotoFragmentNewPost.visibility = View.GONE
+                binding.frameLayoutMediaFragmentNewPost.visibility = View.GONE
                 return@observe
             }
-            binding.frameLayoutPhotoFragmentNewPost.visibility = View.VISIBLE
+            binding.frameLayoutMediaFragmentNewPost.visibility = View.VISIBLE
             binding.imageViewPhotoFragmentNewPost.setImageURI(it.uri)
         }
 

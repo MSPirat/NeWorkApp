@@ -1,7 +1,6 @@
 package ru.netology.neworkapp.viewmodel
 
 import android.net.Uri
-import androidx.core.net.toFile
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,11 +19,13 @@ import kotlinx.coroutines.launch
 import ru.netology.neworkapp.auth.AppAuth
 import ru.netology.neworkapp.dto.Event
 import ru.netology.neworkapp.dto.MediaUpload
+import ru.netology.neworkapp.enumeration.AttachmentType
 import ru.netology.neworkapp.enumeration.EventType
-import ru.netology.neworkapp.model.PhotoModel
+import ru.netology.neworkapp.model.MediaModel
 import ru.netology.neworkapp.model.StateModel
 import ru.netology.neworkapp.repository.EventRepository
 import ru.netology.neworkapp.utils.SingleLiveEvent
+import java.io.InputStream
 import javax.inject.Inject
 
 private val empty = Event(
@@ -39,7 +40,7 @@ private val empty = Event(
     speakerIds = emptySet()
 )
 
-private val noPhoto = PhotoModel()
+private val noMedia = MediaModel()
 
 @ExperimentalCoroutinesApi
 @HiltViewModel
@@ -76,9 +77,9 @@ class EventViewModel @Inject constructor(
     val eventCreated: LiveData<Unit>
         get() = _eventCreated
 
-    private val _photo = MutableLiveData(noPhoto)
-    val photo: LiveData<PhotoModel>
-        get() = _photo
+    private val _media = MutableLiveData(noMedia)
+    val media: LiveData<MediaModel>
+        get() = _media
 
     private val scope = MainScope()
 
@@ -86,12 +87,12 @@ class EventViewModel @Inject constructor(
         edited.value?.let { event ->
             viewModelScope.launch {
                 try {
-                    when (_photo.value) {
-                        noPhoto ->
+                    when (_media.value) {
+                        noMedia ->
                             eventRepository.saveEvent(event)
                         else ->
-                            _photo.value?.uri?.let {
-                                MediaUpload(it.toFile())
+                            _media.value?.inputStream?.let {
+                                MediaUpload(it)
                             }?.let {
                                 eventRepository.saveWithAttachment(event, it)
                             }
@@ -104,7 +105,7 @@ class EventViewModel @Inject constructor(
             }
         }
         edited.value = empty
-        _photo.value = noPhoto
+        _media.value = noMedia
     }
 
     fun changeContent(content: String, date: String) {
@@ -127,8 +128,12 @@ class EventViewModel @Inject constructor(
         }
     }
 
-    fun changePhoto(uri: Uri?) {
-        _photo.value = PhotoModel(uri)
+    fun changeMedia(
+        uri: Uri?,
+        inputStream: InputStream?,
+        type: AttachmentType?,
+    ) {
+        _media.value = MediaModel(uri, inputStream, type)
     }
 
     fun removeById(id: Long) = viewModelScope.launch {

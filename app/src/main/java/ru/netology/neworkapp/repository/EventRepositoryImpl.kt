@@ -3,8 +3,9 @@ package ru.netology.neworkapp.repository
 import androidx.paging.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import ru.netology.neworkapp.api.EventApiService
 import ru.netology.neworkapp.dao.EventDao
 import ru.netology.neworkapp.dao.EventRemoteKeyDao
@@ -76,8 +77,9 @@ class EventRepositoryImpl @Inject constructor(
         try {
             val media = MultipartBody.Part.createFormData(
                 "file",
-                upload.file.name,
-                upload.file.asRequestBody()
+                "name",
+                upload.inputStream.readBytes()
+                    .toRequestBody("*/*".toMediaTypeOrNull())
             )
 
             val response = eventApiService.uploadMedia(media)
