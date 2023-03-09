@@ -21,6 +21,7 @@ import ru.netology.neworkapp.model.MediaModel
 import ru.netology.neworkapp.model.StateModel
 import ru.netology.neworkapp.repository.PostRepository
 import ru.netology.neworkapp.utils.SingleLiveEvent
+import java.io.IOException
 import java.io.InputStream
 import javax.inject.Inject
 
@@ -92,8 +93,10 @@ class PostViewModel @Inject constructor(
                     }
                     _dataState.value = StateModel()
                     _postCreated.value = Unit
+                } catch (e: IOException) {
+                    _dataState.postValue(StateModel(error = true))
                 } catch (e: Exception) {
-                    _dataState.value = StateModel(error = true)
+                    throw UnknownError()
                 }
             }
         }

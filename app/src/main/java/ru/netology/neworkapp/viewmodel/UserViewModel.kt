@@ -38,8 +38,10 @@ class UserViewModel @Inject constructor(
     }
 
     private fun getUsers() = viewModelScope.launch {
+        _dataState.postValue(StateModel(loading = true))
         try {
             userRepository.getAll()
+            _dataState.postValue(StateModel())
         } catch (e: Exception) {
             _dataState.value = StateModel(error = true)
         }
@@ -52,6 +54,7 @@ class UserViewModel @Inject constructor(
             if (response.isSuccessful) {
                 _user.value = response.body()
             }
+            _dataState.postValue(StateModel())
         } catch (e: IOException) {
             _dataState.postValue(StateModel(error = true))
         }

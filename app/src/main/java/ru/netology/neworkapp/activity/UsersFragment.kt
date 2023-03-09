@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -27,7 +28,6 @@ class UsersFragment : Fragment() {
     private val userViewModel by viewModels<UserViewModel>()
     private val postViewModel by activityViewModels<PostViewModel>()
     private val eventViewModel by activityViewModels<EventViewModel>()
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -79,14 +79,16 @@ class UsersFragment : Fragment() {
         }
 
         userViewModel.dataState.observe(viewLifecycleOwner)
-        { state ->
+        {
             when {
-                state.error -> {
+                it.error -> {
                     Toast.makeText(context, R.string.error_loading, Toast.LENGTH_SHORT)
                         .show()
                 }
             }
+            binding.progressBarFragmentUsers.isVisible = it.loading
         }
+
         return binding.root
     }
 }

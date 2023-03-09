@@ -49,6 +49,7 @@ class ApiModule {
             }
             chain.proceed(chain.request())
         }
+        .writeTimeout(60, TimeUnit.SECONDS)
         .build()
 
     @Provides

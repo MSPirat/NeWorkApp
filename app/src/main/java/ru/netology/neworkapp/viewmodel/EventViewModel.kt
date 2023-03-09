@@ -86,6 +86,7 @@ class EventViewModel @Inject constructor(
     fun save() {
         edited.value?.let { event ->
             viewModelScope.launch {
+                _dataState.postValue(StateModel(loading = true))
                 try {
                     when (_media.value) {
                         noMedia ->
@@ -100,7 +101,7 @@ class EventViewModel @Inject constructor(
                     _dataState.value = StateModel()
                     _eventCreated.value = Unit
                 } catch (e: Exception) {
-                    _dataState.value = StateModel(error = true)
+                    throw UnknownError()
                 }
             }
         }

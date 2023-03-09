@@ -5,6 +5,7 @@ import android.view.*
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.MenuProvider
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -154,6 +155,16 @@ class NewPostFragment : Fragment() {
 //                findNavController().navigateUp()
 //            }
 //        }
+
+        postViewModel.dataState.observe(viewLifecycleOwner) {
+            when {
+                it.error -> {
+                    Toast.makeText(context, R.string.error_loading, Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+            binding.progressBarFragmentNewPost.isVisible = it.loading
+        }
 
         return binding.root
     }

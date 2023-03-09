@@ -154,6 +154,8 @@ class PostViewHolder(
             }
 //            }
 
+            buttonMentionCardPost.visibility =
+                if (post.ownedByMe) VISIBLE else INVISIBLE
             buttonMentionCardPost.setOnClickListener {
                 onPostInteractionListener.onMentionPost(post)
             }

@@ -58,8 +58,8 @@ class JobViewModel @Inject constructor(
         get() = _jobCreated
 
     fun loadJobs(id: Long) = viewModelScope.launch {
+        _dataState.postValue(StateModel(loading = true))
         try {
-            _dataState.value = StateModel(loading = true)
             jobRepository.getUserById(id)
             _dataState.value = StateModel()
         } catch (e: Exception) {
@@ -73,14 +73,14 @@ class JobViewModel @Inject constructor(
 
     fun save() {
         edited.value?.let { job ->
-            _jobCreated.value = Unit
             viewModelScope.launch {
-                _dataState.value = StateModel(loading = true)
+                _dataState.postValue(StateModel(loading = true))
                 try {
                     jobRepository.saveJob(job)
-                    _dataState.value = StateModel()
+                    _dataState.postValue(StateModel())
+                    _jobCreated.value = Unit
                 } catch (e: Exception) {
-                    _dataState.value = StateModel(error = true)
+                    _dataState.postValue(StateModel(error = true))
                 }
             }
         }
@@ -124,13 +124,14 @@ class JobViewModel @Inject constructor(
         edited.value = job
     }
 
-    fun removeById(id: Long) = viewModelScope.launch {
-        _dataState.postValue(StateModel(loading = true))
-        try {
-            jobRepository.removeById(id)
-            _dataState.postValue(StateModel())
-        } catch (e: Exception) {
-            _dataState.postValue(StateModel(error = true))
+    fun removeById(id: Long) =
+        viewModelScope.launch {
+            _dataState.postValue(StateModel(loading = true))
+            try {
+                jobRepository.removeById(id)
+                _dataState.postValue(StateModel())
+            } catch (e: Exception) {
+                _dataState.postValue(StateModel(error = true))
+            }
         }
-    }
 }

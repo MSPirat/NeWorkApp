@@ -96,12 +96,22 @@ class PostsFragment : Fragment() {
 
             override fun onOpenLikers(post: Post) {
                 userViewModel.getUsersIds(post.likeOwnerIds)
-                findNavController().navigate(R.id.action_nav_posts_to_nav_bottom_sheet_fragment)
+                if (post.likeOwnerIds.isEmpty()) {
+                    Toast.makeText(context, R.string.no_likers, Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    findNavController().navigate(R.id.action_nav_posts_to_nav_bottom_sheet_fragment)
+                }
             }
 
             override fun onOpenMentions(post: Post) {
                 userViewModel.getUsersIds(post.mentionIds)
-                findNavController().navigate(R.id.action_nav_posts_to_nav_bottom_sheet_fragment)
+                if (post.mentionIds.isEmpty()) {
+                    Toast.makeText(context, R.string.no_mentions, Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    findNavController().navigate(R.id.action_nav_posts_to_nav_bottom_sheet_fragment)
+                }
             }
         })
 

@@ -26,11 +26,13 @@ class SignInViewModel @Inject constructor(
 
     fun authorizationUser(login: String, password: String) {
         viewModelScope.launch {
+            _dataState.postValue(StateModel(loading = true))
             try {
                 val response = userApiService.updateUser(login, password)
                 if (!response.isSuccessful) {
                     throw ApiError(response.message())
                 }
+                _dataState.postValue(StateModel())
                 val body = response.body() ?: throw ApiError(response.message())
                 data.value = Token(body.id, body.token)
             } catch (e: IOException) {

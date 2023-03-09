@@ -40,6 +40,7 @@ class SignUpViewModel @Inject constructor(
 
     fun registrationUser(login: String, password: String, name: String) {
         viewModelScope.launch {
+            _dataState.postValue(StateModel(loading = true))
             try {
                 val response = userApiService.registrationUser(
                     login.toRequestBody("text/plain".toMediaType()),
@@ -60,10 +61,11 @@ class SignUpViewModel @Inject constructor(
                 }
                 val body = response.body() ?: throw ApiError(response.message())
                 data.value = Token(body.id, body.token)
+                _dataState.postValue(StateModel())
             } catch (e: IOException) {
                 _dataState.postValue(StateModel(error = true))
             } catch (e: Exception) {
-                _dataState.postValue(StateModel(loginError = true))
+                throw UnknownError()
             }
         }
         _photo.value = noPhoto

@@ -63,6 +63,7 @@
     <string name="no_speakers">No Speakers</string>
     <string name="no_likers">No likes Owners</string>
     <string name="no_participants">No Participants</string>
+    <string name="no_mentions">No Mentions</string>
 
     <string name="description_fab_add" translatable="false" />
     <string name="description_post_author_avatar" translatable="false" />
