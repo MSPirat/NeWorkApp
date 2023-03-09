@@ -60,6 +60,12 @@
     </fragment>
 
     <fragment
+        android:id="@+id/nav_jobs"
+        android:name="ru.netology.neworkapp.activity.JobsFragment"
+        android:label="@string/title_jobs"
+        tools:layout="@layout/fragment_jobs" />
+
+    <fragment
         android:id="@+id/nav_profile"
         android:name="ru.netology.neworkapp.activity.ProfileFragment"
         android:label="@string/title_profile"
@@ -70,6 +76,9 @@
         <action
             android:id="@+id/action_nav_profile_to_new_event_fragment"
             app:destination="@+id/nav_new_event_fragment" />
+        <action
+            android:id="@+id/action_nav_profile_to_new_job_fragment"
+            app:destination="@+id/nav_new_job_fragment" />
     </fragment>
 
     <fragment
@@ -83,6 +92,12 @@
         android:name="ru.netology.neworkapp.activity.NewEventFragment"
         android:label="@string/title_new_event"
         tools:layout="@layout/fragment_new_event" />
+
+    <fragment
+        android:id="@+id/nav_new_job_fragment"
+        android:name="ru.netology.neworkapp.activity.NewJobFragment"
+        android:label="@string/title_new_job"
+        tools:layout="@layout/fragment_new_job" />
 
     <fragment
         android:id="@+id/nav_wall_fragment"

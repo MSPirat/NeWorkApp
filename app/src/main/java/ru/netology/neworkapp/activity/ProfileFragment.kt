@@ -17,9 +17,11 @@ import ru.netology.neworkapp.R
 import ru.netology.neworkapp.adapter.UserProfileAdapter
 import ru.netology.neworkapp.databinding.FragmentProfileBinding
 import ru.netology.neworkapp.dto.Event
+import ru.netology.neworkapp.dto.Job
 import ru.netology.neworkapp.dto.Post
 import ru.netology.neworkapp.viewmodel.AuthViewModel
 import ru.netology.neworkapp.viewmodel.EventViewModel
+import ru.netology.neworkapp.viewmodel.JobViewModel
 import ru.netology.neworkapp.viewmodel.PostViewModel
 
 @ExperimentalCoroutinesApi
@@ -31,6 +33,8 @@ class ProfileFragment : Fragment() {
     private val postViewModel by activityViewModels<PostViewModel>()
 
     private val eventViewModel by activityViewModels<EventViewModel>()
+
+    private val jobViewModel by activityViewModels<JobViewModel>()
 
     private val profileTitles = arrayOf(
         R.string.title_posts,
@@ -99,6 +103,11 @@ class ProfileFragment : Fragment() {
         binding.fabAddEvent.setOnClickListener {
             eventViewModel.edit(Event.emptyEvent)
             findNavController().navigate(R.id.action_nav_profile_to_new_event_fragment)
+        }
+
+        binding.fabAddJob.setOnClickListener {
+            jobViewModel.edit(Job.emptyJob)
+            findNavController().navigate(R.id.action_nav_profile_to_new_job_fragment)
         }
 
         return binding.root

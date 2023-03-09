@@ -13,6 +13,7 @@
     <string name="title_job">Job</string>
     <string name="title_new_post">New Post</string>
     <string name="title_new_event">New Event</string>
+    <string name="title_new_job">New Job</string>
     <string name="title_wall">Wall</string>
     <string name="title_bottom_sheet">Bottom Sheet</string>
     <string name="sign_login">Login</string>
@@ -38,11 +39,18 @@
     <string name="text_new_event">New Event text</string>
     <string name="text_event_date">Event date :</string>
     <string name="text_new_event_date">Date : </string>
-    <string name="text_new_event_time">"Time : "</string>
+    <string name="text_new_event_time">Time : </string>
+    <string name="text_job_name">Company : </string>
+    <string name="text_job_position">Position : </string>
+    <string name="text_job_start">From : </string>
+    <string name="text_job_finish">To : </string>
+    <string name="text_job_now">now</string>
+    <string name="text_job_link">Site : </string>
     <string name="like">Like</string>
     <string name="mention">Mention</string>
     <string name="empty_posts">There are no posts.\nIf you create a new post, it will appear here</string>
     <string name="empty_events">There are no events.\nIf you create a new event, it will appear here</string>
+    <string name="empty_jobs">There are no jobs.\nIf you create a new job, it will appear here</string>
     <string name="retry">Retry</string>
     <string name="ok">OK</string>
     <string name="save">Save</string>
@@ -55,7 +63,6 @@
     <string name="no_speakers">No Speakers</string>
     <string name="no_likers">No likes Owners</string>
     <string name="no_participants">No Participants</string>
-
 
     <string name="description_fab_add" translatable="false" />
     <string name="description_post_author_avatar" translatable="false" />

@@ -47,7 +47,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center_horizontal"
-                    android:text="@string/clear" />
+                    android:text="@string/clear"
+                    android:textAllCaps="false" />
 
             </FrameLayout>
 
@@ -79,11 +80,12 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_add_speakers_fragment_new_event"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="@dimen/common_spacing_large"
-                android:text="@string/add_speakers" />
+                android:text="@string/add_speakers"
+                android:textAllCaps="false" />
 
         </LinearLayout>
 

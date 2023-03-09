@@ -8,6 +8,7 @@ import ru.netology.neworkapp.dto.Post
 import ru.netology.neworkapp.enumeration.AttachmentType
 
 interface PostRepository {
+
     val data: Flow<PagingData<Post>>
 
     suspend fun savePost(post: Post)

@@ -10,10 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import ru.netology.neworkapp.BuildConfig
-import ru.netology.neworkapp.api.EventApiService
-import ru.netology.neworkapp.api.PostApiService
-import ru.netology.neworkapp.api.UserApiService
-import ru.netology.neworkapp.api.WallApiService
+import ru.netology.neworkapp.api.*
 import ru.netology.neworkapp.auth.AppAuth
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
@@ -87,4 +84,10 @@ class ApiModule {
     fun provideWallApiService(
         retrofit: Retrofit,
     ): WallApiService = retrofit.create()
+
+    @Provides
+    @Singleton
+    fun provideJobApiService(
+        retrofit: Retrofit,
+    ): JobApiService = retrofit.create()
 }

@@ -67,13 +67,13 @@ class NewEventFragment : Fragment() {
 
         binding.editTextDateFragmentNewEvent.setOnClickListener {
             context?.let { item ->
-                it.pickDate(binding.editTextDateFragmentNewEvent, item)
+                pickDate(binding.editTextDateFragmentNewEvent, item)
             }
         }
 
         binding.editTextTimeFragmentNewEvent.setOnClickListener {
             context?.let { item ->
-                it.pickTime(binding.editTextTimeFragmentNewEvent, item)
+                pickTime(binding.editTextTimeFragmentNewEvent, item)
             }
         }
 

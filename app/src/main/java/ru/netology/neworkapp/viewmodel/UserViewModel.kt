@@ -46,6 +46,7 @@ class UserViewModel @Inject constructor(
     }
 
     fun getUserById(id: Long) = viewModelScope.launch {
+        _dataState.postValue(StateModel(loading = true))
         try {
             val response = userApiService.getUserById(id)
             if (response.isSuccessful) {
@@ -53,8 +54,6 @@ class UserViewModel @Inject constructor(
             }
         } catch (e: IOException) {
             _dataState.postValue(StateModel(error = true))
-        } catch (e: Exception) {
-            throw UnknownError()
         }
     }
 
