@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -159,6 +160,8 @@ class EventsFragment : Fragment() {
             adapter.loadStateFlow.collectLatest { state ->
                 binding.swipeRefreshFragmentEvents.isRefreshing =
                     state.refresh is LoadState.Loading
+                binding.textViewEmptyTextFragmentEvents.isVisible =
+                    adapter.itemCount < 1
             }
         }
 

@@ -29,6 +29,8 @@ interface OnPostInteractionListener {
     fun onSharePost(post: Post) {}
     fun onOpenLikers(post: Post) {}
     fun onOpenMentions(post: Post) {}
+    fun onPlayVideo(post: Post) {}
+    fun onPlayAudio(post: Post) {}
 //    fun onOpenImage(image: String) {}
 }
 
@@ -140,19 +142,19 @@ class PostViewHolder(
                 }.show()
             }
 
-//            buttonLikeCardPost.setOnClickListener {
-//                onPostInteractionListener.onLikePost(post)
             buttonLikeCardPost.setOnClickListener {
-                val scaleX = PropertyValuesHolder.ofFloat(SCALE_X, 1F, 1.25F, 1F)
-                val scaleY = PropertyValuesHolder.ofFloat(SCALE_Y, 1F, 1.25F, 1F)
-                ObjectAnimator.ofPropertyValuesHolder(it, scaleX, scaleY).apply {
-                    duration = 500
-                    repeatCount = 100
-                    interpolator = BounceInterpolator()
-                }.start()
                 onPostInteractionListener.onLikePost(post)
-            }
+//            buttonLikeCardPost.setOnClickListener {
+//                val scaleX = PropertyValuesHolder.ofFloat(SCALE_X, 1F, 1.25F, 1F)
+//                val scaleY = PropertyValuesHolder.ofFloat(SCALE_Y, 1F, 1.25F, 1F)
+//                ObjectAnimator.ofPropertyValuesHolder(it, scaleX, scaleY).apply {
+//                    duration = 500
+//                    repeatCount = 100
+//                    interpolator = BounceInterpolator()
+//                }.start()
+//                onPostInteractionListener.onLikePost(post)
 //            }
+            }
 
             buttonMentionCardPost.visibility =
                 if (post.ownedByMe) VISIBLE else INVISIBLE
@@ -170,6 +172,14 @@ class PostViewHolder(
 
             checkboxMentionsSumCardPost.setOnClickListener {
                 onPostInteractionListener.onOpenMentions(post)
+            }
+
+            groupAttachmentVideoCardPost.setOnClickListener {
+                onPostInteractionListener.onPlayVideo(post)
+            }
+
+            imageButtonPlayPauseAudioCardPost.setOnClickListener {
+                onPostInteractionListener.onPlayAudio(post)
             }
 //
 //                attachment.setOnClickListener {

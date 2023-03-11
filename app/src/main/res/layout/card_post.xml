@@ -156,6 +156,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone"
+            android:checkable="true"
             app:constraint_referenced_ids="
             image_button_background_video_card_post,
             image_button_play_video_card_post"

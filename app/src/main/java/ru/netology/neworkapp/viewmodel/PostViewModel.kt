@@ -32,6 +32,8 @@ private val empty = Post(
     authorAvatar = "",
     content = "",
     published = "2023-01-27T17:00:00.000Z",
+    mentionedMe = false,
+    likedByMe = false,
 )
 
 private val noMedia = MediaModel()

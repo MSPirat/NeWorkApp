@@ -10,9 +10,9 @@ data class Post(
     val coordinates: Coordinates? = null,
     val link: String? = null,
     val mentionIds: Set<Long> = emptySet(),
-    val mentionedMe: Boolean = false,
+    val mentionedMe: Boolean,
     val likeOwnerIds: Set<Long> = emptySet(),
-    val likedByMe: Boolean = false,
+    val likedByMe: Boolean,
     val attachment: Attachment? = null,
     val ownedByMe: Boolean = false,
 ) {
@@ -23,7 +23,9 @@ data class Post(
             author = "",
             authorAvatar = "",
             content = "",
-            published = "2023-02-01T12:00:00.000Z"
+            published = "2023-02-01T12:00:00.000Z",
+            mentionedMe = false,
+            likedByMe = false,
         )
     }
 }

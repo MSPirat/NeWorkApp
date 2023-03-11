@@ -64,29 +64,4 @@ class UserViewModel @Inject constructor(
         viewModelScope.launch {
             _userIds.value = set
         }
-
-//    fun getMentionIds(post: Post) =
-//        viewModelScope.launch {
-//            _userIds.value = post.mentionIds
-//        }
-//
-//    fun getLikeOwnerIds(post: Post) =
-//        viewModelScope.launch {
-//            _userIds.value = post.likeOwnerIds
-//        }
-//
-//    fun getSpeakerIds(event: Event) =
-//        viewModelScope.launch {
-//            _userIds.value = event.speakerIds
-//        }
-//
-//    fun getLikeOwnerIds(event: Event) =
-//        viewModelScope.launch {
-//            _userIds.value = event.likeOwnerIds
-//        }
-//
-//    fun getParticipants(event: Event) =
-//        viewModelScope.launch {
-//            _userIds.value = event.participantsIds
-//        }
 }

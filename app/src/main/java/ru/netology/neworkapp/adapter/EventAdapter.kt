@@ -139,13 +139,13 @@ class EventViewHolder(
             }
 
             buttonLikeCardEvent.setOnClickListener {
-                val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1F, 1.25F, 1F)
-                val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1F, 1.25F, 1F)
-                ObjectAnimator.ofPropertyValuesHolder(it, scaleX, scaleY).apply {
-                    duration = 500
-                    repeatCount = 100
-                    interpolator = BounceInterpolator()
-                }.start()
+//                val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1F, 1.25F, 1F)
+//                val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1F, 1.25F, 1F)
+//                ObjectAnimator.ofPropertyValuesHolder(it, scaleX, scaleY).apply {
+//                    duration = 500
+//                    repeatCount = 100
+//                    interpolator = BounceInterpolator()
+//                }.start()
                 onEventInteractionListener.onLikeEvent(event)
             }
 
