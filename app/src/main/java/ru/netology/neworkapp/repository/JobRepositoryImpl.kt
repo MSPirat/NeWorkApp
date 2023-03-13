@@ -41,10 +41,10 @@ class JobRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getUserById(id: Long) {
+    override suspend fun getJobByUserId(id: Long) {
         try {
             jobDao.deleteAll()
-            val response = jobApiService.getUserById(id)
+            val response = jobApiService.getJobByUserId(id)
             if (!response.isSuccessful) {
                 throw ApiError(response.message())
             }

@@ -61,7 +61,7 @@ fun pickTime(editText: EditText, context: Context) {
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
-fun formatToDate(value: String): String {
+fun formatToDate(value: String?): String {
     val transformation = DateTimeFormatter
         .ofLocalizedDateTime(FormatStyle.SHORT)
         .withLocale(Locale.ROOT)
@@ -70,6 +70,19 @@ fun formatToDate(value: String): String {
     return transformation.format(Instant.parse(value))
 }
 
+
+//@RequiresApi(Build.VERSION_CODES.O)
+//fun formatToInstant(value: String): String {
+//    return if (value != " ") {
+//        val datetime = SimpleDateFormat(
+//            "yyyy-MM-dd HH:mm",
+//            Locale.getDefault()
+//        )
+//            .parse(value)
+//        val transformation = DateTimeFormatter.ISO_INSTANT
+//        transformation.format(datetime?.toInstant())
+//    } else "2023-01-27T17:00:00.000Z"
+//}
 
 @RequiresApi(Build.VERSION_CODES.O)
 fun formatToInstant(value: String): String {

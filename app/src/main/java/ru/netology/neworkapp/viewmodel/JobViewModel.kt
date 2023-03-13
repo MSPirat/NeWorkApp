@@ -60,7 +60,7 @@ class JobViewModel @Inject constructor(
     fun loadJobs(id: Long) = viewModelScope.launch {
         _dataState.postValue(StateModel(loading = true))
         try {
-            jobRepository.getUserById(id)
+            jobRepository.getJobByUserId(id)
             _dataState.value = StateModel()
         } catch (e: Exception) {
             _dataState.value = StateModel(error = true)

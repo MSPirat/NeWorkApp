@@ -19,78 +19,122 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="vertical"
         tools:ignore="MissingConstraints">
 
-        <EditText
-            android:id="@+id/edit_text_name_fragment_new_job"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_name_fragment_new_job"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/common_spacing_small"
             android:layout_marginTop="@dimen/common_spacing_large"
             android:layout_marginEnd="@dimen/common_spacing_small"
-            android:focusable="false"
+            android:gravity="start|top"
             android:hint="@string/text_job_name"
-            android:importantForAutofill="no"
             android:inputType="text"
             android:padding="@dimen/common_spacing_medium"
-            tools:ignore="MissingConstraints,TextFields" />
+            app:boxStrokeColor="@color/purple_500"
+            app:hintTextColor="@color/purple_500"
+            tools:ignore="MissingConstraints">
 
-        <EditText
-            android:id="@+id/edit_text_position_fragment_new_job"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_name_fragment_new_job"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_position_fragment_new_job"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/common_spacing_small"
-            android:layout_marginTop="@dimen/common_spacing_large"
             android:layout_marginEnd="@dimen/common_spacing_small"
             android:focusable="false"
+            android:gravity="start|top"
             android:hint="@string/text_job_position"
-            android:importantForAutofill="no"
             android:inputType="text"
             android:padding="@dimen/common_spacing_medium"
-            tools:ignore="MissingConstraints,TextFields" />
+            app:boxStrokeColor="@color/purple_500"
+            app:hintTextColor="@color/purple_500"
+            tools:ignore="MissingConstraints">
 
-        <EditText
-            android:id="@+id/edit_text_start_fragment_new_job"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_position_fragment_new_job"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_start_fragment_new_job"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/common_spacing_small"
-            android:layout_marginTop="@dimen/common_spacing_large"
             android:layout_marginEnd="@dimen/common_spacing_small"
-            android:focusable="false"
+            android:gravity="start|top"
             android:hint="@string/text_job_start"
-            android:importantForAutofill="no"
-            android:inputType="text|date|number"
             android:padding="@dimen/common_spacing_medium"
-            tools:ignore="MissingConstraints,TextFields" />
+            app:boxStrokeColor="@color/purple_500"
+            app:hintTextColor="@color/purple_500"
+            tools:ignore="MissingConstraints">
 
-        <EditText
-            android:id="@+id/edit_text_finish_fragment_new_job"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_start_fragment_new_job"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_finish_fragment_new_job"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/common_spacing_small"
-            android:layout_marginTop="@dimen/common_spacing_large"
             android:layout_marginEnd="@dimen/common_spacing_small"
-            android:focusable="false"
+            android:gravity="start|top"
             android:hint="@string/text_job_finish"
-            android:importantForAutofill="no"
-            android:inputType="text|date|number"
             android:padding="@dimen/common_spacing_medium"
-            tools:ignore="MissingConstraints,TextFields" />
+            app:boxStrokeColor="@color/purple_500"
+            app:hintTextColor="@color/purple_500"
+            tools:ignore="MissingConstraints">
 
-        <EditText
-            android:id="@+id/edit_text_link_fragment_new_job"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_finish_fragment_new_job"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_link_fragment_new_job"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/common_spacing_small"
-            android:layout_marginTop="@dimen/common_spacing_large"
             android:layout_marginEnd="@dimen/common_spacing_small"
             android:focusable="false"
+            android:gravity="start|top"
             android:hint="@string/text_job_link"
-            android:importantForAutofill="no"
             android:inputType="text|textWebEditText"
             android:padding="@dimen/common_spacing_medium"
-            tools:ignore="MissingConstraints,TextFields" />
+            app:boxStrokeColor="@color/purple_500"
+            app:hintTextColor="@color/purple_500"
+            tools:ignore="MissingConstraints">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_text_link_fragment_new_job"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_save_fragment_new_job"

@@ -8,8 +8,6 @@ interface JobRepository {
     val data: Flow<List<Job>>
 
     suspend fun saveJob(job: Job)
-
-    suspend fun getUserById(id: Long)
-
+    suspend fun getJobByUserId(id: Long)
     suspend fun removeById(id: Long)
 }

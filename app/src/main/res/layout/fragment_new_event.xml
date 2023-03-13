@@ -60,7 +60,7 @@
                 android:focusable="false"
                 android:hint="@string/text_new_event_date"
                 android:importantForAutofill="no"
-                android:inputType="text|date"
+                android:inputType="textMultiLine"
                 android:padding="@dimen/common_spacing_medium"
                 tools:ignore="MissingConstraints,TextFields"
                 tools:text="@tools:sample/date/ddmmyy" />
@@ -73,7 +73,7 @@
                 android:focusable="false"
                 android:hint="@string/text_new_event_time"
                 android:importantForAutofill="no"
-                android:inputType="text|time"
+                android:inputType="textMultiLine"
                 android:padding="@dimen/common_spacing_medium"
                 tools:ignore="MissingConstraints,TextFields"
                 tools:text="@tools:sample/date/hhmm" />

@@ -10,9 +10,9 @@ data class Post(
     val coordinates: Coordinates? = null,
     val link: String? = null,
     val mentionIds: Set<Long> = emptySet(),
-    val mentionedMe: Boolean,
+    val mentionedMe: Boolean = false,
     val likeOwnerIds: Set<Long> = emptySet(),
-    val likedByMe: Boolean,
+    val likedByMe: Boolean = false,
     val attachment: Attachment? = null,
     val ownedByMe: Boolean = false,
 ) {

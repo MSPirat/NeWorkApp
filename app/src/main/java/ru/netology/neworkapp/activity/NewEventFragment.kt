@@ -6,6 +6,7 @@ import android.view.*
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -15,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.netology.neworkapp.R
 import ru.netology.neworkapp.databinding.FragmentNewEventBinding
+import ru.netology.neworkapp.dto.Event
 import ru.netology.neworkapp.enumeration.AttachmentType
 import ru.netology.neworkapp.utils.*
 import ru.netology.neworkapp.viewmodel.EventViewModel
@@ -46,6 +48,9 @@ class NewEventFragment : Fragment() {
             false
         )
 
+        (activity as AppCompatActivity).supportActionBar?.title =
+            context?.getString(R.string.title_event)
+
         fragmentNewEventBinding = binding
 
         arguments?.textArg
@@ -55,15 +60,17 @@ class NewEventFragment : Fragment() {
 
         val datetime = arguments?.getString("datetime")?.let {
             formatToDate(it)
-        }
-        val date = datetime?.substring(0, 10)
-        val time = datetime?.substring(11)
+        } ?: formatToDate("${eventViewModel.edited.value?.datetime}")
+        val date = datetime.substring(0, 10)
+        val time = datetime.substring(11)
 
         binding.editTextFragmentNewEvent.setText(
-            arguments?.getString("content")
+            arguments?.getString("content") ?: eventViewModel.edited.value?.content
         )
-        binding.editTextDateFragmentNewEvent.setText(date)
-        binding.editTextTimeFragmentNewEvent.setText(time)
+        if (eventViewModel.edited.value != Event.emptyEvent) {
+            binding.editTextDateFragmentNewEvent.setText(date)
+            binding.editTextTimeFragmentNewEvent.setText(time)
+        }
 
         binding.editTextDateFragmentNewEvent.setOnClickListener {
             context?.let { item ->
@@ -138,7 +145,7 @@ class NewEventFragment : Fragment() {
         }
 
         eventViewModel.eventCreated.observe(viewLifecycleOwner) {
-            findNavController().navigateUp()
+            findNavController().navigate(R.id.nav_events)
         }
 
         requireActivity().addMenuProvider(object : MenuProvider {

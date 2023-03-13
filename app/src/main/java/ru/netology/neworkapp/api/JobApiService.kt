@@ -7,7 +7,7 @@ import ru.netology.neworkapp.dto.Job
 interface JobApiService {
 
     @GET("{id}/jobs")
-    suspend fun getUserById(@Path("id") id: Long): Response<List<Job>>
+    suspend fun getJobByUserId(@Path("id") id: Long): Response<List<Job>>
 
     @POST("my/jobs")
     suspend fun saveJob(@Body job: Job): Response<Job>
