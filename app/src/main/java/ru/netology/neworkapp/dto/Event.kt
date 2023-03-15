@@ -28,8 +28,8 @@ data class Event(
             author = "",
             authorAvatar = "",
             content = "",
-            published = "2023-02-01T12:00:00.000Z",
-            datetime = "2023-02-01T12:00:00.000Z",
+            published = "2023-02-01T12:00:00.000000Z",
+            datetime = "2023-02-01T12:00:00.000000Z",
             type = EventType.ONLINE,
             speakerIds = emptySet(),
         )

@@ -8,14 +8,35 @@ import android.os.Build
 import android.widget.EditText
 import androidx.annotation.RequiresApi
 import java.text.SimpleDateFormat
-import java.time.Instant
-import java.time.LocalDate
-import java.time.ZoneId
+import java.time.*
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.*
 
 private val calendar = Calendar.getInstance()
+
+@RequiresApi(Build.VERSION_CODES.O)
+fun formatToDate(value: String?): String {
+    val transformation = DateTimeFormatter
+        .ofLocalizedDateTime(FormatStyle.SHORT)
+        .withLocale(Locale.ROOT)
+        .withZone(ZoneId.systemDefault())
+
+    return transformation.format(Instant.parse(value))
+}
+
+@SuppressLint("SimpleDateFormat")
+fun epochSecToDate(second: Long): String {
+    val date = Date(second * 1_000)
+    val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+    return simpleDateFormat.format(date)
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
+fun dateToEpochSec(string: String?): Long? {
+    return if (string.isNullOrBlank()) null else LocalDate.parse(string)
+        .atStartOfDay(ZoneId.of("Europe/Moscow")).toEpochSecond()
+}
 
 fun pickDate(editText: EditText?, context: Context?) {
     val datePicker = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
@@ -61,50 +82,32 @@ fun pickTime(editText: EditText, context: Context) {
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
-fun formatToDate(value: String?): String {
-    val transformation = DateTimeFormatter
-        .ofLocalizedDateTime(FormatStyle.SHORT)
-        .withLocale(Locale.ROOT)
-        .withZone(ZoneId.systemDefault())
-
-    return transformation.format(Instant.parse(value))
+fun formatToInstant(value: String): String {
+    return if (value != " ") {
+        val datetime = SimpleDateFormat(
+            "yyyy-MM-dd HH:mm",
+            Locale.getDefault()
+        )
+            .parse(value)
+        val transformation = DateTimeFormatter.ISO_INSTANT
+        transformation.format(datetime?.toInstant())
+    } else "2023-01-27T17:00:00.000000Z"
 }
 
-
+//@SuppressLint("SimpleDateFormat")
 //@RequiresApi(Build.VERSION_CODES.O)
-//fun formatToInstant(value: String): String {
-//    return if (value != " ") {
-//        val datetime = SimpleDateFormat(
-//            "yyyy-MM-dd HH:mm",
-//            Locale.getDefault()
-//        )
-//            .parse(value)
-//        val transformation = DateTimeFormatter.ISO_INSTANT
-//        transformation.format(datetime?.toInstant())
-//    } else "2023-01-27T17:00:00.000Z"
+//fun formatToInstant(date: String, time: String): String {
+//    val datetime = SimpleDateFormat("yyyy-MM-dd HH:mm").parse("$date $time")
+//
+//    return datetime.toInstant().toString()
 //}
 
-@RequiresApi(Build.VERSION_CODES.O)
-fun formatToInstant(value: String): String {
-    val datetime = SimpleDateFormat(
-        "yyyy-MM-dd HH:mm",
-        Locale.getDefault()
-    )
-        .parse(value)
-    val transformation = DateTimeFormatter.ISO_INSTANT
-
-    return transformation.format(datetime?.toInstant())
-}
-
-@RequiresApi(Build.VERSION_CODES.O)
-fun dateToEpochSec(string: String?): Long? {
-    return if (string.isNullOrBlank()) null else LocalDate.parse(string)
-        .atStartOfDay(ZoneId.of("Europe/Moscow")).toEpochSecond()
-}
-
-@SuppressLint("SimpleDateFormat")
-fun epochSecToDate(second: Long): String {
-    val date = Date(second * 1_000)
-    val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
-    return simpleDateFormat.format(date)
-}
+//@SuppressLint("SimpleDateFormat")
+//@RequiresApi(Build.VERSION_CODES.O)
+//fun formatToInstant(value: String): String {
+//    val instant = Instant.parse(value)
+//    val dateTime = LocalDateTime.ofInstant(instant, ZoneOffset.UTC)
+//    return DateTimeFormatter
+//        .ofPattern("yyyy-MM-dd hh:mm")
+//        .format(dateTime)
+//}

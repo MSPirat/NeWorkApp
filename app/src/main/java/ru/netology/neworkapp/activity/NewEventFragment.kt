@@ -169,8 +169,8 @@ class NewEventFragment : Fragment() {
                                 eventViewModel.changeContent(
                                     it.editTextFragmentNewEvent.text.toString(),
                                     formatToInstant(
-                                        "${it.editTextDateFragmentNewEvent}" +
-                                                "${it.editTextTimeFragmentNewEvent}"
+                                        it.editTextDateFragmentNewEvent.text.toString() + " " +
+                                                it.editTextTimeFragmentNewEvent.text.toString()
                                     )
                                 )
                                 eventViewModel.save()
