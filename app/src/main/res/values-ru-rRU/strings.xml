@@ -64,5 +64,8 @@
     <string name="no_likers">Ни кому не нравится</string>
     <string name="no_participants">Без участников</string>
     <string name="no_mentions">No Mentions</string>
+    <string name="plus_button">Увеличить</string>
+    <string name="minus_button">Уменьшить</string>
+    <string name="location_button">Местоположение</string>
 
 </resources>

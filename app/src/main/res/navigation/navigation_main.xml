@@ -117,6 +117,12 @@
     </fragment>
 
     <fragment
+        android:id="@+id/nav_map_fragment"
+        android:name="ru.netology.neworkapp.activity.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" />
+
+    <fragment
         android:id="@+id/nav_sign_in_fragment"
         android:name="ru.netology.neworkapp.activity.SignInFragment"
         android:label="@string/sign_in"
