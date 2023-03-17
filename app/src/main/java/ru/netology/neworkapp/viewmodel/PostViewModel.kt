@@ -62,7 +62,7 @@ class PostViewModel @Inject constructor(
                 }
             }
 
-    private val edited = MutableLiveData(empty)
+    val edited = MutableLiveData(empty)
 
     private val _dataState = MutableLiveData<StateModel>()
     val dataState: LiveData<StateModel>
@@ -107,11 +107,12 @@ class PostViewModel @Inject constructor(
     }
 
     fun changeContent(content: String) {
-        val text = content.trim()
-        if (edited.value?.content == text) {
-            return
+        edited.value?.let {
+            val text = content.trim()
+            if (edited.value?.content != text) {
+                edited.value = edited.value?.copy(content = text)
+            }
         }
-        edited.value = edited.value?.copy(content = text)
     }
 
     fun changeMedia(

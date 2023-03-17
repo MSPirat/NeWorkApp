@@ -1,6 +1,7 @@
 package ru.netology.neworkapp.activity
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +18,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import ru.netology.neworkapp.R
 import ru.netology.neworkapp.adapter.OnPostInteractionListener
-import ru.netology.neworkapp.adapter.LoadingStateAdapter
 import ru.netology.neworkapp.adapter.PostsAdapter
 import ru.netology.neworkapp.databinding.FragmentPostsBinding
 import ru.netology.neworkapp.dto.Post
@@ -104,26 +104,50 @@ class WallFragment : Fragment() {
 
             override fun onOpenLikers(post: Post) {
                 userViewModel.getUsersIds(post.likeOwnerIds)
-                findNavController().navigate(R.id.nav_bottom_sheet_fragment)
+                if (post.likeOwnerIds.isEmpty()) {
+                    Toast.makeText(context, R.string.no_likers, Toast.LENGTH_SHORT)
+                        .show()
+                } else findNavController().navigate(R.id.nav_bottom_sheet_fragment)
             }
 
             override fun onOpenMentions(post: Post) {
                 userViewModel.getUsersIds(post.mentionIds)
-                findNavController().navigate(R.id.nav_bottom_sheet_fragment)
+                if (post.mentionIds.isEmpty()) {
+                    Toast.makeText(context, R.string.no_mentions, Toast.LENGTH_SHORT)
+                        .show()
+                } else findNavController().navigate(R.id.nav_bottom_sheet_fragment)
+            }
+
+            override fun onPlayAudio(post: Post) {
+                try {
+                    val uri = Uri.parse(post.attachment?.url)
+                    val intent = Intent(Intent.ACTION_VIEW)
+
+                    intent.setDataAndType(uri, "audio/*")
+                    startActivity(intent)
+                } catch (e: Exception) {
+                    Toast.makeText(context, R.string.no_play, Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+
+            override fun onPlayVideo(post: Post) {
+                try {
+                    val uri = Uri.parse(post.attachment?.url)
+                    val intent = Intent(Intent.ACTION_VIEW)
+
+                    intent.setDataAndType(uri, "video/*")
+                    startActivity(intent)
+                } catch (e: Exception) {
+                    Toast.makeText(context, R.string.no_play, Toast.LENGTH_SHORT)
+                        .show()
+                }
             }
         })
 
         val id = parentFragment?.arguments?.getLong("id")
 
-        binding.recyclerViewContainerFragmentPosts.adapter =
-            adapter.withLoadStateHeaderAndFooter(
-                header = LoadingStateAdapter {
-                    adapter.retry()
-                },
-                footer = LoadingStateAdapter {
-                    adapter.retry()
-                }
-            )
+        binding.recyclerViewContainerFragmentPosts.adapter = adapter
 
         lifecycleScope.launchWhenCreated {
             if (id != null) {

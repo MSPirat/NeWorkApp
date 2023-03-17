@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -44,10 +45,13 @@ class NewPostFragment : Fragment() {
             false
         )
 
+        (activity as AppCompatActivity).supportActionBar?.title =
+            context?.getString(R.string.title_post)
+
         fragmentNewPostBinding = binding
 
         arguments?.textArg
-            ?.let(binding.editTextFragmentNewPost::setText)
+            ?.let(binding.editTextFragmentNewPost::setText) ?: postViewModel.edited.value?.content
 
         binding.editTextFragmentNewPost.requestFocus()
 
@@ -106,7 +110,7 @@ class NewPostFragment : Fragment() {
         }
 
         postViewModel.postCreated.observe(viewLifecycleOwner) {
-            findNavController().navigateUp()
+            findNavController().navigate(R.id.nav_posts)
         }
 
         requireActivity().addMenuProvider(object : MenuProvider {

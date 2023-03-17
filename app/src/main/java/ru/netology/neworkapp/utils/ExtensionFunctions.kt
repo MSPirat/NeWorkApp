@@ -93,21 +93,3 @@ fun formatToInstant(value: String): String {
         transformation.format(datetime?.toInstant())
     } else "2023-01-27T17:00:00.000000Z"
 }
-
-//@SuppressLint("SimpleDateFormat")
-//@RequiresApi(Build.VERSION_CODES.O)
-//fun formatToInstant(date: String, time: String): String {
-//    val datetime = SimpleDateFormat("yyyy-MM-dd HH:mm").parse("$date $time")
-//
-//    return datetime.toInstant().toString()
-//}
-
-//@SuppressLint("SimpleDateFormat")
-//@RequiresApi(Build.VERSION_CODES.O)
-//fun formatToInstant(value: String): String {
-//    val instant = Instant.parse(value)
-//    val dateTime = LocalDateTime.ofInstant(instant, ZoneOffset.UTC)
-//    return DateTimeFormatter
-//        .ofPattern("yyyy-MM-dd hh:mm")
-//        .format(dateTime)
-//}

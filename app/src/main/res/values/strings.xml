@@ -16,6 +16,7 @@
     <string name="title_new_job">New Job</string>
     <string name="title_wall">Wall</string>
     <string name="title_bottom_sheet">Bottom Sheet</string>
+    <string name="title_map">Map</string>
     <string name="sign_login">Login</string>
     <string name="sign_password">Password</string>
     <string name="sign_repeat_password">Repeat Password</string>
@@ -64,9 +65,13 @@
     <string name="no_likers">No likes Owners</string>
     <string name="no_participants">No Participants</string>
     <string name="no_mentions">No Mentions</string>
+    <string name="no_play">No Play</string>
+    <string name="no_location">No access to location</string>
     <string name="plus_button">Plus</string>
     <string name="minus_button">Minus</string>
     <string name="location_button">Location</string>
+    <string name="set_point_button">Set point</string>
+    <string name="set_marker">Set geolocation</string>
 
     <string name="description_fab_add" translatable="false" />
     <string name="description_post_author_avatar" translatable="false" />

@@ -16,6 +16,7 @@
     <string name="title_new_job">Новое место работы</string>
     <string name="title_wall">Стена</string>
     <string name="title_bottom_sheet">Нижняя панель</string>
+    <string name="title_map">Карта</string>
     <string name="sign_login">Логин</string>
     <string name="sign_password">Пароль</string>
     <string name="sign_repeat_password">Повтор пароля</string>
@@ -63,9 +64,13 @@
     <string name="no_speakers">Спикеров нет</string>
     <string name="no_likers">Ни кому не нравится</string>
     <string name="no_participants">Без участников</string>
-    <string name="no_mentions">No Mentions</string>
+    <string name="no_mentions">Без упоминаний</string>
+    <string name="no_play">Невозможно воспроизвести</string>
+    <string name="no_location">Нет доступа к местоположению</string>
     <string name="plus_button">Увеличить</string>
     <string name="minus_button">Уменьшить</string>
     <string name="location_button">Местоположение</string>
+    <string name="set_point_button">Установить точку</string>
+    <string name="set_marker">Установить местоположение</string>
 
 </resources>

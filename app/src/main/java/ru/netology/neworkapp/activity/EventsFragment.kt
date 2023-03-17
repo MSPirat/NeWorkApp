@@ -82,7 +82,15 @@ class EventsFragment : Fragment() {
             }
 
             override fun onOpenMap(event: Event) {
-                TODO("Not yet implemented")
+                val bundle = Bundle().apply {
+                    event.coordinates?.lat?.let {
+                        putDouble("lat", it)
+                    }
+                    event.coordinates?.long?.let {
+                        putDouble("long", it)
+                    }
+                }
+                findNavController().navigate(R.id.nav_map_fragment, bundle)
             }
 
             override fun onOpenImageAttachment(event: Event) {
@@ -142,15 +150,7 @@ class EventsFragment : Fragment() {
             }
         })
 
-        binding.recyclerViewContainerFragmentEvents.adapter =
-            adapter.withLoadStateHeaderAndFooter(
-                header = LoadingStateAdapter {
-                    adapter.retry()
-                },
-                footer = LoadingStateAdapter {
-                    adapter.retry()
-                }
-            )
+        binding.recyclerViewContainerFragmentEvents.adapter = adapter
 
         lifecycleScope.launchWhenCreated {
             eventViewModel.data.collectLatest(adapter::submitData)

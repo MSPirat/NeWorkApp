@@ -1,6 +1,7 @@
 package ru.netology.neworkapp.activity
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -112,6 +113,31 @@ class PostsFragment : Fragment() {
                         .show()
                 } else {
                     findNavController().navigate(R.id.action_nav_posts_to_nav_bottom_sheet_fragment)
+                }
+            }
+            override fun onPlayAudio(post: Post) {
+                try {
+                    val uri = Uri.parse(post.attachment?.url)
+                    val intent = Intent(Intent.ACTION_VIEW)
+
+                    intent.setDataAndType(uri, "audio/*")
+                    startActivity(intent)
+                } catch (e: Exception) {
+                    Toast.makeText(context, R.string.no_play, Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+
+            override fun onPlayVideo(post: Post) {
+                try {
+                    val uri = Uri.parse(post.attachment?.url)
+                    val intent = Intent(Intent.ACTION_VIEW)
+
+                    intent.setDataAndType(uri, "video/*")
+                    startActivity(intent)
+                } catch (e: Exception) {
+                    Toast.makeText(context, R.string.no_play, Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         })

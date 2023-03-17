@@ -16,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.netology.neworkapp.R
 import ru.netology.neworkapp.databinding.FragmentNewEventBinding
+import ru.netology.neworkapp.dto.Coordinates
 import ru.netology.neworkapp.dto.Event
 import ru.netology.neworkapp.enumeration.AttachmentType
 import ru.netology.neworkapp.utils.*
@@ -36,6 +37,9 @@ class NewEventFragment : Fragment() {
 
     private var fragmentNewEventBinding: FragmentNewEventBinding? = null
 
+    private var latitude: Double? = null
+    private var longitude: Double? = null
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,6 +56,9 @@ class NewEventFragment : Fragment() {
             context?.getString(R.string.title_event)
 
         fragmentNewEventBinding = binding
+
+        latitude = arguments?.getDouble("lat")
+        longitude = arguments?.getDouble("long")
 
         arguments?.textArg
             ?.let(binding.editTextFragmentNewEvent::setText)
@@ -70,6 +77,22 @@ class NewEventFragment : Fragment() {
         if (eventViewModel.edited.value != Event.emptyEvent) {
             binding.editTextDateFragmentNewEvent.setText(date)
             binding.editTextTimeFragmentNewEvent.setText(time)
+        }
+
+        binding.imageViewPickGeoFragmentNewEvent.setOnClickListener {
+            eventViewModel.changeContent(
+                binding.editTextFragmentNewEvent.text.toString(),
+                formatToInstant(
+                    "${binding.editTextDateFragmentNewEvent.text}" +
+                            " " +
+                            "${binding.editTextTimeFragmentNewEvent.text}"
+                ),
+                null
+            )
+            val bundle = Bundle().apply {
+                putString("open", "newEvent")
+            }
+            findNavController().navigate(R.id.nav_map_fragment, bundle)
         }
 
         binding.editTextDateFragmentNewEvent.setOnClickListener {
@@ -169,9 +192,11 @@ class NewEventFragment : Fragment() {
                                 eventViewModel.changeContent(
                                     it.editTextFragmentNewEvent.text.toString(),
                                     formatToInstant(
-                                        it.editTextDateFragmentNewEvent.text.toString() + " " +
-                                                it.editTextTimeFragmentNewEvent.text.toString()
-                                    )
+                                        "${it.editTextDateFragmentNewEvent.text}" +
+                                                " " +
+                                                "${it.editTextTimeFragmentNewEvent.text}"
+                                    ),
+                                    Coordinates(latitude, longitude)
                                 )
                                 eventViewModel.save()
                                 AndroidUtils.hideKeyboard(requireView())
@@ -185,6 +210,187 @@ class NewEventFragment : Fragment() {
 
         return binding.root
     }
+
+    /*
+    var type: AttachmentType? = null
+
+    private val eventViewModel by activityViewModels<EventViewModel>()
+
+    private var fragmentNewEventBinding: FragmentNewEventBinding? = null
+
+    private var latitude: Double? = null
+    private var longitude: Double? = null
+
+    @Deprecated("Deprecated in Java")
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.create_post_menu, menu)
+    }
+
+    @Deprecated("Deprecated in Java")
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.save -> {
+                fragmentNewEventBinding?.let {
+                    if (it.editTextFragmentNewEvent.text.isNullOrBlank()) {
+                        Toast.makeText(
+                            activity,
+                            R.string.error_empty_content,
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    } else {
+                        eventViewModel.changeContent(
+                            it.editTextFragmentNewEvent.text.toString(),
+                            formatToInstant(
+                                "${it.editTextDateFragmentNewEvent.text}" +
+                                        " " +
+                                        "${it.editTextTimeFragmentNewEvent.text}"
+                            ),
+                            Coordinates(latitude!!, longitude!!)
+                        )
+
+                        eventViewModel.save()
+                        AndroidUtils.hideKeyboard(requireView())
+                    }
+                }
+                true
+            }
+            else ->
+                super.onOptionsItemSelected(item)
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View {
+        val binding = FragmentNewEventBinding.inflate(
+            inflater,
+            container,
+            false
+        )
+
+        (activity as AppCompatActivity).supportActionBar?.title =
+            context?.getString(R.string.title_event)
+
+        fragmentNewEventBinding = binding
+
+        latitude = arguments?.getDouble("lat")
+        longitude = arguments?.getDouble("long")
+
+        val datetime = arguments?.getString("datetime")?.let {
+            formatToDate(it)
+        } ?: formatToDate("${eventViewModel.edited.value?.datetime}")
+        val date = datetime.substring(0, 10)
+        val time = datetime.substring(11)
+
+        binding.editTextFragmentNewEvent.setText(
+            arguments?.getString("content") ?: eventViewModel.edited.value?.content
+        )
+        if (eventViewModel.edited.value != Event.emptyEvent) {
+            binding.editTextDateFragmentNewEvent.setText(date)
+            binding.editTextTimeFragmentNewEvent.setText(time)
+        }
+
+        binding.imageViewPickGeoFragmentNewEvent.setOnClickListener {
+            eventViewModel.changeContent(
+                binding.editTextFragmentNewEvent.text.toString(),
+                formatToInstant(
+                    "${binding.editTextDateFragmentNewEvent.text}${binding.editTextTimeFragmentNewEvent}"
+                ),
+                null
+            )
+            val bundle = Bundle().apply {
+                putString("open", "newEvent")
+            }
+            findNavController().navigate(R.id.nav_map_fragment, bundle)
+        }
+
+        binding.editTextDateFragmentNewEvent.setOnClickListener {
+            context?.let { item ->
+                pickDate(binding.editTextDateFragmentNewEvent, item)
+            }
+        }
+
+        binding.editTextTimeFragmentNewEvent.setOnClickListener {
+            context?.let { item ->
+                pickTime(binding.editTextTimeFragmentNewEvent, item)
+            }
+        }
+
+        binding.buttonAddSpeakersFragmentNewEvent.setOnClickListener {
+            val bundle = Bundle().apply {
+                putString("open", "speaker")
+            }
+            findNavController().navigate(R.id.nav_users, bundle)
+        }
+
+        eventViewModel.edited.observe(viewLifecycleOwner) {
+            binding.buttonAddSpeakersFragmentNewEvent.apply {
+                text = "$text${eventViewModel.edited.value?.speakerIds?.count().toString()}"
+            }
+        }
+        binding.buttonRemovePhotoFragmentNewEvent.setOnClickListener {
+            eventViewModel.changeMedia(null, null, null)
+        }
+
+
+        val photoLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                it.data?.data.let { uri ->
+                    val stream = uri?.let {
+                        context?.contentResolver?.openInputStream(it)
+                    }
+                    eventViewModel.changeMedia(uri, stream, type)
+                }
+            }
+
+        binding.imageViewPickPhotoFragmentNewEvent.setOnClickListener {
+            ImagePicker.Builder(this)
+                .galleryOnly()
+                .galleryMimeTypes(
+                    arrayOf(
+                        "image/png",
+                        "image/jpeg",
+                        "image/jpg"
+                    )
+                )
+                .maxResultSize(2048, 2048)
+                .createIntent(photoLauncher::launch)
+            type = AttachmentType.IMAGE
+        }
+
+        binding.imageViewTakePhotoFragmentNewEvent.setOnClickListener {
+            ImagePicker.Builder(this)
+                .cameraOnly()
+                .maxResultSize(2048, 2048)
+                .createIntent(photoLauncher::launch)
+        }
+
+        binding.buttonRemovePhotoFragmentNewEvent.setOnClickListener {
+            eventViewModel.changeMedia(null, null, null)
+        }
+
+        eventViewModel.media.observe(viewLifecycleOwner) {
+            if (it?.uri == null) {
+                binding.frameLayoutPhotoFragmentNewEvent.visibility = View.GONE
+                return@observe
+            }
+            binding.frameLayoutPhotoFragmentNewEvent.visibility = View.VISIBLE
+            binding.imageViewPhotoFragmentNewEvent.setImageURI(it.uri)
+        }
+
+        eventViewModel.eventCreated.observe(viewLifecycleOwner) {
+            findNavController().navigate(R.id.nav_events)
+        }
+
+        return binding.root
+    }
+
+     */
 
     override fun onDestroyView() {
         fragmentNewEventBinding = null

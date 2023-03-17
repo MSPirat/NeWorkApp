@@ -53,7 +53,7 @@ class NewJobFragment : Fragment() {
         binding.editTextPositionFragmentNewJob.setText(position)
         binding.editTextStartFragmentNewJob.setText(start?.let { epochSecToDate(it) })
         binding.editTextFinishFragmentNewJob.setText(
-            if (finish == 0L) "" else finish?.let { epochSecToDate(it) }
+            if (finish == 0L) " " else finish?.let { epochSecToDate(it) }
         )
         binding.editTextLinkFragmentNewJob.setText(link)
 

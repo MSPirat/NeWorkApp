@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import ru.netology.neworkapp.auth.AppAuth
+import ru.netology.neworkapp.dto.Coordinates
 import ru.netology.neworkapp.dto.Event
 import ru.netology.neworkapp.dto.MediaUpload
 import ru.netology.neworkapp.enumeration.AttachmentType
@@ -109,15 +110,19 @@ class EventViewModel @Inject constructor(
         _media.value = noMedia
     }
 
-    fun changeContent(content: String, date: String) {
+    fun changeContent(content: String, date: String, coordinates: Coordinates?) {
         edited.value?.let {
             val text = content.trim()
 
             if (edited.value?.content != text) {
                 edited.value = edited.value?.copy(content = text)
             }
-            if (edited.value?.datetime != date)
+            if (edited.value?.datetime != date) {
                 edited.value = edited.value?.copy(datetime = date)
+            }
+            if (edited.value?.coordinates != coordinates) {
+                edited.value = edited.value?.copy(coordinates = coordinates)
+            }
         }
     }
 

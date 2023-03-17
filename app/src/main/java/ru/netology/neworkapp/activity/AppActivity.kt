@@ -159,7 +159,7 @@ class AppActivity : AppCompatActivity() {
             R.id.sign_out -> {
                 appAuth.removeAuth()
                 findNavController(R.id.nav_host_fragment_activity_app)
-                    .navigateUp()
+                    .navigate(R.id.nav_posts)
                 true
             }
             else ->

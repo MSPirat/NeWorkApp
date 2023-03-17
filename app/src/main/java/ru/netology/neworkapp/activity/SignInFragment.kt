@@ -55,7 +55,7 @@ class SignInFragment : Fragment() {
 
         viewModel.data.observe(viewLifecycleOwner) {
             appAuth.setAuth(it.id, it.token)
-            findNavController().navigateUp()
+            findNavController().navigate(R.id.nav_posts)
         }
 
         binding.buttonSignUp.setOnClickListener {
