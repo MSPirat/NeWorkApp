@@ -1,12 +1,9 @@
 package ru.netology.neworkapp.adapter
 
-import android.animation.ObjectAnimator
-import android.animation.PropertyValuesHolder
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.BounceInterpolator
 import android.widget.PopupMenu
 import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
@@ -136,6 +133,10 @@ class EventViewHolder(
 
             buttonLocationCardEvent.setOnClickListener {
                 onEventInteractionListener.onOpenMap(event)
+            }
+
+            imageViewAttachmentImageCardEvent.setOnClickListener {
+                onEventInteractionListener.onOpenImageAttachment(event)
             }
 
             buttonLikeCardEvent.setOnClickListener {

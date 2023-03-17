@@ -115,6 +115,7 @@ class PostsFragment : Fragment() {
                     findNavController().navigate(R.id.action_nav_posts_to_nav_bottom_sheet_fragment)
                 }
             }
+
             override fun onPlayAudio(post: Post) {
                 try {
                     val uri = Uri.parse(post.attachment?.url)
@@ -139,6 +140,13 @@ class PostsFragment : Fragment() {
                     Toast.makeText(context, R.string.no_play, Toast.LENGTH_SHORT)
                         .show()
                 }
+            }
+
+            override fun onOpenImageAttachment(post: Post) {
+                val bundle = Bundle().apply {
+                    putString("url", post.attachment?.url)
+                }
+                findNavController().navigate(R.id.nav_image_attachment_fragment, bundle)
             }
         })
 

@@ -71,6 +71,14 @@ class ProfileFragment : Fragment() {
 
         with(binding) {
             textViewUserNameFragmentProfile.text = name
+
+            imageViewUserAvatarFragmentProfile.setOnClickListener {
+                val bundle = Bundle().apply {
+                    putString("url", avatar)
+                }
+                findNavController().navigate(R.id.nav_image_attachment_fragment, bundle)
+            }
+
             Glide.with(imageViewUserAvatarFragmentProfile)
                 .load("$avatar")
                 .transform(CircleCrop())

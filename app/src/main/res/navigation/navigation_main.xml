@@ -123,6 +123,12 @@
         tools:layout="@layout/fragment_map" />
 
     <fragment
+        android:id="@+id/nav_image_attachment_fragment"
+        android:name="ru.netology.neworkapp.activity.ImageAttachmentFragment"
+        android:label="fragment_image_attachment"
+        tools:layout="@layout/fragment_image_attachment" />
+
+    <fragment
         android:id="@+id/nav_sign_in_fragment"
         android:name="ru.netology.neworkapp.activity.SignInFragment"
         android:label="@string/sign_in"

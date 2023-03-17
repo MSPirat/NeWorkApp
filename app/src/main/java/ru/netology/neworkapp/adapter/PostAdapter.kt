@@ -1,12 +1,9 @@
 package ru.netology.neworkapp.adapter
 
-import android.animation.ObjectAnimator
-import android.animation.PropertyValuesHolder
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View.*
 import android.view.ViewGroup
-import android.view.animation.BounceInterpolator
 import android.widget.PopupMenu
 import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
@@ -31,7 +28,7 @@ interface OnPostInteractionListener {
     fun onOpenMentions(post: Post) {}
     fun onPlayVideo(post: Post) {}
     fun onPlayAudio(post: Post) {}
-//    fun onOpenImage(image: String) {}
+    fun onOpenImageAttachment(post: Post) {}
 }
 
 class PostsAdapter(
@@ -181,12 +178,10 @@ class PostViewHolder(
             imageButtonPlayPauseAudioCardPost.setOnClickListener {
                 onPostInteractionListener.onPlayAudio(post)
             }
-//
-//                attachment.setOnClickListener {
-//                    post.attachment?.let { attach ->
-//                        onPostInteractionListener.onOpenImage(attach.url)
-//                    }
-//                }
+
+            imageViewAttachmentImageCardPost.setOnClickListener {
+                onPostInteractionListener.onOpenImageAttachment(post)
+            }
         }
     }
 }
