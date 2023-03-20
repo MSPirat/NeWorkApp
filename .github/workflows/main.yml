@@ -23,6 +23,7 @@ jobs:
         env:
           MAPS_API_KEY: "f1a524fb-feb1-44e5-82ca-eb668ad32516"
         run: echo $MAPS_API_KEY > ./maps.properties
+
       - name: Build
         run: |
           chmod +x ./gradlew
