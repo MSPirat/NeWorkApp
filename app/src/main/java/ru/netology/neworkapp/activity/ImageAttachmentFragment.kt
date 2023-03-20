@@ -48,4 +48,9 @@ class ImageAttachmentFragment : Fragment() {
 
         return binding.root
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        (activity as AppCompatActivity).supportActionBar?.show()
+    }
 }
