@@ -18,12 +18,7 @@ jobs:
         env:
           FIREBASE_SECRET: ${{ secrets.FIREBASE_SECRET }}
         run: echo $FIREBASE_SECRET > ./app/google-services.json
-      
-      - name: Decode maps.properties
-        env:
-          MAPS_API_KEY: "f1a524fb-feb1-44e5-82ca-eb668ad32516"
-        run: echo $MAPS_API_KEY > ./maps.properties
-                
+          
       - name: Build
         run: |
           chmod +x ./gradlew
