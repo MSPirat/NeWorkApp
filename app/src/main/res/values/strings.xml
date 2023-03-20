@@ -72,6 +72,9 @@
     <string name="location_button">Location</string>
     <string name="set_point_button">Set point</string>
     <string name="set_marker">Set geolocation</string>
+    <string name="channel_remote_description">Notifications from remote server</string>
+    <string name="channel_remote_name">Server notifications</string>
+    <string name="google_play_unavailable">Google API Unavailable</string>
 
     <string name="description_fab_add" translatable="false" />
     <string name="description_post_author_avatar" translatable="false" />

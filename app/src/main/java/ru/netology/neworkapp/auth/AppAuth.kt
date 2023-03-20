@@ -44,7 +44,6 @@ class AppAuth @Inject constructor(
         } else {
             _authStateFlow = MutableStateFlow(AuthState(id, token))
         }
-        sendPushToken()
     }
 
     val authStateFlow: StateFlow<AuthState> = _authStateFlow.asStateFlow()
@@ -57,7 +56,6 @@ class AppAuth @Inject constructor(
             putString(tokenKey, token)
             apply()
         }
-        sendPushToken()
     }
 
     @Synchronized
@@ -67,7 +65,6 @@ class AppAuth @Inject constructor(
             clear()
             commit()
         }
-        sendPushToken()
     }
 
     @InstallIn(SingletonComponent::class)

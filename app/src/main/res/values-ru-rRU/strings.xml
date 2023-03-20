@@ -72,5 +72,8 @@
     <string name="location_button">Местоположение</string>
     <string name="set_point_button">Установить точку</string>
     <string name="set_marker">Установить местоположение</string>
+    <string name="channel_remote_description">Уведомления с удалённого сервера</string>
+    <string name="channel_remote_name">Уведомление сервера</string>
+    <string name="google_play_unavailable">Google API не доступен</string>
 
 </resources>
