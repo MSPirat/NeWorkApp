@@ -21,7 +21,7 @@ jobs:
 
       - name: Decode maps.properties
         env:
-          MAPS_API_KEY: "f1a524fb-feb1-44e5-82ca-eb668ad32516"
+          MAPS_API_KEY: ${{ secrets.MAPS_API_KEY }}
         run: echo $MAPS_API_KEY > ./maps.properties
 
       - name: Build
