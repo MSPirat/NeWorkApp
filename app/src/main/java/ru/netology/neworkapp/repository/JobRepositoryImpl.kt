@@ -18,7 +18,7 @@ import javax.inject.Inject
 class JobRepositoryImpl @Inject constructor(
 
     private val jobDao: JobDao,
-    private val jobApiService: JobApiService,
+    private val jobApiService: JobApiService
 ) : JobRepository {
 
     override val data: Flow<List<Job>> = jobDao.getJob()
@@ -49,7 +49,7 @@ class JobRepositoryImpl @Inject constructor(
                 throw ApiError(response.message())
             }
             val body = response.body() ?: throw ApiError(response.message())
-            jobDao.insertJob(body.toJobEntity())
+            jobDao.insertJobs(body.toJobEntity())
         } catch (e: IOException) {
             throw NetworkError
         } catch (e: Exception) {

@@ -8,4 +8,6 @@ interface UserRepository {
     val data: Flow<List<User>>
 
     suspend fun getAll()
+
+    suspend fun getUserById(id: Long): User
 }

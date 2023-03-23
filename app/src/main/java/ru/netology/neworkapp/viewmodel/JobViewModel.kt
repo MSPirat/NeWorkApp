@@ -63,7 +63,7 @@ class JobViewModel @Inject constructor(
             jobRepository.getJobByUserId(id)
             _dataState.value = StateModel()
         } catch (e: Exception) {
-            _dataState.value = StateModel(error = true)
+            _dataState.postValue(StateModel(error = true))
         }
     }
 

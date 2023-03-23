@@ -171,7 +171,11 @@ class PostViewHolder(
                 onPostInteractionListener.onOpenMentions(post)
             }
 
-            groupAttachmentVideoCardPost.setOnClickListener {
+            imageButtonBackgroundVideoCardPost.setOnClickListener {
+                onPostInteractionListener.onPlayVideo(post)
+            }
+
+            imageButtonPlayVideoCardPost.setOnClickListener {
                 onPostInteractionListener.onPlayVideo(post)
             }
 

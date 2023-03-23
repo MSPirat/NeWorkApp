@@ -4,16 +4,13 @@ import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.netology.neworkapp.api.UserApiService
 import ru.netology.neworkapp.dto.User
 import ru.netology.neworkapp.model.StateModel
 import ru.netology.neworkapp.repository.UserRepository
-import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
 class UserViewModel @Inject constructor(
-    private val userApiService: UserApiService,
     private val userRepository: UserRepository,
 ) : ViewModel() {
 
@@ -50,12 +47,9 @@ class UserViewModel @Inject constructor(
     fun getUserById(id: Long) = viewModelScope.launch {
         _dataState.postValue(StateModel(loading = true))
         try {
-            val response = userApiService.getUserById(id)
-            if (response.isSuccessful) {
-                _user.value = response.body()
-            }
+            _user.value = userRepository.getUserById(id)
             _dataState.postValue(StateModel())
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             _dataState.postValue(StateModel(error = true))
         }
     }
