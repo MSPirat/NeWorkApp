@@ -1,5 +1,6 @@
 package ru.netology.neworkapp.module
 
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,6 +15,7 @@ import ru.netology.neworkapp.api.*
 import ru.netology.neworkapp.auth.AppAuth
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
+
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -52,12 +54,16 @@ class ApiModule {
         .writeTimeout(60, TimeUnit.SECONDS)
         .build()
 
+    private var gson = GsonBuilder()
+        .setLenient()
+        .create()
+
     @Provides
     @Singleton
     fun provideRetrofit(
         okHttpClient: OkHttpClient,
     ): Retrofit = Retrofit.Builder()
-        .addConverterFactory(GsonConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create(gson))
         .client(okHttpClient)
         .baseUrl(BASE_URL)
         .build()
