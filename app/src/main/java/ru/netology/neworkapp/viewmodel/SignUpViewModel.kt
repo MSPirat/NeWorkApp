@@ -8,16 +8,24 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import ru.netology.neworkapp.api.UserApiService
+import ru.netology.neworkapp.dto.PhotoUpload
 import ru.netology.neworkapp.dto.Token
+import ru.netology.neworkapp.errors.ApiError
 import ru.netology.neworkapp.model.PhotoModel
 import ru.netology.neworkapp.model.StateModel
-import ru.netology.neworkapp.repository.SignUpRepository
+//import ru.netology.neworkapp.repository.SignUpRepository
 import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    private val signUpRepository: SignUpRepository,
+//    private val signUpRepository: SignUpRepository,
+    private val userApiService: UserApiService,
 ) : ViewModel() {
 
     val data = MutableLiveData<Token>()
@@ -36,9 +44,29 @@ class SignUpViewModel @Inject constructor(
         viewModelScope.launch {
             _dataState.postValue(StateModel(loading = true))
             try {
-                val image = photo.value?.uri
-                val token = signUpRepository.registrationUser(login, password, name, image!!)
-                data.value = Token(token.id, token.token)
+//                val image = photo.value?.uri
+//                val token = signUpRepository.registrationUser(login, password, name, image!!)
+//                data.value = Token(token.id, token.token)
+//                _dataState.postValue(StateModel())
+                val response = userApiService.registrationUser(
+                    login.toRequestBody("text/plain".toMediaType()),
+                    password.toRequestBody("text/plain".toMediaType()),
+                    name.toRequestBody("text/plain".toMediaType()),
+                    photo.value?.uri?.toFile()?.let {
+                        val upload = PhotoUpload(it)
+
+                        MultipartBody.Part.createFormData(
+                            "file",
+                            upload.file.name,
+                            upload.file.asRequestBody()
+                        )
+                    }
+                )
+                if (!response.isSuccessful) {
+                    throw ApiError(response.message())
+                }
+                val body = response.body() ?: throw ApiError(response.message())
+                data.value = Token(body.id, body.token)
                 _dataState.postValue(StateModel())
             } catch (e: IOException) {
                 _dataState.postValue(StateModel(error = true))

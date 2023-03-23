@@ -1,5 +1,7 @@
 package ru.netology.neworkapp.repository
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
@@ -25,6 +27,8 @@ class JobRepositoryImpl @Inject constructor(
         .map { it.toDto() }
         .flowOn(Dispatchers.Default)
 
+    private val _data = MutableLiveData<List<Job>>()
+
     override suspend fun saveJob(job: Job) {
         try {
             jobDao.saveJob(JobEntity.fromDto(job))
@@ -49,6 +53,7 @@ class JobRepositoryImpl @Inject constructor(
                 throw ApiError(response.message())
             }
             val body = response.body() ?: throw ApiError(response.message())
+            _data.postValue(body)
             jobDao.insertJobs(body.toJobEntity())
         } catch (e: IOException) {
             throw NetworkError
