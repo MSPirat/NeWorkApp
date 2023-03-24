@@ -7,22 +7,22 @@ import ru.netology.neworkapp.dto.Job
 @Entity
 data class JobEntity(
     @PrimaryKey
-    val id: Long,
-    val name: String,
-    val position: String,
-    val start: Long,
-    val finish: Long? = null,
+    val id: Long = 0L,
+    val name: String = "",
+    val position: String = "",
+    val start: String = "",
+    val finish: String? = null,
     val link: String? = null,
     val ownedByMe: Boolean = false,
 ) {
     fun toDto() = Job(
-        id,
-        name,
-        position,
-        start,
-        finish,
-        link,
-        ownedByMe,
+        id = id,
+        name = name,
+        position = position,
+        start = start,
+        finish = finish,
+        link = link,
+        ownedByMe = ownedByMe,
     )
 
     companion object {
@@ -40,4 +40,4 @@ data class JobEntity(
 }
 
 fun List<JobEntity>.toDto() = map(JobEntity::toDto)
-fun List<Job>.toJobEntity() = map(JobEntity.Companion::fromDto)
+fun List<Job>.toJobEntity() = map(JobEntity::fromDto)

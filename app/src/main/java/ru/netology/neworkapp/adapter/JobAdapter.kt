@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.netology.neworkapp.R
 import ru.netology.neworkapp.databinding.CardJobBinding
 import ru.netology.neworkapp.dto.Job
-import ru.netology.neworkapp.utils.epochSecToDate
+import ru.netology.neworkapp.utils.AndroidUtils
 
 interface OnJobInteractionListener {
     fun onRemoveJob(job: Job)
@@ -54,10 +54,10 @@ class JobViewHolder(
         binding.apply {
             textViewNameCardJob.text = job.name
             textViewPositionCardJob.text = job.position
-            textViewStartCardJob.text = epochSecToDate(job.start).substring(0, 7)
+            textViewStartCardJob.text = AndroidUtils.convertDate(job.start).substring(0, 7)
             textViewFinishCardJob.text =
                 if (job.finish == null) context.getString(R.string.text_job_now)
-                else epochSecToDate(job.finish).substring(0, 7)
+                else AndroidUtils.convertDate(job.finish).substring(0, 7)
             textViewLinkCardJob.visibility =
                 if (job.link == null) GONE else VISIBLE
             textViewLinkCardJob.text = job.link

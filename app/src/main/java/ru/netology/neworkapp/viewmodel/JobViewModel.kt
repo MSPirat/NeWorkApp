@@ -22,7 +22,7 @@ private val empty = Job(
     id = 0,
     name = "",
     position = "",
-    start = 0L,
+    start = "",
     finish = null,
 )
 
@@ -90,8 +90,8 @@ class JobViewModel @Inject constructor(
     fun changeJobData(
         name: String,
         position: String,
-        start: Long,
-        finish: Long?,
+        start: String,
+        finish: String?,
         link: String?,
     ) {
         edited.value?.let {
@@ -134,4 +134,12 @@ class JobViewModel @Inject constructor(
                 _dataState.postValue(StateModel(error = true))
             }
         }
+
+    fun startDate(date: String) {
+        edited.value = edited.value?.copy(start = date)
+    }
+
+    fun finishDate(date: String) {
+        edited.value = edited.value?.copy(finish = date)
+    }
 }

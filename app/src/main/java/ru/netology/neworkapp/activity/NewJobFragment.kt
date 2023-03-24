@@ -17,8 +17,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.netology.neworkapp.R
 import ru.netology.neworkapp.databinding.FragmentNewJobBinding
 import ru.netology.neworkapp.utils.AndroidUtils
-import ru.netology.neworkapp.utils.dateToEpochSec
-import ru.netology.neworkapp.utils.epochSecToDate
+import ru.netology.neworkapp.utils.AndroidUtils.selectDateDialog
 import ru.netology.neworkapp.utils.pickDate
 import ru.netology.neworkapp.viewmodel.JobViewModel
 
@@ -43,22 +42,35 @@ class NewJobFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.title =
             context?.getString(R.string.title_job)
 
+        binding.editTextStartFragmentNewJob.setOnClickListener {
+            selectDateDialog(binding.editTextStartFragmentNewJob, requireContext())
+            val startDate = binding.editTextStartFragmentNewJob.text.toString()
+            jobViewModel.startDate(startDate)
+        }
+
+        binding.editTextFinishFragmentNewJob.setOnClickListener {
+            selectDateDialog(binding.editTextFinishFragmentNewJob, requireContext())
+            val endDate = binding.editTextFinishFragmentNewJob.text.toString()
+            jobViewModel.finishDate(endDate)
+        }
+
         val name = arguments?.getString("name")
         val position = arguments?.getString("position")
-        val start = arguments?.getLong("start")
-        val finish = arguments?.getLong("finish")
+        val start = arguments?.getString("start")
+        val finish = arguments?.getString("finish")
         val link = arguments?.getString("link")
 
         binding.editTextNameFragmentNewJob.setText(name)
         binding.editTextPositionFragmentNewJob.setText(position)
-        binding.editTextStartFragmentNewJob.setText(start?.let { epochSecToDate(it) })
+        binding.editTextStartFragmentNewJob.setText(start)
         binding.editTextFinishFragmentNewJob.setText(
-            if (finish == 0L) " " else finish?.let { epochSecToDate(it) }
+            if (finish == "") " " else finish
         )
         binding.editTextLinkFragmentNewJob.setText(link)
 
 
         binding.buttonSaveFragmentNewJob.setOnClickListener {
+            AndroidUtils.hideKeyboard(requireView())
             binding.let {
                 if (
                     it.editTextNameFragmentNewJob.text.isNullOrBlank() ||
@@ -74,8 +86,8 @@ class NewJobFragment : Fragment() {
                     jobViewModel.changeJobData(
                         it.editTextNameFragmentNewJob.text.toString(),
                         it.editTextPositionFragmentNewJob.text.toString(),
-                        dateToEpochSec(it.editTextStartFragmentNewJob.text.toString())!!,
-                        dateToEpochSec(it.editTextFinishFragmentNewJob.text.toString()),
+                        it.editTextStartFragmentNewJob.text.toString(),
+                        it.editTextFinishFragmentNewJob.text.toString(),
                         it.editTextLinkFragmentNewJob.text.toString(),
                     )
                     jobViewModel.save()

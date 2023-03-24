@@ -1,6 +1,5 @@
 package ru.netology.neworkapp.repository
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -17,6 +16,7 @@ import ru.netology.neworkapp.errors.NetworkError
 import java.io.IOException
 import javax.inject.Inject
 
+
 class JobRepositoryImpl @Inject constructor(
 
     private val jobDao: JobDao,
@@ -31,7 +31,7 @@ class JobRepositoryImpl @Inject constructor(
 
     override suspend fun saveJob(job: Job) {
         try {
-            jobDao.saveJob(JobEntity.fromDto(job))
+//            jobDao.saveJob(JobEntity.fromDto(job))
             val response = jobApiService.saveJob(job)
             if (!response.isSuccessful) {
                 throw ApiError(response.message())
@@ -64,11 +64,11 @@ class JobRepositoryImpl @Inject constructor(
 
     override suspend fun removeById(id: Long) {
         try {
-            jobDao.removeById(id)
             val response = jobApiService.removeById(id)
             if (!response.isSuccessful) {
                 throw ApiError(response.message())
             }
+            jobDao.removeById(id)
         } catch (e: IOException) {
             throw NetworkError
         } catch (e: Exception) {

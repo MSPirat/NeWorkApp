@@ -4,8 +4,8 @@ data class Job(
     val id: Long,
     val name: String,
     val position: String,
-    val start: Long,
-    val finish: Long? = null,
+    val start: String,
+    val finish: String? = null,
     val link: String? = null,
     val ownedByMe: Boolean = false,
 ) {
@@ -14,7 +14,7 @@ data class Job(
             id = 0,
             name = "",
             position = "",
-            start = 0L,
+            start = "",
             finish = null,
         )
     }

@@ -16,7 +16,7 @@ import ru.netology.neworkapp.utils.Converters
         UserEntity::class,
         JobEntity::class,
     ],
-    version = 10,
+    version = 11,
     exportSchema = false
 )
 

@@ -48,9 +48,9 @@ class JobsFragment : Fragment() {
                 val bundle = Bundle().apply {
                     putString("name", job.name)
                     putString("position", job.position)
-                    putLong("start", job.start)
+                    putString("start", job.start)
                     job.finish?.let {
-                        putLong("finish", it)
+                        putString("finish", it)
                     }
 //                    putString("link", job.link)
                     job.link?.let {
