@@ -25,7 +25,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_name_fragment_new_job"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/common_spacing_small"
@@ -35,20 +35,22 @@
             android:hint="@string/text_job_name"
             android:inputType="text"
             android:padding="@dimen/common_spacing_medium"
-            app:boxStrokeColor="@color/purple_500"
-            app:hintTextColor="@color/purple_500"
+            app:boxStrokeColor="@color/orange_500"
+            app:hintTextColor="@color/orange_500"
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_text_name_fragment_new_job"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:importantForAutofill="no"
+                tools:text="@tools:sample/lorem[3]" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_position_fragment_new_job"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/common_spacing_small"
@@ -58,64 +60,70 @@
             android:hint="@string/text_job_position"
             android:inputType="text"
             android:padding="@dimen/common_spacing_medium"
-            app:boxStrokeColor="@color/purple_500"
-            app:hintTextColor="@color/purple_500"
+            app:boxStrokeColor="@color/orange_500"
+            app:hintTextColor="@color/orange_500"
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_text_position_fragment_new_job"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:importantForAutofill="no"
+                tools:text="@tools:sample/lorem[0]" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_start_fragment_new_job"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/common_spacing_small"
             android:layout_marginEnd="@dimen/common_spacing_small"
+            android:focusable="false"
             android:gravity="start|top"
             android:hint="@string/text_job_start"
             android:padding="@dimen/common_spacing_medium"
-            app:boxStrokeColor="@color/purple_500"
-            app:hintTextColor="@color/purple_500"
+            app:boxStrokeColor="@color/orange_500"
+            app:hintTextColor="@color/orange_500"
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_text_start_fragment_new_job"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="false"/>
+                android:importantForAutofill="no"
+                tools:text="@tools:sample/date/ddmmyy" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_finish_fragment_new_job"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/common_spacing_small"
             android:layout_marginEnd="@dimen/common_spacing_small"
+            android:focusable="false"
             android:gravity="start|top"
             android:hint="@string/text_job_finish"
             android:padding="@dimen/common_spacing_medium"
-            app:boxStrokeColor="@color/purple_500"
-            app:hintTextColor="@color/purple_500"
+            app:boxStrokeColor="@color/orange_500"
+            app:hintTextColor="@color/orange_500"
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_text_finish_fragment_new_job"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="false"/>
+                android:importantForAutofill="no"
+                tools:text="@tools:sample/date/ddmmyy" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_link_fragment_new_job"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/common_spacing_small"
@@ -125,14 +133,16 @@
             android:hint="@string/text_job_link"
             android:inputType="text|textWebEditText"
             android:padding="@dimen/common_spacing_medium"
-            app:boxStrokeColor="@color/purple_500"
-            app:hintTextColor="@color/purple_500"
+            app:boxStrokeColor="@color/orange_500"
+            app:hintTextColor="@color/orange_500"
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_text_link_fragment_new_job"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:importantForAutofill="no"
+                tools:text="@tools:sample/cities" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -143,7 +153,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="@dimen/common_spacing_large"
             android:text="@string/save"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"
+            app:cornerRadius="@dimen/button_corner_radius" />
 
     </LinearLayout>
 

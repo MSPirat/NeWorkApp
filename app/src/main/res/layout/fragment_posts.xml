@@ -33,7 +33,7 @@
         android:id="@+id/swipe_refresh_fragment_posts"
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_spacing_0dp"
-        android:background="@color/background_wall"
+        android:background="@color/white_background_wall"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

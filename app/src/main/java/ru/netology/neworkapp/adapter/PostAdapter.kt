@@ -1,9 +1,12 @@
 package ru.netology.neworkapp.adapter
 
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View.*
 import android.view.ViewGroup
+import android.view.animation.BounceInterpolator
 import android.widget.PopupMenu
 import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
@@ -139,18 +142,17 @@ class PostViewHolder(
                 }.show()
             }
 
-            buttonLikeCardPost.setOnClickListener {
-                onPostInteractionListener.onLikePost(post)
 //            buttonLikeCardPost.setOnClickListener {
-//                val scaleX = PropertyValuesHolder.ofFloat(SCALE_X, 1F, 1.25F, 1F)
-//                val scaleY = PropertyValuesHolder.ofFloat(SCALE_Y, 1F, 1.25F, 1F)
-//                ObjectAnimator.ofPropertyValuesHolder(it, scaleX, scaleY).apply {
-//                    duration = 500
-//                    repeatCount = 100
-//                    interpolator = BounceInterpolator()
-//                }.start()
 //                onPostInteractionListener.onLikePost(post)
-//            }
+            buttonLikeCardPost.setOnClickListener {
+                val scaleX = PropertyValuesHolder.ofFloat(SCALE_X, 1F, 1.25F, 1F)
+                val scaleY = PropertyValuesHolder.ofFloat(SCALE_Y, 1F, 1.25F, 1F)
+                ObjectAnimator.ofPropertyValuesHolder(it, scaleX, scaleY).apply {
+                    duration = 500
+                    repeatCount = 1
+                    interpolator = BounceInterpolator()
+                }.start()
+                onPostInteractionListener.onLikePost(post)
             }
 
             buttonMentionCardPost.visibility =

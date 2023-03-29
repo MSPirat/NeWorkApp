@@ -8,6 +8,7 @@
     <dimen name="common_spacing_0dp">0dp</dimen>
 
     <dimen name="posts_avatar_size">48dp</dimen>
+    <dimen name="button_corner_radius">24dp</dimen>
     <dimen name="button_size_smallest">6dp</dimen>
     <dimen name="button_size_small">12dp</dimen>
     <dimen name="button_size">24dp</dimen>

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/user_view"
@@ -50,6 +51,7 @@
         android:layout_marginTop="@dimen/common_spacing_large"
         app:dividerInsetEnd="@dimen/common_spacing_large"
         app:dividerInsetStart="@dimen/divider_start_margin"
+        app:dividerColor="@color/gray_empty_icon"
         app:layout_constraintStart_toStartOf="@+id/user_name"
         app:layout_constraintTop_toBottomOf="@id/user_avatar_card" />
 

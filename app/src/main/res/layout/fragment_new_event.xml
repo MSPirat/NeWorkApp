@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,11 +20,16 @@
                 android:id="@+id/edit_text_fragment_new_event"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="top"
+                android:layout_marginStart="@dimen/common_spacing_small"
+                android:layout_marginTop="@dimen/common_spacing_large"
+                android:layout_marginEnd="@dimen/common_spacing_small"
+                android:background="@color/transparent"
+                android:gravity="start|top"
                 android:hint="@string/text_new_event"
                 android:importantForAutofill="no"
                 android:inputType="textMultiLine"
                 android:padding="@dimen/common_spacing_medium"
+                android:textColorHint="@color/orange_500"
                 tools:ignore="MissingConstraints"
                 tools:text="@tools:sample/lorem[50]" />
 
@@ -48,35 +54,60 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center_horizontal"
                     android:text="@string/clear"
-                    android:textAllCaps="false" />
+                    android:textAllCaps="false"
+                    app:cornerRadius="@dimen/button_corner_radius" />
 
             </FrameLayout>
 
-            <EditText
-                android:id="@+id/edit_text_date_fragment_new_event"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_date_fragment_new_event"
+                style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/common_spacing_small"
                 android:layout_marginTop="@dimen/common_spacing_large"
-                android:focusable="false"
+                android:layout_marginEnd="@dimen/common_spacing_small"
+                android:gravity="start|top"
                 android:hint="@string/text_new_event_date"
-                android:importantForAutofill="no"
-                android:inputType="textMultiLine"
+                android:inputType="date"
                 android:padding="@dimen/common_spacing_medium"
-                tools:ignore="MissingConstraints,TextFields"
-                tools:text="@tools:sample/date/ddmmyy" />
+                app:boxStrokeColor="@color/orange_500"
+                app:hintTextColor="@color/orange_500"
+                tools:ignore="MissingConstraints">
 
-            <EditText
-                android:id="@+id/edit_text_time_fragment_new_event"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_date_fragment_new_event"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:importantForAutofill="no"
+                    tools:text="@tools:sample/date/ddmmyy" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_time_fragment_new_event"
+                style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/common_spacing_small"
                 android:layout_marginTop="@dimen/common_spacing_large"
-                android:focusable="false"
+                android:layout_marginEnd="@dimen/common_spacing_small"
+                android:gravity="start|top"
                 android:hint="@string/text_new_event_time"
-                android:importantForAutofill="no"
-                android:inputType="textMultiLine"
+                android:inputType="time"
                 android:padding="@dimen/common_spacing_medium"
-                tools:ignore="MissingConstraints,TextFields"
-                tools:text="@tools:sample/date/hhmm" />
+                app:boxStrokeColor="@color/orange_500"
+                app:hintTextColor="@color/orange_500"
+                tools:ignore="MissingConstraints">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_text_time_fragment_new_event"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:importantForAutofill="no"
+                    tools:text="@tools:sample/date/hhmm" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_add_speakers_fragment_new_event"
@@ -85,7 +116,8 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="@dimen/common_spacing_large"
                 android:text="@string/add_speakers"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                app:cornerRadius="@dimen/button_corner_radius" />
 
         </LinearLayout>
 

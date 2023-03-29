@@ -1,5 +1,6 @@
 package ru.netology.neworkapp.activity
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.view.*
@@ -40,6 +41,7 @@ class NewEventFragment : Fragment() {
     private var latitude: Double? = null
     private var longitude: Double? = null
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -91,6 +93,12 @@ class NewEventFragment : Fragment() {
             )
             val bundle = Bundle().apply {
                 putString("open", "newEvent")
+                if (latitude != null) {
+                    putDouble("lat", latitude!!)
+                }
+                if (longitude != null) {
+                    putDouble("long", longitude!!)
+                }
             }
             findNavController().navigate(R.id.nav_map_fragment, bundle)
         }
@@ -116,9 +124,7 @@ class NewEventFragment : Fragment() {
 
         eventViewModel.edited.observe(viewLifecycleOwner) {
             binding.buttonAddSpeakersFragmentNewEvent.apply {
-                "$text${eventViewModel.edited.value?.speakerIds?.count().toString()}".also {
-                    text = it
-                }
+                text = "$text ${eventViewModel.edited.value?.speakerIds?.count().toString()}"
             }
         }
 
@@ -192,8 +198,7 @@ class NewEventFragment : Fragment() {
                                 eventViewModel.changeContent(
                                     it.editTextFragmentNewEvent.text.toString(),
                                     formatToInstant(
-                                        "${it.editTextDateFragmentNewEvent.text}" +
-                                                " " +
+                                        "${it.editTextDateFragmentNewEvent.text} " +
                                                 "${it.editTextTimeFragmentNewEvent.text}"
                                     ),
                                     Coordinates(latitude, longitude)

@@ -54,10 +54,10 @@ class JobViewHolder(
         binding.apply {
             textViewNameCardJob.text = job.name
             textViewPositionCardJob.text = job.position
-            textViewStartCardJob.text = AndroidUtils.convertDate(job.start).substring(0, 7)
+            textViewStartCardJob.text = AndroidUtils.convertDate(job.start).substring(0, 10)
             textViewFinishCardJob.text =
                 if (job.finish == null) context.getString(R.string.text_job_now)
-                else AndroidUtils.convertDate(job.finish).substring(0, 7)
+                else AndroidUtils.convertDate(job.finish).substring(0, 10)
             textViewLinkCardJob.visibility =
                 if (job.link == null) GONE else VISIBLE
             textViewLinkCardJob.text = job.link

@@ -33,19 +33,9 @@
                 android:text="@string/sign_user_name"
                 android:textSize="@dimen/profile_user_name_text_size"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@id/text_view_user_job_fragment_profile"
                 app:layout_constraintStart_toEndOf="@id/image_view_user_avatar_fragment_profile"
-                app:layout_constraintTop_toTopOf="@id/image_view_user_avatar_fragment_profile" />
-
-            <TextView
-                android:id="@+id/text_view_user_job_fragment_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/common_spacing_large"
-                android:text="@string/title_job"
-                app:layout_constraintBottom_toBottomOf="@id/image_view_user_avatar_fragment_profile"
-                app:layout_constraintStart_toEndOf="@id/image_view_user_avatar_fragment_profile"
-                app:layout_constraintTop_toBottomOf="@id/text_view_user_name_fragment_profile" />
+                app:layout_constraintTop_toTopOf="@id/image_view_user_avatar_fragment_profile"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_user_avatar_fragment_profile" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

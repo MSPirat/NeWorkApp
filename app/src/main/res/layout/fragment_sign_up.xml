@@ -48,8 +48,8 @@
                 android:layout_height="@dimen/sign_avatar_size"
                 android:layout_marginTop="@dimen/sign_spacing_large"
                 android:src="@drawable/ic_add_sign_user_image"
-                app:civ_border_color="@color/purple_500"
-                app:civ_border_width="3dp"
+                app:civ_border_color="@color/orange_500"
+                app:civ_border_width="5dp"
                 app:layout_constraintBottom_toTopOf="@id/text_field_login"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -57,14 +57,16 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_field_login"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/sign_spacing_small"
                 android:gravity="start|top"
                 android:hint="@string/sign_login"
-                app:boxStrokeColor="@color/purple_500"
-                app:hintTextColor="@color/purple_500"
+                android:inputType="text"
+                android:padding="@dimen/common_spacing_medium"
+                app:boxStrokeColor="@color/orange_500"
+                app:hintTextColor="@color/orange_500"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/circle_image_view_profile_sign_up">
@@ -72,21 +74,25 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_text_field_login"
                     android:layout_width="@dimen/sign_spacing_bigger"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:importantForAutofill="no"
+                    tools:text="@tools:sample/first_names[999]" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_field_password"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/sign_spacing_small"
                 android:gravity="start|top"
                 android:hint="@string/sign_password"
-                app:boxStrokeColor="@color/purple_500"
+                android:inputType="textPassword"
+                app:boxStrokeColor="@color/orange_500"
                 app:endIconMode="password_toggle"
-                app:hintTextColor="@color/purple_500"
+                app:endIconTint="@color/orange_500"
+                app:hintTextColor="@color/orange_500"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_field_login">
@@ -95,21 +101,24 @@
                     android:id="@+id/edit_text_field_password"
                     android:layout_width="@dimen/sign_spacing_bigger"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword" />
+                    android:importantForAutofill="no"
+                    tools:text="@tools:sample/lorem[0]" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_field_repeat_password"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/sign_spacing_small"
                 android:gravity="start|top"
                 android:hint="@string/sign_repeat_password"
-                app:boxStrokeColor="@color/purple_500"
+                android:inputType="textPassword"
+                app:boxStrokeColor="@color/orange_500"
                 app:endIconMode="password_toggle"
-                app:hintTextColor="@color/purple_500"
+                app:endIconTint="@color/orange_500"
+                app:hintTextColor="@color/orange_500"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_field_password">
@@ -118,20 +127,21 @@
                     android:id="@+id/edit_text_field_repeat_password"
                     android:layout_width="@dimen/sign_spacing_bigger"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword" />
+                    android:importantForAutofill="no"
+                    tools:text="@tools:sample/lorem[0]" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/text_field_name"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/sign_spacing_small"
                 android:gravity="start|top"
                 android:hint="@string/sign_user_name"
-                app:boxStrokeColor="@color/purple_500"
-                app:hintTextColor="@color/purple_500"
+                app:boxStrokeColor="@color/orange_500"
+                app:hintTextColor="@color/orange_500"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_field_repeat_password">
@@ -139,7 +149,9 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_text_field_name"
                     android:layout_width="@dimen/sign_spacing_bigger"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:importantForAutofill="no"
+                    tools:text="@tools:sample/full_names[2]" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -148,11 +160,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/common_spacing_large"
-                android:backgroundTint="@color/purple_500"
+                android:backgroundTint="@color/orange_500"
                 android:padding="@dimen/common_spacing_large"
                 android:text="@string/sign_up"
                 android:textAllCaps="false"
                 android:theme="@style/Theme.NeWorkApp"
+                app:cornerRadius="@dimen/button_corner_radius"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_field_name" />

@@ -1,9 +1,12 @@
 package ru.netology.neworkapp.adapter
 
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.os.Build
 import android.view.LayoutInflater
-import android.view.View
+import android.view.View.*
 import android.view.ViewGroup
+import android.view.animation.BounceInterpolator
 import android.widget.PopupMenu
 import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
@@ -74,7 +77,7 @@ class EventViewHolder(
             imageViewAttachmentImageCardEvent.visibility =
                 if (
                     event.attachment != null && event.attachment.type == AttachmentType.IMAGE
-                ) View.VISIBLE else View.GONE
+                ) VISIBLE else GONE
 
             Glide.with(itemView)
                 .load("${event.authorAvatar}")
@@ -124,12 +127,12 @@ class EventViewHolder(
                 }
             }
 
-            buttonLocationCardEvent.visibility =
-                if (
-                    event.coordinates == null ||
-                    event.coordinates.lat == 0.0 &&
-                    event.coordinates.long == 0.0
-                ) View.GONE else View.VISIBLE
+//            buttonLocationCardEvent.visibility =
+//                if (
+//                    event.coordinates == null ||
+//                    event.coordinates.lat == 0.0 &&
+//                    event.coordinates.long == 0.0
+//                ) GONE else VISIBLE
 
             buttonLocationCardEvent.setOnClickListener {
                 onEventInteractionListener.onOpenMap(event)
@@ -140,13 +143,13 @@ class EventViewHolder(
             }
 
             buttonLikeCardEvent.setOnClickListener {
-//                val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 1F, 1.25F, 1F)
-//                val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1F, 1.25F, 1F)
-//                ObjectAnimator.ofPropertyValuesHolder(it, scaleX, scaleY).apply {
-//                    duration = 500
-//                    repeatCount = 100
-//                    interpolator = BounceInterpolator()
-//                }.start()
+                val scaleX = PropertyValuesHolder.ofFloat(SCALE_X, 1F, 1.25F, 1F)
+                val scaleY = PropertyValuesHolder.ofFloat(SCALE_Y, 1F, 1.25F, 1F)
+                ObjectAnimator.ofPropertyValuesHolder(it, scaleX, scaleY).apply {
+                    duration = 500
+                    repeatCount = 1
+                    interpolator = BounceInterpolator()
+                }.start()
                 onEventInteractionListener.onLikeEvent(event)
             }
 
