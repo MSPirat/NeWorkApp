@@ -104,13 +104,6 @@
         android:name="ru.netology.neworkapp.activity.WallFragment"
         android:label="@string/title_wall"
         tools:layout="@layout/fragment_wall">
-        <!--        <action-->
-        <!--            android:id="@+id/action_nav_wall_fragment_to_nav_new_post_fragment"-->
-        <!--            app:destination="@id/nav_new_post_fragment"-->
-        <!--            app:enterAnim="@android:anim/fade_in"-->
-        <!--            app:exitAnim="@android:anim/fade_out"-->
-        <!--            app:popEnterAnim="@android:anim/fade_in"-->
-        <!--            app:popExitAnim="@android:anim/fade_out" />-->
         <action
             android:id="@+id/action_nav_wall_fragment_to_nav_bottom_sheet_fragment"
             app:destination="@+id/nav_bottom_sheet_fragment" />

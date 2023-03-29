@@ -85,8 +85,6 @@ class PostRepositoryImpl @Inject constructor(
                     .toRequestBody("*/*".toMediaTypeOrNull())
             )
 
-//            val content = MultipartBody.Part.createFormData("content", "text")
-
             val response = postApiService.uploadMedia(media)
             if (!response.isSuccessful) {
                 throw ApiError(response.message())

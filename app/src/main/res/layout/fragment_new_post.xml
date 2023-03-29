@@ -44,22 +44,6 @@
                 android:textColorHint="@color/orange_500"
                 tools:ignore="MissingConstraints"
                 tools:text="@tools:sample/lorem[50]" />
-            <!--            <EditText-->
-            <!--                android:id="@+id/edit_text_fragment_new_event"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginStart="@dimen/common_spacing_small"-->
-            <!--                android:layout_marginTop="@dimen/common_spacing_large"-->
-            <!--                android:layout_marginEnd="@dimen/common_spacing_small"-->
-            <!--                android:background="@color/transparent"-->
-            <!--                android:gravity="start|top"-->
-            <!--                android:hint="@string/text_new_event"-->
-            <!--                android:importantForAutofill="no"-->
-            <!--                android:inputType="textMultiLine"-->
-            <!--                android:padding="@dimen/common_spacing_medium"-->
-            <!--                android:textColorHint="@color/orange_500"-->
-            <!--                tools:ignore="MissingConstraints"-->
-            <!--                tools:text="@tools:sample/lorem[50]" />-->
 
             <FrameLayout
                 android:id="@+id/frame_layout_media_fragment_new_post"

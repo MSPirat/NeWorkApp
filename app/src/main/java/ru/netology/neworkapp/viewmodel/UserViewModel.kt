@@ -49,8 +49,6 @@ class UserViewModel @Inject constructor(
     fun getUserById(id: Long) = viewModelScope.launch {
         _dataState.postValue(StateModel(loading = true))
         try {
-//            _user.value = userRepository.getUserById(id)
-//            _dataState.postValue(StateModel())
             val response = userApiService.getUserById(id)
             if (response.isSuccessful) {
                 _user.value = response.body()

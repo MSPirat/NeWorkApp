@@ -10,13 +10,11 @@ import ru.netology.neworkapp.api.UserApiService
 import ru.netology.neworkapp.dto.Token
 import ru.netology.neworkapp.errors.ApiError
 import ru.netology.neworkapp.model.StateModel
-//import ru.netology.neworkapp.repository.SignInRepository
 import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-//    private val signInRepository: SignInRepository,
     private val userApiService: UserApiService,
 ) : ViewModel() {
 
@@ -30,8 +28,6 @@ class SignInViewModel @Inject constructor(
         viewModelScope.launch {
             _dataState.postValue(StateModel(loading = true))
             try {
-//                data.value = signInRepository.authorizationUser(login, password)
-//                _dataState.postValue(StateModel())
                 val response = userApiService.updateUser(login, password)
                 if (!response.isSuccessful) {
                     throw ApiError(response.message())

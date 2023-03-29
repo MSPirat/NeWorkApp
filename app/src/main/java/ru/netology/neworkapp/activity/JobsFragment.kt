@@ -52,7 +52,6 @@ class JobsFragment : Fragment() {
                     job.finish?.let {
                         putString("finish", it)
                     }
-//                    putString("link", job.link)
                     job.link?.let {
                         putString("link", it)
                     }

@@ -18,13 +18,11 @@ import ru.netology.neworkapp.dto.Token
 import ru.netology.neworkapp.errors.ApiError
 import ru.netology.neworkapp.model.PhotoModel
 import ru.netology.neworkapp.model.StateModel
-//import ru.netology.neworkapp.repository.SignUpRepository
 import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-//    private val signUpRepository: SignUpRepository,
     private val userApiService: UserApiService,
 ) : ViewModel() {
 
@@ -44,10 +42,6 @@ class SignUpViewModel @Inject constructor(
         viewModelScope.launch {
             _dataState.postValue(StateModel(loading = true))
             try {
-//                val image = photo.value?.uri
-//                val token = signUpRepository.registrationUser(login, password, name, image!!)
-//                data.value = Token(token.id, token.token)
-//                _dataState.postValue(StateModel())
                 val response = userApiService.registrationUser(
                     login.toRequestBody("text/plain".toMediaType()),
                     password.toRequestBody("text/plain".toMediaType()),

@@ -37,43 +37,11 @@ interface EventDao {
     @Query("DELETE FROM EventEntity")
     suspend fun removeAll()
 
-//    @Query(
-//        """
-//        UPDATE EventEntity SET `likeOwnerIds` = `likeOwnerIds`+ 1, likedByMe = 1
-//        WHERE id = :id AND likedByMe = 0;
-//    """,
-//    )
-//    suspend fun likeById(id: Long)
-//
-//    @Query(
-//        """
-//        UPDATE EventEntity SET `likeOwnerIds` = `likeOwnerIds`- 1, likedByMe = 0
-//        WHERE id = :id AND likedByMe = 1;
-//    """,
-//    )
-//    suspend fun unlikeById(id: Long)
-
     @Query("UPDATE EventEntity SET likedByMe = 1 WHERE id = :id AND likedByMe = 0")
     suspend fun likeById(id: Long)
 
     @Query("UPDATE EventEntity SET likedByMe = 0 WHERE id = :id AND likedByMe = 1")
     suspend fun unlikeById(id: Long)
-
-//    @Query(
-//        """
-//        UPDATE EventEntity SET `participantsIds` = `participantsIds`+ 1, participatedByMe = 1
-//        WHERE id = :id AND participatedByMe = 0;
-//    """,
-//    )
-//    suspend fun participate(id: Long)
-//
-//    @Query(
-//        """
-//        UPDATE EventEntity SET `participantsIds` = `participantsIds`- 1, participatedByMe = 0
-//        WHERE id = :id AND participatedByMe = 1;
-//    """,
-//    )
-//    suspend fun doNotParticipate(id: Long)
 
     @Query(
         "UPDATE EventEntity SET participatedByMe = 1 WHERE id = :id AND participatedByMe = 0"

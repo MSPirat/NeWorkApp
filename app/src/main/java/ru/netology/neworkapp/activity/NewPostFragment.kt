@@ -143,23 +143,6 @@ class NewPostFragment : Fragment() {
                 }
         }, viewLifecycleOwner)
 
-//        binding.editTextFragmentNewPost.setText(arguments?.getString("New Post"))
-//
-//        binding.fabOk.setOnClickListener {
-//            if (binding.editTextFragmentNewPost.text.isNullOrBlank()) {
-//                Toast.makeText(
-//                    activity,
-//                    R.string.error_empty_post,
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            } else {
-//                postViewModel.changeContent(binding.editTextFragmentNewPost.text.toString())
-//                postViewModel.save()
-//                AndroidUtils.hideKeyboard(requireView())
-//                findNavController().navigateUp()
-//            }
-//        }
-
         postViewModel.dataState.observe(viewLifecycleOwner) {
             when {
                 it.error -> {

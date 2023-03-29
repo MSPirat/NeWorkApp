@@ -17,7 +17,6 @@ import ru.netology.neworkapp.databinding.FragmentImageAttachmentBinding
 @AndroidEntryPoint
 class ImageAttachmentFragment : Fragment() {
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

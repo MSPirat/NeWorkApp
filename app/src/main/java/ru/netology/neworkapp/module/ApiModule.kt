@@ -16,7 +16,6 @@ import ru.netology.neworkapp.auth.AppAuth
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
-
 @InstallIn(SingletonComponent::class)
 @Module
 class ApiModule {
