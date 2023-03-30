@@ -83,8 +83,8 @@ class PostViewHolder(
 
             Glide.with(itemView)
                 .load("${post.authorAvatar}")
-                .placeholder(R.drawable.ic_default_user_profile_image)
-                .error(R.drawable.ic_baseline_error_outline_24)
+                .placeholder(R.drawable.ic_baseline_loading_24)
+                .error(R.drawable.ic_default_user_profile_image)
                 .timeout(10_000)
                 .circleCrop()
                 .into(imageViewAvatarCardPost)
