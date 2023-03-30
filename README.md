@@ -113,6 +113,8 @@
 
 ---
 
-***Деморолик работы приложения:***
+***Деморолик работы приложения:*** 
+
+(нажать для просмотра на изображение :smile: )
 
 [![Video alt text](https://github.com/MSPirat/NeWorkApp/blob/master/screenShots/0.jpg)](https://raw.githubusercontent.com/MSPirat/NeWorkApp/master/screenRecord/ScreenRecord_NeWorkApp.mp4)
