@@ -115,4 +115,4 @@
 
 ***Деморолик работы приложения:***
 
-[![Video alt text](https://github.com/MSPirat/NeWorkApp/blob/master/screenShots/0.jpg)](https://github.com/MSPirat/NeWorkApp/blob/master/screenRecord/ScreenRecord_NeWorkApp.mp4)
+[![Video alt text](https://github.com/MSPirat/NeWorkApp/blob/master/screenShots/0.jpg)](https://raw.githubusercontent.com/MSPirat/NeWorkApp/master/screenRecord/ScreenRecord_NeWorkApp.mp4)
