@@ -90,5 +90,6 @@
     <string name="description_event_author_avatar" translatable="false" />
     <string name="description_event_attachment" translatable="false" />
     <string name="description_image_full_screen" translatable="false" />
+    <string name="description_splash" translatable="false" />
 
 </resources>
